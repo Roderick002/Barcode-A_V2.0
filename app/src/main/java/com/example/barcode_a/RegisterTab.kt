@@ -26,6 +26,7 @@ class RegisterTab : AppCompatActivity() {
 
 
         binding.btnSignUp.setOnClickListener(){
+
             val firstName = binding.etSignUpFirstname.text.toString()
             val lastName = binding.etSignUpLastname.text.toString()
             val email = binding.etSignUpEmail.text.toString()
