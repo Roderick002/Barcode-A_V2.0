@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.example.barcode_a.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -28,8 +29,28 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginTab::class.java)
             startActivity(intent)
         }
+        replaceFragment(Home())
+        binding.bottomNavigationView2.setOnItemSelectedListener {
 
+            when(it.itemId){
 
+                R.id.home -> replaceFragment(Home())
+                R.id.scan -> replaceFragment(Scan())
+                R.id.search -> replaceFragment(Search())
 
+                else -> {
+
+                }
+            }
+            true
+        }
+
+        }
+
+    private fun replaceFragment(fragment : Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.commit()
     }
 }
