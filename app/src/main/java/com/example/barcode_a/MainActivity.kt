@@ -1,19 +1,32 @@
 package com.example.barcode_a
 
+import android.graphics.Color
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.example.barcode_a.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+
+
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +58,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        }
+
+    }
 
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager

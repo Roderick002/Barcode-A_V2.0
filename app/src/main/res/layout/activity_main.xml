@@ -5,9 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
 
-    <FrameLayout
+    //com.google.android.material.navigation.NavigationView
+        //android:id="@+id/nav_view"
+        //android:layout_width="wrap_content"
+        //android:layout_height="match_parent"/>
+
+        //app:headerLayout="@layout/header"/>
+        //app:menu="@menu/side_menu"
+        //android:layout_gravity="start" />
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,8 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+        <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,8 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navbar"/>
-
-    <Button
+        <Button
         android:id="@+id/btnTestSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +49,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.729"
         />
+
+
+
+        //android:layout_width="match_parent"
+        //android:layout_height="match_parent">
+
+        //android:id="@+id/toolbar"
+        //android:layout_width="match_parent"
+        //android:layout_height="wrap_content"
+        //android:background="@android:color/transparent"
+        //android:minHeight="?attr/actionBarSize"
+        //android:theme="?attr/actionBarTheme"
+        //app:navigationIcon="@drawable/ic_menu"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
