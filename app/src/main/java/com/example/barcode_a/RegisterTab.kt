@@ -30,23 +30,24 @@ class RegisterTab : AppCompatActivity() {
             val firstName = binding.etSignUpFirstname.text.toString()
             val lastName = binding.etSignUpLastname.text.toString()
             val email = binding.etSignUpEmail.text.toString()
+            val userName = binding.etSignUpUsername.text.toString()
             val password = binding.etSignUpPassword.text.toString()
             val confirmpass = binding.etSignUpConfirmPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty()){
                 if (password == confirmpass){
 
-                    database = FirebaseDatabase.getInstance().getReference("Users")
-                    val User = User(firstName, lastName, email)
-
-                    database.child(firstName).setValue(User).addOnSuccessListener {
-                        Toast.makeText(this , "Account Created Successfully!" , Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener(){
-                        Toast.makeText(this , "Account Creation Failed!" , Toast.LENGTH_SHORT).show()
-                    }
-
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
+                            database = FirebaseDatabase.getInstance().getReference("Users")
+                            val User = User(firstName, lastName, email)
+
+                            database.child(userName).setValue(User).addOnSuccessListener {
+                                Toast.makeText(this , "Account Created Successfully!" , Toast.LENGTH_SHORT).show()
+                            }.addOnFailureListener(){
+                                Toast.makeText(this , "Account Creation Failed!" , Toast.LENGTH_SHORT).show()
+                            }
+
                             firebaseAuth.signOut()
                             val intent = Intent(this, LoginTab::class.java)
                             startActivity(intent)
