@@ -2,6 +2,7 @@ package com.example.barcode_a
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.graphics.Camera
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,17 +50,7 @@ class Scan : Fragment() {
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
         codeScanner = CodeScanner(activity, scannerView)
-        codeScanner.decodeCallback = DecodeCallback {
-            activity.runOnUiThread {
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
-            }
-        }
-        codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
-            activity.runOnUiThread {
-                Toast.makeText(activity, "Camera initialization error: ${it.message}",
-                    Toast.LENGTH_LONG).show()
-            }
-        }
+
 
         codeScanner.apply {
             camera = CodeScanner.CAMERA_BACK
@@ -73,6 +64,19 @@ class Scan : Fragment() {
         btnScan.setOnClickListener {
 
             codeScanner.startPreview()
+
+            codeScanner.decodeCallback = DecodeCallback {
+                activity.runOnUiThread {
+                    Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+
+                }
+            }
+            codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
+                activity.runOnUiThread {
+                    Toast.makeText(activity, "Camera initialization error: ${it.message}",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
