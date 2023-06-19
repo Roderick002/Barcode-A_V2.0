@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.BarcodeA" parent="Base.Theme.BarcodeA" />
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+
+    </style>
 </resources>
