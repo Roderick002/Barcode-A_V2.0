@@ -12,4 +12,7 @@ class ContainerActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainer, LogInOptions())
             .commit()
     }
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }
