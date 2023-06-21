@@ -34,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
         logo.startAnimation(bottomAnim);
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, LoginTab::class.java)
+            val intent = Intent(this, ContainerActivity::class.java)
             startActivity(intent)
             //finish()
         }, SPLASH_SCREEN)

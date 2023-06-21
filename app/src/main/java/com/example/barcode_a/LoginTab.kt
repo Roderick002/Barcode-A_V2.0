@@ -18,6 +18,8 @@ class LoginTab : AppCompatActivity() {
         binding = ActivityLoginTabBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         firebaseAuth = FirebaseAuth.getInstance()
          binding.tvSignInRegister.setOnClickListener{
              val intent = Intent(this, RegisterTab::class.java)
