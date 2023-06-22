@@ -3,6 +3,7 @@ package com.example.barcode_a
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.example.barcode_a.databinding.ActivityRegisterTabBinding
@@ -12,6 +13,9 @@ class LoginTab : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private val delay : Long = 3000 // 3 seconds delay
+    var quit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,15 +64,25 @@ class LoginTab : AppCompatActivity() {
         super.onStart()
 
         if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ContainerActivity::class.java)
             startActivity(intent)
 
         }
     }
+    //Quit Application
     override fun onBackPressed() {
-        finishAffinity()
+
+        if (quit == false){
+            Toast.makeText(this, "Press Again To Quit", Toast.LENGTH_SHORT).show()
+            quit = true
+
+            val handler = Handler()
+            handler.postDelayed({
+                quit = false
+            }, delay)
+        }
+        else{
+            finishAffinity()
+        }
     }
-
-
-
 }

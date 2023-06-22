@@ -1,10 +1,12 @@
 package com.example.barcode_a
 
+import android.app.Activity
 import android.graphics.Color
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private val CAMERA_REQUEST_CODE = 101
 
+    private val delay : Long = 3000 // 3 seconds delay
+    var quit = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +96,23 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,fragment)
         fragmentTransaction.commit()
+
     }
 
+//Quit Application
+    override fun onBackPressed() {
 
+        if (quit == false){
+            Toast.makeText(this, "Press Again To Quit", Toast.LENGTH_SHORT).show()
+            quit = true
+
+            val handler = Handler()
+            handler.postDelayed({
+                quit = false
+            }, delay)
+        }
+        else{
+            finishAffinity()
+        }
+    }
 }

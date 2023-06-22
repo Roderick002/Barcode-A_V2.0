@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PackageManagerCompat
+import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
@@ -51,6 +52,12 @@ class Scan : Fragment() {
         val activity = requireActivity()
         codeScanner = CodeScanner(activity, scannerView)
 
+        btnScan.isVisible = false
+
+        codeScanner.decodeCallback = DecodeCallback {
+            activity.runOnUiThread {
+                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                btnScan.isVisible = true
 
         codeScanner.apply {
             camera = CodeScanner.CAMERA_BACK
@@ -64,10 +71,7 @@ class Scan : Fragment() {
         btnScan.setOnClickListener {
 
             codeScanner.startPreview()
-
-            codeScanner.decodeCallback = DecodeCallback {
-                activity.runOnUiThread {
-                    Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+            btnScan.isVisible = false
 
                 }
             }
