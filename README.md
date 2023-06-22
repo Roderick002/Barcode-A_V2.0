@@ -20,4 +20,4 @@ https://github.com/Roderick002/Barcode-A-by-BAsq2E
 
 
 Trello Link:
-https://trello.com/invite/b/0g6vx6yC/ATTI4ff9b0ea145ac54502a0a9f03a955a683BA0FBEA/barcode-a
+https://trello.com/w/ba2e
