@@ -4,24 +4,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.barcode_a.databinding.ActivityMainBinding
 import androidx.fragment.app.Fragment
-
-
+import com.example.barcode_a.databinding.ActivityMainManufacturerBinding
 
 
 class MainActivityManufacturer : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainManufacturerBinding
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_manufacturer)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainManufacturerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         replaceFragment(Home_Manufacturer())
-        binding.bottomNavigationView2.setOnItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
 

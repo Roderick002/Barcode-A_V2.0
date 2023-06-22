@@ -27,19 +27,26 @@ class LoginTab : AppCompatActivity() {
          }
 
         binding.btnSignIn.setOnClickListener{
+
             val email = binding.etSignInEmail.text.toString()
             val password = binding.etSignInPassword.text.toString()
+
 
             if (email.isNotEmpty() && password.isNotEmpty()){
 
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this, ContainerActivity::class.java)
                             startActivity(intent)
-                            Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
-
                         }else{
-                            Toast.makeText(this , it.exception.toString() , Toast.LENGTH_SHORT).show()
+                            if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted."){
+                                Toast.makeText(this , "Invalid E-mail!" , Toast.LENGTH_SHORT).show()
+                            }else if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The password is invalid or the user does not have a password."){
+                                Toast.makeText(this , "Invalid Password!" , Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(this , it.exception.toString() , Toast.LENGTH_SHORT).show()
+                            }
+
                         }
                     }
 
@@ -58,5 +65,7 @@ class LoginTab : AppCompatActivity() {
 
         }
     }
+
+
 
 }

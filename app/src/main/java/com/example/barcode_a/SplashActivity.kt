@@ -1,5 +1,6 @@
 package com.example.barcode_a
 
+import android.app.ApplicationExitInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -34,9 +35,12 @@ class SplashActivity : AppCompatActivity() {
         logo.startAnimation(bottomAnim);
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, ContainerActivity::class.java)
+            val intent = Intent(this, LoginTab::class.java)
             startActivity(intent)
             //finish()
         }, SPLASH_SCREEN)
+
+
     }
+
 }
