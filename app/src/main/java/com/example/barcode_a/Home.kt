@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.budiyev.android.codescanner.CodeScannerView
 import com.example.barcode_a.databinding.FragmentHomeBinding
@@ -56,9 +57,30 @@ class Home : Fragment() {
             startActivity(intent)
         }
 
-
-
-
+        val layoutHealth = view.findViewById<LinearLayout>(R.id.layoutHealth)
+        layoutHealth.setOnClickListener {
+            val fragment = HealthPreference()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        val layoutNotification = view.findViewById<LinearLayout>(R.id.layoutNotification)
+        layoutNotification.setOnClickListener {
+            val fragment = AlarmsNotification()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        val layoutEdit = view.findViewById<LinearLayout>(R.id.layoutEdit)
+        layoutEdit.setOnClickListener {
+            val fragment = HealthPreference()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onCreateView(

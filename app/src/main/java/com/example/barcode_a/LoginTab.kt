@@ -65,6 +65,9 @@ class LoginTab : AppCompatActivity() {
 
         }
     }
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 
 
 
