@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.addCallback
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
@@ -72,6 +73,15 @@ class GenerateQR : Fragment() {
                     e.printStackTrace()
                 }
             }
+        }
+
+        //Back Button Function
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val fragment = Home_Manufacturer()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 

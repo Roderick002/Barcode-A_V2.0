@@ -72,4 +72,11 @@ class RegisterTab : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent(this, LoginTab::class.java)
+        startActivity(intent)
+    }
 }

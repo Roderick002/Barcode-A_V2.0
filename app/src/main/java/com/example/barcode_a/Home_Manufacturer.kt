@@ -2,6 +2,7 @@ package com.example.barcode_a
 
 import android.os.Bundle
 import android.content.Intent
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -22,6 +25,10 @@ class Home_Manufacturer : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
+
+
+    private val delay : Long = 3000 // 3 seconds delay
+    var quit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,22 @@ class Home_Manufacturer : Fragment() {
 
         val signOut = view.findViewById<Button>(R.id.btnSignout)
         val activity = requireActivity()
+
+        //Back Button Function
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (quit == false){
+                Toast.makeText(activity, "Press Again To Quit", Toast.LENGTH_SHORT).show()
+                quit = true
+
+                val handler = Handler()
+                handler.postDelayed({
+                    quit = false
+                }, delay)
+            }
+            else{
+                ActivityCompat.finishAffinity(activity)
+            }
+        }
 
         //Sign Out Function
         signOut.setOnClickListener(){

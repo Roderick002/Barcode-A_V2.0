@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PackageManagerCompat
@@ -81,6 +82,15 @@ class Scan : Fragment() {
                         Toast.LENGTH_LONG).show()
                 }
             }
+        }
+
+        //Back Button Function
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val fragment = Home()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
