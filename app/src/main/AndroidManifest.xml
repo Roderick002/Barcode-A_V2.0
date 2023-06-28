@@ -23,16 +23,18 @@
             android:name=".ContainerActivity"
             android:exported="true"
             android:label="@string/title_activity_container"
-            android:theme="@style/Theme.BarcodeA"
+            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
             android:launchMode="singleTop"/>
         <activity
             android:name=".MainActivityManufacturer"
+            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
             android:exported="false" />
         <activity
             android:name=".RegisterTab"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
+            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,9 +46,10 @@
             android:name=".LoginTab"
             android:exported="false"
             android:label="@string/title_activity_login_tab"
-            android:theme="@style/Theme.BarcodeA" />
+            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"/>
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
             android:exported="false" />
     </application>
 

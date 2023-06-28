@@ -9,11 +9,9 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.content.Intent
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
-
-
-
 class SplashActivity : AppCompatActivity() {
 
         companion object {
@@ -24,6 +22,13 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
 
         val topAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         val bottomAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
@@ -39,7 +44,6 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             //finish()
         }, SPLASH_SCREEN)
-
 
     }
 

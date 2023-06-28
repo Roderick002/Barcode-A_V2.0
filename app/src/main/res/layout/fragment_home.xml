@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
+    android:background="@color/backgroundgreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Out"
+                android:backgroundTint="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.812"
@@ -98,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/health_preference"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -132,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/alarms_and_notification"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -166,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Edit Profile"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
