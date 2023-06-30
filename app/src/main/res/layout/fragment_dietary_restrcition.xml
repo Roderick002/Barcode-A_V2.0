@@ -1,22 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".DietaryRestriction">
 
     <TextView
+        android:id="@+id/txtDR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DIETARY RESTRICTION"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <ImageView
+        android:id="@+id/drwbackDR"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.138" />
+
+
+    <CheckBox
+        android:id="@+id/checkBoxVegetarian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegetarian"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDR"
+        app:layout_constraintVertical_bias="0.057" />
+
+    <CheckBox
+        android:id="@+id/checkBoxVegan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegan"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxVegetarian"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPollutarian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pollutarian"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxVegan"
+        app:layout_constraintVertical_bias="0.055" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPescetarian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pescetarian"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPollutarian"
+        app:layout_constraintVertical_bias="0.057" />
+
+    <CheckBox
+        android:id="@+id/checkboxNone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No dietary Restrictions"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPescetarian"
+        app:layout_constraintVertical_bias="0.078" />
+
+    <Button
+        android:id="@+id/btnDoneDR"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/backgroundgreen"
+        android:text="Done"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkboxNone"
+        app:layout_constraintVertical_bias="0.246" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
