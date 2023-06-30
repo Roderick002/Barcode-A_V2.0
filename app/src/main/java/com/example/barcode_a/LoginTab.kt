@@ -2,14 +2,15 @@ package com.example.barcode_a
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
-import com.example.barcode_a.databinding.ActivityRegisterTabBinding
 import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginTab : AppCompatActivity() {
 
@@ -47,8 +48,10 @@ class LoginTab : AppCompatActivity() {
 
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
+
                             val intent = Intent(this, ContainerActivity::class.java)
                             startActivity(intent)
+
                         }else{
                             if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted."){
                                 Toast.makeText(this , "Invalid E-mail!" , Toast.LENGTH_SHORT).show()

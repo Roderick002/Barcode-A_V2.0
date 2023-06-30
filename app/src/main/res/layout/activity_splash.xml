@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="@color/colorLightMode"
     tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="333dp"
-        android:layout_height="455dp"
+        android:layout_width="350dp"
+        android:layout_height="375dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,19 +20,17 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="368dp"
-        android:layout_height="35dp"
-        android:fontFamily="serif-monospace"
-        android:text="Barcode-A "
+        android:layout_width="333dp"
+        android:layout_height="36dp"
+        android:fontFamily="@font/quicksand_semibold"
+        android:text="Barcode-A"
         android:textAlignment="center"
-        android:textColor="#FDFDFD"
+        android:textColor="@color/green"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.193" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

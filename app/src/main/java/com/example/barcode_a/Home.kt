@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -31,6 +32,14 @@ class Home : Fragment() {
         val activity = requireActivity()
 
         firebaseAuth = FirebaseAuth.getInstance()
+
+        //get username
+        val username = firebaseAuth.currentUser?.email
+        val s = username?.substring(0, Math.min(username.length, 4))
+        val textView = view.findViewById<TextView>(R.id.userName)
+        textView.text = s
+
+        //end
 
 
         //Back Button Function

@@ -11,4 +11,7 @@
     <color name="colorBarcode">#D3D0FF</color>
     <color name="background">#226B8E</color>
     <color name="backgroundgreen">#4BA84F</color>
+    <color name="colorLightMode">#F6F4E1</color>
+    <color name="colorDarkMode">#12232D</color>
+    <color name="green">#37A252</color>
 </resources>
