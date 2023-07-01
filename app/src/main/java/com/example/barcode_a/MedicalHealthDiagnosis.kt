@@ -17,6 +17,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class MedicalHealthDiagnosis : Fragment() {
 
@@ -27,6 +30,9 @@ class MedicalHealthDiagnosis : Fragment() {
     private lateinit var checkboxOther: CheckBox
     private lateinit var edittextOther: EditText
     private lateinit var buttonSave: Button
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var  database : DatabaseReference
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_medical_health_diagnosis, container, false)
@@ -48,18 +54,27 @@ class MedicalHealthDiagnosis : Fragment() {
 
     private fun saveData() {
         val selectedOptions = mutableListOf<String>()
+        var diagnosis1: String? = null
+        var diagnosis2: String? = null
+        var diagnosis3: String? = null
+        var diagnosis4: String? = null
+
 
         if (checkboxDiabetic.isChecked) {
             selectedOptions.add("Diabetic")
+            diagnosis1 = "Diabetic"
         }
         if (checkboxLactose.isChecked) {
             selectedOptions.add("Lactose Intolerant")
+            diagnosis2 = "Lactose Intolerant"
         }
         if (checkboxGastro.isChecked) {
             selectedOptions.add("GRD")
+            diagnosis3 = "GRD"
         }
         if (checkboxHyper.isChecked) {
             selectedOptions.add("Hyperuricemia")
+            diagnosis4 = "Hyperuricemia"
         }
 
         val checkboxOther = view?.findViewById<CheckBox>(R.id.checkBoxOther)
@@ -75,8 +90,65 @@ class MedicalHealthDiagnosis : Fragment() {
         if (selectedOptions.isEmpty()) {
             Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
         } else {
+            firebaseAuth = FirebaseAuth.getInstance()
+
+            val email = firebaseAuth.currentUser?.email.toString()
+            val userName = email.replace(Regex("[@.]"), "")
+
+            database = FirebaseDatabase.getInstance().getReference("Diagnosis")
+
+            val diagnosis = Diagnosis(diagnosis1, diagnosis2, diagnosis3, diagnosis4)
+
+            database.child(userName).setValue(diagnosis).addOnSuccessListener {
+                Toast.makeText(activity , "Details Updated!" , Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener(){
+                Toast.makeText(activity , "Update Details Failed!" , Toast.LENGTH_SHORT).show()
+            }
+
             val selectedOptionsString = selectedOptions.joinToString(", ")
             showDialog(selectedOptionsString)
+        }
+    }
+
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Diagnosis")
+        database.child(userName).get().addOnSuccessListener {
+            if(it.exists()){
+
+                val diabetic = it.child("diagnosis1").value.toString()
+                val lactose = it.child("diagnosis2").value.toString()
+                val gastro = it.child("allergy3").value.toString()
+                val hyper = it.child("diagnosis4").value.toString()
+                val others = it.child("diagnosis5").value.toString()
+                val editTextOther = view?.findViewById<TextView>(R.id.editTextOther)
+
+                if(diabetic != "null"){
+                    checkboxDiabetic.isChecked = true
+                }
+                if(lactose != "null"){
+                    checkboxLactose.isChecked = true
+                }
+                if(gastro != "null"){
+                    checkboxGastro.isChecked = true
+                }
+                if(hyper != "null"){
+                    checkboxHyper.isChecked = true
+                }
+                if(others != "null"){
+                    checkboxOther.isChecked = true
+                }
+                if(others != "null"){
+                    checkboxOther.isChecked = true
+                    if (editTextOther != null) {
+                        editTextOther.text = others
+                    }
+                }
+
+            }else{
+                //Initally There Is No Record...
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -110,6 +182,8 @@ class MedicalHealthDiagnosis : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = HealthPreference()
@@ -127,6 +201,10 @@ class MedicalHealthDiagnosis : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        readData(userName)
     }
 
 

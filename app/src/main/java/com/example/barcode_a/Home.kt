@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EdgeEffect
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,10 +17,16 @@ import androidx.core.app.ActivityCompat.finishAffinity
 import com.budiyev.android.codescanner.CodeScannerView
 import com.example.barcode_a.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class Home : Fragment() {
 
+    private var _binding : FragmentHomeBinding? = null
+    private  val binding get() = _binding!!
+
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
@@ -28,16 +35,15 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnHomeSignOut = view.findViewById<Button>(R.id.btnHomeSignOut)
         val activity = requireActivity()
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+
         //get username
-        val username = firebaseAuth.currentUser?.email
-        val s = username?.substring(0, Math.min(username.length, 4))
-        val textView = view.findViewById<TextView>(R.id.userName)
-        textView.text = s
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        readData(userName)
 
         //end
 
@@ -59,7 +65,7 @@ class Home : Fragment() {
         }
 
         //Sign Out Function
-        btnHomeSignOut.setOnClickListener(){
+        binding.btnHomeSignOut.setOnClickListener(){
             firebaseAuth.signOut()
             Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
             val intent = Intent(activity, LoginTab::class.java)
@@ -94,13 +100,32 @@ class Home : Fragment() {
 
     }
 
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
+
+            if(it.exists()){
+
+                val firstname = it.child("firstName").value.toString()
+                binding.userName.text = firstname
+
+
+
+            }else{
+                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        return inflater.inflate(R.layout.fragment_home, container, false)
-
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 

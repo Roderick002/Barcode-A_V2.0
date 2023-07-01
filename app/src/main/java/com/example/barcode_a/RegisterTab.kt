@@ -39,7 +39,7 @@ class RegisterTab : AppCompatActivity() {
             val firstName = binding.etSignUpFirstname.text.toString()
             val lastName = binding.etSignUpLastname.text.toString()
             val email = binding.etSignUpEmail.text.toString()
-            val userName = binding.etSignUpUsername.text.toString()
+            val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
             val password = binding.etSignUpPassword.text.toString()
             val confirmpass = binding.etSignUpConfirmPassword.text.toString()
 

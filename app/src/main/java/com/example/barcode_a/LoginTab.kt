@@ -33,7 +33,7 @@ class LoginTab : AppCompatActivity() {
         }
 
         firebaseAuth = FirebaseAuth.getInstance()
-         binding.tvSignInRegister.setOnClickListener{
+         binding.btnOpenSignUp.setOnClickListener{
              val intent = Intent(this, RegisterTab::class.java)
              startActivity(intent)
          }
@@ -42,6 +42,7 @@ class LoginTab : AppCompatActivity() {
 
             val email = binding.etSignInEmail.text.toString()
             val password = binding.etSignInPassword.text.toString()
+
 
 
             if (email.isNotEmpty() && password.isNotEmpty()){
