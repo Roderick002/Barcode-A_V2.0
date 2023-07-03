@@ -40,13 +40,10 @@ class Home : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
 
-        //get username
+        //Get username
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         readData(userName)
-
-        //end
-
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
