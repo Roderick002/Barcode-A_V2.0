@@ -12,10 +12,18 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
 class SplashActivity : AppCompatActivity() {
 
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+
         companion object {
-            private const val SPLASH_SCREEN: Long = 5000
+            private const val Loading : Long = 1000
         }
 
 
@@ -39,12 +47,50 @@ class SplashActivity : AppCompatActivity() {
         image.startAnimation(topAnim);
         logo.startAnimation(bottomAnim);
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, LoginTab::class.java)
-            startActivity(intent)
-            //finish()
-        }, SPLASH_SCREEN)
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            firebaseAuth = FirebaseAuth.getInstance()
+
+            if(firebaseAuth.currentUser != null){
+                val email = firebaseAuth.currentUser?.email.toString()
+                val userName = email.replace(Regex("[@.]"), "")
+                readData(userName)
+            }else{
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val intent = Intent(this, LoginTab::class.java)
+                    startActivity(intent)
+                }, Loading)
+            }
+        }, Loading)
+
+    }
+
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
+
+            if(it.exists()){
+                val userType = it.child("userType").value.toString()
+                if (userType == "Personal"){
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = Intent(this, MainActivityManufacturer::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
+                }
+
+            }else{
+                Toast.makeText(this , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this  , "Failed" , Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

@@ -10,12 +10,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class LoginTab : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
@@ -38,20 +41,20 @@ class LoginTab : AppCompatActivity() {
              startActivity(intent)
          }
 
+
+
         binding.btnSignIn.setOnClickListener{
 
             val email = binding.etSignInEmail.text.toString()
             val password = binding.etSignInPassword.text.toString()
-
-
 
             if (email.isNotEmpty() && password.isNotEmpty()){
 
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
 
-                            val intent = Intent(this, ContainerActivity::class.java)
-                            startActivity(intent)
+                            val userName = email.replace(Regex("[@.]"), "")
+                            readData(userName)
 
                         }else{
                             if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted."){
@@ -71,15 +74,32 @@ class LoginTab : AppCompatActivity() {
             }
 
     }
-    override fun onStart() {
-        super.onStart()
 
-        if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, ContainerActivity::class.java)
-            startActivity(intent)
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
 
+            if(it.exists()){
+                val userType = it.child("userType").value.toString()
+                if (userType == "Personal"){
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
+                } else if (userType == "Manufacturer"){
+                    val intent = Intent(this, MainActivityManufacturer::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
+                }
+
+            }else{
+                Toast.makeText(this , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(this  , "Failed" , Toast.LENGTH_SHORT).show()
         }
     }
+
+
     //Quit Application
     override fun onBackPressed() {
 

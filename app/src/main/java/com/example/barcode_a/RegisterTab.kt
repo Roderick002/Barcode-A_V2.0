@@ -43,13 +43,6 @@ class RegisterTab : AppCompatActivity() {
                 else -> ""
             }
         }
-        binding.btnToast.setOnClickListener {
-            if (userType.isNullOrBlank()) {
-                Toast.makeText(this, "Please select a type of user", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, userType, Toast.LENGTH_SHORT).show()
-            }
-        }
 
         binding.btnSignUp.setOnClickListener() {
 
@@ -61,14 +54,15 @@ class RegisterTab : AppCompatActivity() {
             val confirmpass = binding.etSignUpConfirmPassword.text.toString()
 
 
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty()) {
+
+            if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty() && userType.isNotBlank()) {
                 if (password == confirmpass) {
 
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
                                 database = FirebaseDatabase.getInstance().getReference("Users")
-                                val User = User(firstName, lastName, email)
+                                val User = User(firstName, lastName, email, userType)
 
                                 database.child(userName).setValue(User).addOnSuccessListener {
                                     Toast.makeText(

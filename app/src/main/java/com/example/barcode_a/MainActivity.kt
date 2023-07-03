@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         replaceFragment(Home())
         binding.bottomNavigationView2.setOnItemSelectedListener {
 
