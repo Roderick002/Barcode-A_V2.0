@@ -14,4 +14,5 @@
     <color name="colorLightMode">#F6F4E1</color>
     <color name="colorDarkMode">#12232D</color>
     <color name="green">#37A252</color>
+    <color name="dark_gray">#A9A9A9</color>
 </resources>

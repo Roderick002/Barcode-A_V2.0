@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.example.barcode_a'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.barcode_a"
@@ -59,7 +59,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
-    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2' //QR Code Scanner
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:+'//QR Code Scanner
 
 
     testImplementation 'junit:junit:4.13.2'
