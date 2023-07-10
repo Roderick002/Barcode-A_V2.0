@@ -14,9 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.barcode_a.model.UserData
 import com.example.barcode_a.view.UserAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class ProductInformation : Fragment() {
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
 
     private lateinit var addBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
@@ -36,9 +45,16 @@ class ProductInformation : Fragment() {
         /**set adapter*/
         userAdapter = UserAdapter(requireContext(),userList){
                 user ->
-            val fragment = ProductDetails.newInstance(user.productName, user.ingredients, user.allergens)
+            val fragment =
+                user.productName?.let { user.ingredients?.let { it1 ->
+                    user.allergens?.let { it2 ->
+                        ProductDetails.newInstance(it,
+                            it1, it2
+                        )
+                    }
+                } }
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, fragment)
+            fragment?.let { transaction.replace(R.id.frame_layout, it) }
             transaction.addToBackStack(null)
             transaction.commit()
         }
@@ -70,6 +86,30 @@ class ProductInformation : Fragment() {
 
             if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank()){
                 if (isValidFormat(ingredients)){
+
+                    /**Add Product Info to Database*/
+                    val productinfo = UserData(names, ingredients, allergens)
+                    database = FirebaseDatabase.getInstance().getReference("ProductInformation")
+                    database.child(names).setValue(productinfo).addOnSuccessListener {
+                        //success
+                    }.addOnFailureListener(){
+                        Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                    }
+
+                            /**Bind Products to Manufacturers*/
+                            firebaseAuth = FirebaseAuth.getInstance()
+                            //Get username
+                            val email = firebaseAuth.currentUser?.email.toString()
+                            val userName = email.replace(Regex("[@.]"), "")
+                            val manufacturer = "Manufacturer$userName"
+
+                            database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                            database.child(names).setValue(productinfo).addOnSuccessListener {
+                                //success
+                            }.addOnFailureListener(){
+                                Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                            }
+
                     userList.add(UserData("Name: $names", "Ingredients : $ingredients","Allergens: $allergens"))
                     userAdapter.notifyItemInserted(userList.size - 1)
                     Toast.makeText(requireContext(),"Adding User Information Success", Toast.LENGTH_SHORT).show()
@@ -98,6 +138,13 @@ class ProductInformation : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recv = view.findViewById(R.id.mReclycler)
+        recv.layoutManager = LinearLayoutManager(activity)
+        recv.setHasFixedSize(true)
+
+        userList = arrayListOf<UserData>()
+        getUserData()
+
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home_Manufacturer()
@@ -106,6 +153,48 @@ class ProductInformation : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    private fun getUserData() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        val manufacturer = "Manufacturer$userName"
+        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+        database.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for (productSnapshot in snapshot.children){
+                        val product = productSnapshot.getValue(UserData::class.java)
+                        userList.add(product!!)
+                    }
+                    recv.adapter = UserAdapter(requireContext(),userList) { user ->
+                        val fragment =
+                            user.productName?.let {
+                                user.ingredients?.let { it1 ->
+                                    user.allergens?.let { it2 ->
+                                        ProductDetails.newInstance(
+                                            it,
+                                            it1, it2
+                                        )
+                                    }
+                                }
+                            }
+                        val transaction = parentFragmentManager.beginTransaction()
+                        fragment?.let { transaction.replace(R.id.frame_layout, it) }
+                        transaction.addToBackStack(null)
+                        transaction.commit()
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
     }
 
 

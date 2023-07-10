@@ -39,7 +39,6 @@ class Home : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-
         //Get username
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
