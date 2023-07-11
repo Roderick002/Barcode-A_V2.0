@@ -1,9 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLightMode"
     tools:context=".LoginTab">
+
+    <View
+        android:id="@+id/glassView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="35dp"
+        android:background="@drawable/glass"
+
+    />
+
+    <TextView
+        android:id="@+id/welcomeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Barcode-A!"
+        android:textSize="20sp"
+        android:fontFamily="@font/quicksand_bold"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glassView"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <ImageView
+        android:id="@+id/headerLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logo"
+        app:layout_constraintTop_toBottomOf="@id/welcomeLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="an innovative app designed to help people \n make informed and healthier food choices."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:fontFamily="@font/quicksand_regular"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="@id/glassView"
+        app:layout_constraintEnd_toEndOf="@id/welcomeLabel"
+        app:layout_constraintStart_toStartOf="@id/welcomeLabel"
+        app:layout_constraintTop_toBottomOf="@id/headerLogo"
+        app:layout_constraintVertical_bias="0" />
+
+    <EditText
+        android:id="@+id/etSignInEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="13"
+        android:hint="E-mail"
+        android:textSize="16sp"
+        android:textColorHint="@color/green"
+        android:textColor="@color/green"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/quicksand_light"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="@id/glassView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintVertical_bias="0.075" />
+
+    <EditText
+        android:id="@+id/etSignInPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="13"
+        android:hint="Password"
+        android:textSize="16sp"
+        android:textColorHint="@color/green"
+        android:textColor="@color/green"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/quicksand_light"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="@id/glassView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSignInEmail"
+        app:layout_constraintVertical_bias="0.05"  />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignIn"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="Login"
+        android:textColor="@color/colorLightMode"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-black"
+        android:background="@drawable/gradient_button"
+        app:layout_constraintBottom_toBottomOf="@id/glassView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSignInPassword"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <Button
+        android:id="@+id/btnOpenSignUp"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:text="SIGN UP"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-black"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+    <TextView
+        android:id="@+id/tvSignInRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Account Yet?"
+        android:textSize="11sp"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toTopOf="@id/btnOpenSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glassView"
+        app:layout_constraintVertical_bias="0.99" />
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

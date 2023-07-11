@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "340569917424",
+    "firebase_url": "https://barcode-a-default-rtdb.firebaseio.com",
+    "project_id": "barcode-a",
+    "storage_bucket": "barcode-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340569917424:android:96536062b4bcbf7ce33f35",
+        "android_client_info": {
+          "package_name": "com.example.barcode_a"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340569917424-s4fltv5o7m2kmmajc5rfj9kjoavvqgvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzjGQ8pQIWVqSNbkF5q8aXFUJr-ajB1Wk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340569917424-s4fltv5o7m2kmmajc5rfj9kjoavvqgvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

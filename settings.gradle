@@ -12,5 +12,12 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+dependencyResolutionManagement {
+
+    repositories {
+
+        maven { url 'https://jitpack.io' }
+    }
+}
 rootProject.name = "Barcode-A"
 include ':app'
