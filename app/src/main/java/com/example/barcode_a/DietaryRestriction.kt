@@ -56,7 +56,7 @@ class DietaryRestriction : Fragment() {
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -64,7 +64,7 @@ class DietaryRestriction : Fragment() {
         }
         val backbutton = view.findViewById<ImageView>(R.id.drwbackDR)
         backbutton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)

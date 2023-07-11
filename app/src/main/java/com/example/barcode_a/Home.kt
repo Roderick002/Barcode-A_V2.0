@@ -93,6 +93,30 @@ class Home : Fragment() {
                 .commit()
         }
 
+        val btnMHD = view.findViewById<Button>(R.id.btnMHD)
+        btnMHD.setOnClickListener {
+            val fragment = MedicalHealthDiagnosis()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        val btnDR = view.findViewById<Button>(R.id.btnDRP)
+        btnDR.setOnClickListener {
+            val fragment = DietaryRestriction()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        val btnAllergies = view.findViewById<Button>(R.id.btnAllergies)
+        btnAllergies.setOnClickListener {
+            val fragment = Allergies()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
     }
 

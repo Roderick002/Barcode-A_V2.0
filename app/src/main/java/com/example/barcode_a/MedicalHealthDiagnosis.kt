@@ -186,7 +186,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -195,7 +195,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         val backbutton = view.findViewById<ImageView>(R.id.drwbackMD)
         backbutton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)

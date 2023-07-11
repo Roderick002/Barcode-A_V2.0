@@ -20,48 +20,28 @@
             android:id="@+id/layoutHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/glass"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/layoutNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_margin="30dp"
-                android:background="@drawable/rectangular_background"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintDimensionRatio="H,1:1"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="32dp"
+                app:layout_constraintTop_toTopOf="@id/imageMenu"
+                app:layout_constraintBottom_toBottomOf="@id/imageMenu"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toStartOf="@id/imageMenu"
+                android:background="@drawable/rectangular_background"/>
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="16dp"
-                    android:layout_margin="8dp"
-                    app:tint="@color/green"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/notification" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center"
-                    android:text="@string/alarms_and_notification"
-                    android:textColor="@color/green"
-                    android:textSize="11sp"
-                    android:fontFamily="@font/quicksand_semibold"/>
-
-            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageMenu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="32dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,11 +52,11 @@
                 android:id="@+id/textHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Welcome,"
                 android:textColor="@color/green"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/quicksand_light"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/imageMenu"
@@ -88,134 +68,298 @@
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
-                android:layout_height="75dp"
+                android:layout_height="72dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:textColor="@color/green"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:text="User"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/textHeader"
                 app:layout_constraintTop_toBottomOf="@id/textHeader"
                 app:layout_constraintVertical_bias="0" />
 
+            <Button
+                android:id="@+id/btnHomeSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Out>"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:fontFamily="@font/quicksand_light"
+                android:backgroundTint="#00000000"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintTop_toBottomOf="@id/textHeader"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/userName"
+                app:layout_constraintBottom_toTopOf="@id/mainMenu" />
+
             <ImageView
                 android:id="@+id/headerLogo"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="100dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/header_logo"
-                app:layout_constraintTop_toBottomOf="@id/imageMenu"
+                app:layout_constraintTop_toBottomOf="@id/searchBar"
                 app:layout_constraintEnd_toEndOf="@id/textHeader"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/mainMenu" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/mainMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:background="@drawable/scrollview_background"
-                    app:layout_constraintTop_toBottomOf="@id/userName"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    >
+            <ScrollView
+                android:id="@+id/mainMenu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/scrollview_background"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="none"
+                android:verticalScrollbarPosition="right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userName"
+                app:layout_constraintVertical_bias="0.0">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="32dp"
-                        android:text="Setup"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:textSize="20dp"
-                        android:textColor="@color/green"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        />
-                    <Button
-                        android:id="@+id/btnHomeSignOut"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sign Out"
-                        android:backgroundTint="@color/background"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.812"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.837" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:id="@+id/layoutHealth"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="112dp"
+                        android:id="@+id/layoutNotification"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_margin="32dp"
                         android:background="@drawable/rectangular_background"
-                        android:backgroundTint="@color/colorHealth"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        app:layout_constraintDimensionRatio="H,1:1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_margin="8dp"
-                            android:contentDescription="@string/app_name"
-                            android:padding="8dp"
-                            android:src="@drawable/health" />
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="32dp"
+                            android:src="@drawable/notification"
+                            app:tint="@color/green" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="@string/health_preference"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:text="@string/alarms_and_notification"
+                                android:textColor="@color/green"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:text="No recent notifications."
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
+                            <!-- TODO: Apply dynamic text content for recent_notifications -->
+
+                        </LinearLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/setupDivision"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="Setup"
+                        android:textColor="@color/green"
+                        android:textSize="24sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutHealth">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:fontFamily="@font/quicksand_regular"
+                            android:text="@string/health_preference"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="96dp"
+                            android:layout_marginVertical="32dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintDimensionRatio="H,1:1" >
+
+                            <LinearLayout
+                                android:layout_width="192dp"
+                                android:layout_height="96dp"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginEnd="12dp"
+                                android:background="@drawable/rectangular_background"
+                                android:backgroundTint="@color/green"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="8dp"
+                                app:layout_constraintDimensionRatio="H,1:1" >
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:padding="8dp"
+                                    android:src="@drawable/health"
+                                    app:tint="@color/white" />
+
+                                <Button
+                                    android:id="@+id/btnMHD"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:padding="8dp"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    android:text="Medical Health Diagnosis"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="192dp"
+                                android:layout_height="96dp"
+                                android:layout_marginHorizontal="12dp"
+                                android:background="@drawable/rectangular_background"
+                                android:backgroundTint="@color/green"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="8dp"
+                                app:layout_constraintDimensionRatio="H,1:1" >
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:padding="8dp"
+                                    android:src="@drawable/health"
+                                    app:tint="@color/white" />
+
+                                <Button
+                                    android:id="@+id/btnDRP"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:padding="8dp"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    android:text="Dietary Restriction/Preference"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="192dp"
+                                android:layout_height="96dp"
+                                android:layout_marginHorizontal="12dp"
+                                android:background="@drawable/rectangular_background"
+                                android:backgroundTint="@color/green"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="8dp"
+                                app:layout_constraintDimensionRatio="H,1:1" >
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:padding="8dp"
+                                    android:src="@drawable/health"
+                                    app:tint="@color/white" />
+
+                                <Button
+                                    android:id="@+id/btnAllergies"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:padding="8dp"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    android:text="Allergies"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </HorizontalScrollView>
 
                     <LinearLayout
                         android:id="@+id/layoutEdit"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_margin="32dp"
                         android:background="@drawable/rectangular_background"
-                        android:backgroundTint="@color/colorBarcode"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        app:layout_constraintDimensionRatio="H,1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/layoutHealth"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/layoutHealth"
-                        app:layout_constraintVertical_bias="1">
+                        android:backgroundTint="@color/green"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_margin="8dp"
-                            android:contentDescription="@string/app_name"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_edit" />
+                            android:layout_width="48dp"
+                            android:layout_height="80dp"
+                            android:layout_marginStart="32dp"
+                            android:src="@drawable/ic_edit"
+                            app:tint="@color/white" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="Edit Profile"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_regular"
+                                android:gravity="center_horizontal"
+                                android:padding="8dp"
+                                android:text="Edit Profile"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
