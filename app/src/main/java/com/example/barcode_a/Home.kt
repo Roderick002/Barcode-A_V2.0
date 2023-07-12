@@ -5,17 +5,26 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EdgeEffect
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.budiyev.android.codescanner.CodeScannerView
 import com.example.barcode_a.databinding.FragmentHomeBinding
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -31,6 +40,9 @@ class Home : Fragment() {
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
 
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +50,8 @@ class Home : Fragment() {
         val activity = requireActivity()
 
         firebaseAuth = FirebaseAuth.getInstance()
+
+
 
         //Get username
         val email = firebaseAuth.currentUser?.email.toString()
@@ -118,6 +132,39 @@ class Home : Fragment() {
                 .commit()
         }
 
+        //side navigation
+        drawerLayout = view.findViewById(R.id.drawerLayout)
+        val navView: NavigationView = view.findViewById(R.id.nav_viewside)
+
+        toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_aboutus->Toast.makeText(requireContext(), "About Us", Toast.LENGTH_SHORT).show()
+                R.id.nav_logout->{
+                    firebaseAuth.signOut()
+                    Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
+                    val intent = Intent(activity, LoginTab::class.java)
+                    startActivity(intent)}
+            }
+            true
+        }
+
+        val menuImageView: ImageView = view.findViewById(R.id.imageMenu)
+        menuImageView.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun readData(userName: String){
@@ -147,6 +194,5 @@ class Home : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
 }
