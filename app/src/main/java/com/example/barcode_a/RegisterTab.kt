@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
 import com.example.barcode_a.databinding.ActivityRegisterTabBinding
@@ -96,6 +98,26 @@ class RegisterTab : AppCompatActivity() {
                 Toast.makeText(this, "Empty Fields Are Not Allowed!", Toast.LENGTH_SHORT).show()
             }
         }
+        val passwordEditText = binding.etSignUpPassword
+        passwordEditText.setOnClickListener {
+            onPasswordVisibilityClicked(passwordEditText)
+        }
+        val confirmEditText = binding.etSignUpConfirmPassword
+        confirmEditText.setOnClickListener {
+            onPasswordVisibilityClicked(confirmEditText)
+        }
+    }
+    private fun onPasswordVisibilityClicked(passwordEditText: EditText) {
+        val visibilityToggleDrawable = if (passwordEditText.transformationMethod == null) {
+            // Password is currently visible, so hide it
+            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            R.drawable.ic_visibility_off // Set drawable for hiding the password
+        } else {
+            // Password is currently hidden, so show it
+            passwordEditText.transformationMethod = null
+            R.drawable.ic_visibility_on // Set drawable for showing the password
+        }
+        passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
     }
 
     override fun onBackPressed() {

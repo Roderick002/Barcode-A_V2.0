@@ -5,13 +5,19 @@ import android.content.Intent
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -29,6 +35,9 @@ class Home_Manufacturer : Fragment() {
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
+
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +102,37 @@ class Home_Manufacturer : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        //side navigation
+        drawerLayout = view.findViewById(R.id.drawer_layout_manu)
+        val navView: NavigationView = view.findViewById(R.id.nav_viewside_manu)
+
+        toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_aboutus->Toast.makeText(requireContext(), "About Us", Toast.LENGTH_SHORT).show()
+                R.id.nav_logout->{
+                    firebaseAuth.signOut()
+                    Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
+                    val intent = Intent(activity, LoginTab::class.java)
+                    startActivity(intent)}
+            }
+            true
+        }
+        val menuImageView: ImageView = view.findViewById(R.id.imageMenu_manu)
+        menuImageView.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
