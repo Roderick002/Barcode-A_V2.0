@@ -98,20 +98,26 @@ class ProductInformation : Fragment() {
 
                             /**Bind Products to Manufacturers*/
                             firebaseAuth = FirebaseAuth.getInstance()
+                            val manuProducts = UserData("Name: $names", "Ingredients: $ingredients", "Allergens: $allergens")
                             //Get username
                             val email = firebaseAuth.currentUser?.email.toString()
                             val userName = email.replace(Regex("[@.]"), "")
                             val manufacturer = "Manufacturer$userName"
 
                             database = FirebaseDatabase.getInstance().getReference(manufacturer)
-                            database.child(names).setValue(productinfo).addOnSuccessListener {
+                            database.child(names).setValue(manuProducts).addOnSuccessListener {
                                 //success
                             }.addOnFailureListener(){
                                 Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
                             }
 
-                    userList.add(UserData("Name: $names", "Ingredients : $ingredients","Allergens: $allergens"))
-                    userAdapter.notifyItemInserted(userList.size - 1)
+                    //userList.add(UserData("Name: $names", "Ingredients : $ingredients","Allergens: $allergens"))
+                    //userAdapter.notifyItemInserted(userList.size - 1)
+
+                    val test = userList.get(0).toString()
+                    Toast.makeText(requireContext(),test, Toast.LENGTH_SHORT).show()
+
+                    userList.clear() /**Reset List to prevent items' duplicate*/
                     Toast.makeText(requireContext(),"Adding User Information Success", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }else{
@@ -160,6 +166,7 @@ class ProductInformation : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         val manufacturer = "Manufacturer$userName"
+
         database = FirebaseDatabase.getInstance().getReference(manufacturer)
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -168,7 +175,7 @@ class ProductInformation : Fragment() {
                         val product = productSnapshot.getValue(UserData::class.java)
                         userList.add(product!!)
                     }
-                    recv.adapter = UserAdapter(requireContext(),userList) { user ->
+                    var adapter = UserAdapter(requireContext(),userList) { user ->
                         val fragment =
                             user.productName?.let {
                                 user.ingredients?.let { it1 ->
@@ -180,12 +187,21 @@ class ProductInformation : Fragment() {
                                     }
                                 }
                             }
+
                         val transaction = parentFragmentManager.beginTransaction()
                         fragment?.let { transaction.replace(R.id.frame_layout, it) }
                         transaction.addToBackStack(null)
                         transaction.commit()
-
+                        userAdapter.notifyItemInserted(userList.size - 1)
                     }
+                    recv.adapter = adapter
+                    /**Recycler View On Item Click Listener*/
+                    adapter.setOnItemClickListener(object : UserAdapter.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            Toast.makeText(requireContext(),position.toString(), Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
                 }
             }
 
@@ -196,6 +212,7 @@ class ProductInformation : Fragment() {
         })
 
     }
+
 
 
 }

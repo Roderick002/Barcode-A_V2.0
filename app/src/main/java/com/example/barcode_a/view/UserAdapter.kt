@@ -19,8 +19,16 @@ import com.example.barcode_a.model.UserData
 class UserAdapter(val c:Context,val userList:ArrayList<UserData>, val onItemClick: (UserData)->Unit)
     :RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
+    private lateinit var mListener : onItemClickListener
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
 
-    inner class UserViewHolder(val v:View):RecyclerView.ViewHolder(v){
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
+
+    inner class UserViewHolder(val v:View, listener: onItemClickListener):RecyclerView.ViewHolder(v){
         lateinit var productname:TextView
         lateinit var ingredients:TextView
         lateinit var allergens:TextView
@@ -106,12 +114,17 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>, val onItemClic
                 }
             }
         }
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.list_item,parent,false)
-        return UserViewHolder(v)
+        return UserViewHolder(v,mListener)
     }
 
     override fun getItemCount(): Int {
