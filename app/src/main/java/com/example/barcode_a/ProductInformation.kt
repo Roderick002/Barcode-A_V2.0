@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -205,41 +206,57 @@ class ProductInformation : Fragment() {
                                 Toast.makeText(requireContext(),product, Toast.LENGTH_SHORT).show()
 
 
+                                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.details_product, null)
+                                val edit = dialogView.findViewById<TextView>(R.id.tv_edit)
+                                val save = dialogView.findViewById<TextView>(R.id.tv_save)
+                                val delete = dialogView.findViewById<TextView>(R.id.tv_delete)
+                                val productName = dialogView.findViewById<EditText>(R.id.et_productName)
+                                val productIngredients = dialogView.findViewById<EditText>(R.id.et_productIngredients)
+                                val productAllergens = dialogView.findViewById<EditText>(R.id.et_productAllergens)
+                                val tvBack = dialogView.findViewById<TextView>(R.id.tv_back)
 
-                                val inflter = LayoutInflater.from(requireContext())
-                                val v = inflter.inflate(R.layout.add_item, null)
-                                val addDialog = AlertDialog.Builder(requireContext())
-                                /**set view*/
-                                val productName = v.findViewById<EditText>(R.id.productName)
-                                val productIngre = v.findViewById<EditText>(R.id.productIngredients)
-                                val productAller = v.findViewById<EditText>(R.id.productAllergens)
 
-                                addDialog.setView(v)
-                                addDialog.setPositiveButton("Ok"){
-                                        dialog,_->
-                                    val names = productName.text.toString()
-                                    val ingredients = productIngre.text.toString()
-                                    val allergens = productAller.text.toString()
+                                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                                alertDialogBuilder.setView(dialogView)
+                                val alertDialog = alertDialogBuilder.create()
+                                alertDialog.show()
 
-                                    if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank()){
-                                        if (isValidFormat(ingredients)){
-
-                                            Toast.makeText(requireContext(),"Adding User Information Success", Toast.LENGTH_SHORT).show()
-                                            dialog.dismiss()
-                                        }else{
-                                            Toast.makeText(requireContext(),"Please enter ingredients in the format: Ingredient, Ingredient, Ingredient", Toast.LENGTH_SHORT).show()
-                                        }
-                                    }else{
-                                        Toast.makeText(requireContext(),"Product Information is not added", Toast.LENGTH_SHORT).show()
-                                    }
+                                //Back function
+                                tvBack.setOnClickListener {
+                                    alertDialog.dismiss()
                                 }
-                                addDialog.setNegativeButton("Cancel"){
-                                        dialog,_->
-                                    dialog.dismiss()
-                                    Toast.makeText(requireContext(),"Cancel", Toast.LENGTH_SHORT).show()
+
+                                //Edit button click listener
+                                edit.setOnClickListener {
+                                    productName.isEnabled = true
+                                    productIngredients.isEnabled = true
+                                    productAllergens.isEnabled = true
+                                    save.isEnabled = true
+                                    Toast.makeText(requireContext(), "The fields are now enabled",
+                                        Toast.LENGTH_SHORT).show()
                                 }
-                                addDialog.create()
-                                addDialog.show()
+
+                                //Save button click listener
+                                save.setOnClickListener {
+                                    val updatedName = productName.text.toString()
+                                    val updatedIngredients = productIngredients.text.toString()
+                                    val updatedAllergens = productAllergens.text.toString()
+
+                                    val message = "$updatedName $updatedIngredients $updatedAllergens"
+                                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+                                    // Disable the edit mode and update the UI accordingly
+                                    productName.isEnabled = false
+                                    productIngredients.isEnabled = false
+                                    productAllergens.isEnabled = false
+                                    save.isEnabled = false
+                                }
+
+                                //Delete button click listener
+                                delete.setOnClickListener {
+                                    Toast.makeText(requireContext(), "Delete button is clicked",
+                                        Toast.LENGTH_SHORT).show()
+                                }
 
                             }
                             else{

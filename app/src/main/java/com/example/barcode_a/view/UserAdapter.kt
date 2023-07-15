@@ -38,8 +38,8 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>, val onItemClic
             productname = v.findViewById<TextView>(R.id.mTitle)
             ingredients = v.findViewById<TextView>(R.id.mSubTitle2)
             allergens = v.findViewById<TextView>(R.id.mSubTitle)
-            mMenus = v.findViewById<ImageView>(R.id.mMenus)
-            mMenus.setOnClickListener { popupMenus(it) }
+            //mMenus = v.findViewById<ImageView>(R.id.mMenus)
+            //mMenus.setOnClickListener { popupMenus(it) }
         }
 
         private fun popupMenus(v: View) {
