@@ -44,8 +44,6 @@ class LoginTab : AppCompatActivity() {
              startActivity(intent)
          }
 
-
-
         binding.btnSignIn.setOnClickListener{
 
             val email = binding.etSignInEmail.text.toString()

@@ -114,8 +114,7 @@ class ProductInformation : Fragment() {
                     //userList.add(UserData("Name: $names", "Ingredients : $ingredients","Allergens: $allergens"))
                     //userAdapter.notifyItemInserted(userList.size - 1)
 
-                    val test = userList.get(0).toString()
-                    Toast.makeText(requireContext(),test, Toast.LENGTH_SHORT).show()
+
 
                     userList.clear() /**Reset List to prevent items' duplicate*/
                     Toast.makeText(requireContext(),"Adding User Information Success", Toast.LENGTH_SHORT).show()
@@ -198,7 +197,54 @@ class ProductInformation : Fragment() {
                     /**Recycler View On Item Click Listener*/
                     adapter.setOnItemClickListener(object : UserAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
-                            Toast.makeText(requireContext(),position.toString(), Toast.LENGTH_SHORT).show()
+                            val item = userList.get(position).toString()
+                            val words = item.split(" ")
+                            val currentIndex = words.indexOf("UserData(productName=Name:")
+                            if (currentIndex >= 0 && currentIndex < words.size - 1) {
+                                val product = words[currentIndex + 1].replace(Regex("[,]"), "")
+                                Toast.makeText(requireContext(),product, Toast.LENGTH_SHORT).show()
+
+
+
+                                val inflter = LayoutInflater.from(requireContext())
+                                val v = inflter.inflate(R.layout.add_item, null)
+                                val addDialog = AlertDialog.Builder(requireContext())
+                                /**set view*/
+                                val productName = v.findViewById<EditText>(R.id.productName)
+                                val productIngre = v.findViewById<EditText>(R.id.productIngredients)
+                                val productAller = v.findViewById<EditText>(R.id.productAllergens)
+
+                                addDialog.setView(v)
+                                addDialog.setPositiveButton("Ok"){
+                                        dialog,_->
+                                    val names = productName.text.toString()
+                                    val ingredients = productIngre.text.toString()
+                                    val allergens = productAller.text.toString()
+
+                                    if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank()){
+                                        if (isValidFormat(ingredients)){
+
+                                            Toast.makeText(requireContext(),"Adding User Information Success", Toast.LENGTH_SHORT).show()
+                                            dialog.dismiss()
+                                        }else{
+                                            Toast.makeText(requireContext(),"Please enter ingredients in the format: Ingredient, Ingredient, Ingredient", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }else{
+                                        Toast.makeText(requireContext(),"Product Information is not added", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                addDialog.setNegativeButton("Cancel"){
+                                        dialog,_->
+                                    dialog.dismiss()
+                                    Toast.makeText(requireContext(),"Cancel", Toast.LENGTH_SHORT).show()
+                                }
+                                addDialog.create()
+                                addDialog.show()
+
+                            }
+                            else{
+                                Toast.makeText(requireContext(),"Failed", Toast.LENGTH_SHORT).show()
+                            }
                         }
 
                     })
