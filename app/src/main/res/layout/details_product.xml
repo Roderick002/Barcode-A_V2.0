@@ -29,22 +29,30 @@
             android:drawableTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/et_productName"
+        <TextView
+            android:id="@+id/tv_productName"
             android:hint="Product Name"
             android:padding="15dp"
             android:background="@drawable/shape_background"
-            android:inputType="textPersonName"
             android:textColor="@color/green"
             android:textSize="18sp"
             android:textStyle="bold"
             android:enabled="false"
+            android:gravity="center"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients:"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"/>
         <EditText
             android:id="@+id/et_productIngredients"
             android:padding="15dp"
@@ -61,6 +69,14 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allergens:"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"/>
         <EditText
             android:id="@+id/et_productAllergens"
             android:padding="15dp"
@@ -106,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save"
                 android:layout_marginRight="15dp"
-                android:textColor="@color/green"
+                android:textColor="@color/dark_gray"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:enabled="false"/>

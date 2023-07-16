@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.barcode_a.model.UserData
@@ -219,7 +220,7 @@ class ProductInformation : Fragment() {
                                 val edit = dialogView.findViewById<TextView>(R.id.tv_edit)
                                 val save = dialogView.findViewById<TextView>(R.id.tv_save)
                                 val delete = dialogView.findViewById<TextView>(R.id.tv_delete)
-                                val productName = dialogView.findViewById<EditText>(R.id.et_productName)
+                                val productName = dialogView.findViewById<TextView>(R.id.tv_productName)
                                 val productIngredients = dialogView.findViewById<EditText>(R.id.et_productIngredients)
                                 val productAllergens = dialogView.findViewById<EditText>(R.id.et_productAllergens)
                                 val tvBack = dialogView.findViewById<TextView>(R.id.tv_back)
@@ -239,7 +240,8 @@ class ProductInformation : Fragment() {
                                         val allergen = it.child("allergens").value.toString()
                                         val ingredient = it.child("ingredients").value.toString()
 
-                                        productName.text.append(name)
+                                        /**productName.text.append(name)*/
+                                        productName.text = name
                                         productAllergens.text.append(allergen)
                                         productIngredients.text.append(ingredient)
 
@@ -261,6 +263,7 @@ class ProductInformation : Fragment() {
                                     productIngredients.isEnabled = true
                                     productAllergens.isEnabled = true
                                     save.isEnabled = true
+                                    save.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
                                     Toast.makeText(requireContext(), "The fields are now enabled",
                                         Toast.LENGTH_SHORT).show()
                                 }
