@@ -32,88 +32,16 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>, val onItemClic
         lateinit var productname:TextView
         lateinit var ingredients:TextView
         lateinit var allergens:TextView
-        lateinit var mMenus:ImageView
 
         init {
             productname = v.findViewById<TextView>(R.id.mTitle)
-            ingredients = v.findViewById<TextView>(R.id.mSubTitle2)
-            allergens = v.findViewById<TextView>(R.id.mSubTitle)
+            ingredients = v.findViewById<TextView>(R.id.mSubTitle)
+            allergens = v.findViewById<TextView>(R.id.mSubTitle2)
             //mMenus = v.findViewById<ImageView>(R.id.mMenus)
             //mMenus.setOnClickListener { popupMenus(it) }
         }
 
-        private fun popupMenus(v: View) {
-            val position = userList[adapterPosition]
-            val popupMenus = PopupMenu(c,v)
-            popupMenus.inflate(R.menu.show_menu)
-            popupMenus.setOnMenuItemClickListener {
-                when(it.itemId){
-                    R.id.editText->{
-                        val v = LayoutInflater.from(c).inflate(R.layout.add_item, null)
-                        val Name = v.findViewById<TextView>(R.id.productName)
-                        val productIngredients = v.findViewById<TextView>(R.id.productIngredients)
-                        val productAllergens = v.findViewById<TextView>(R.id.productAllergens)
-                        AlertDialog.Builder(c)
-                            .setView(v)
-                            .setPositiveButton("Ok"){
-                                    dialog,_->
-                                position.productName = Name.text.toString()
-                                position.ingredients = productIngredients.text.toString()
-                                position.allergens = productAllergens.text.toString()
-                                notifyDataSetChanged()
-                                Toast.makeText(c,"product Information is Edited", Toast.LENGTH_SHORT).show()
-                                dialog.dismiss()
 
-                            }
-                            .setNegativeButton("Cancel"){
-                                    dialog,_->
-                                dialog.dismiss()
-                            }
-                            .create()
-                            .show()
-                        true
-                    }
-                    R.id.delete->{
-                        /**set delete*/
-                        AlertDialog.Builder(c)
-                            .setTitle("Delete")
-                            .setIcon(R.drawable.ic_warning)
-                            .setMessage("Deletion of information confirmation")
-                            .setPositiveButton("Yes"){
-                                    dialog,_->
-                                userList.removeAt(adapterPosition)
-                                notifyDataSetChanged()
-                                Toast.makeText(c,"Deleted", Toast.LENGTH_SHORT).show()
-                                dialog.dismiss()
-                            }
-                            .setNegativeButton("No"){
-                                    dialog,_->
-                                dialog.dismiss()
-                            }
-                            .create()
-                            .show()
-                        true
-                    }
-                    else -> true
-                }
-            }
-            popupMenus.show()
-            val popup = PopupMenu::class.java.getDeclaredField("mPopup")
-            popup.isAccessible = true
-            val menu = popup.get(popupMenus)
-            menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                .invoke(menu, true)
-
-        }
-        init{
-            v.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION){
-                    val user = userList[position]
-                    onItemClick(user)
-                }
-            }
-        }
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(adapterPosition)
@@ -134,7 +62,8 @@ class UserAdapter(val c:Context,val userList:ArrayList<UserData>, val onItemClic
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val newList = userList[position]
         holder.productname.text = newList.productName
-        holder.allergens.text = newList.allergens
         holder.ingredients.text = newList.ingredients
+        holder.allergens.text = newList.allergens
+
     }
 }
