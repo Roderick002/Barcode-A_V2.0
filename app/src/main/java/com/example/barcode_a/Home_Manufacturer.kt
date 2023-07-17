@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.barcode_a.databinding.FragmentHomeBinding
+import com.example.barcode_a.databinding.FragmentHomeManufacturerBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -29,13 +31,14 @@ private const val ARG_PARAM2 = "param2"
 
 
 class Home_Manufacturer : Fragment() {
+    private var _binding : FragmentHomeManufacturerBinding? = null
+    private  val binding get() = _binding!!
 
     private lateinit var firebaseAuth: FirebaseAuth
 
     private var param1: String? = null
     private var param2: String? = null
 
-    private var _binding : FragmentHomeBinding? = null
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
@@ -59,6 +62,12 @@ class Home_Manufacturer : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val activity = requireActivity()
+
+        //Get username
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        readData(userName)
+
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -128,6 +137,25 @@ class Home_Manufacturer : Fragment() {
 
     }
 
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
+
+            if(it.exists()){
+
+                val firstname = it.child("firstName").value.toString()
+                binding.userName.text = firstname
+
+
+
+            }else{
+                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (toggle.onOptionsItemSelected(item)){
@@ -139,9 +167,9 @@ class Home_Manufacturer : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home__manufacturer, container, false)
+    ): View {
+        _binding = FragmentHomeManufacturerBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     companion object {
