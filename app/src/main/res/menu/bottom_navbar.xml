@@ -9,5 +9,5 @@
         android:icon="@drawable/ic_qr_code_scanner"/>
     <item android:title="Search"
         android:id="@+id/search"
-        android:icon="@drawable/ic_search"/>
+        android:icon="@drawable/ic_search" />
 </menu>

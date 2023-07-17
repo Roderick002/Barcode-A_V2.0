@@ -74,14 +74,6 @@ class Home : Fragment() {
             }
         }
 
-        //Sign Out Function
-        binding.btnHomeSignOut.setOnClickListener(){
-            firebaseAuth.signOut()
-            Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
-            val intent = Intent(activity, LoginTab::class.java)
-            startActivity(intent)
-        }
-
         val layoutHealth = view.findViewById<LinearLayout>(R.id.layoutHealth)
         layoutHealth.setOnClickListener {
             val fragment = HealthPreference()

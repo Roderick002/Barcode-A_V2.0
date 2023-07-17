@@ -17,8 +17,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.barcode_a.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 private const val ARG_PARAM1 = "param1"
@@ -32,12 +35,16 @@ class Home_Manufacturer : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding : FragmentHomeBinding? = null
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
 
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+
+    private lateinit var database : DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +58,6 @@ class Home_Manufacturer : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val signOut = view.findViewById<Button>(R.id.btnSignout)
         val activity = requireActivity()
 
         //Back Button Function
@@ -70,13 +76,6 @@ class Home_Manufacturer : Fragment() {
             }
         }
 
-        //Sign Out Function
-        signOut.setOnClickListener(){
-            firebaseAuth.signOut()
-            Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
-            val intent = Intent(activity, LoginTab::class.java)
-            startActivity(intent)
-        }
 
         val layoutProductInfo = view.findViewById<LinearLayout>(R.id.layoutProductInfo)
         layoutProductInfo.setOnClickListener {
@@ -126,7 +125,9 @@ class Home_Manufacturer : Fragment() {
         menuImageView.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.END)
         }
+
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (toggle.onOptionsItemSelected(item)){

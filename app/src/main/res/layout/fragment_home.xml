@@ -4,30 +4,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
-    android:background="@color/colorLightMode"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorLightMode">
 
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/drawer_layout"
-        android:background="@color/colorLightMode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    <View
-        android:id="@+id/gradientBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_background" />
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/gradientBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_background" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
             android:background="@drawable/glass"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -42,7 +40,6 @@
                 app:layout_constraintEnd_toStartOf="@id/imageMenu"
                 android:background="@drawable/rectangular_background"/>
 
-
             <ImageView
                 android:id="@+id/imageMenu"
                 android:layout_width="32dp"
@@ -54,77 +51,68 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/green" />
 
-            <TextView
-                android:id="@+id/textHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Welcome,"
-                android:textColor="@color/green"
-                android:textSize="24sp"
-                android:fontFamily="@font/quicksand_light"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/imageMenu"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintVertical_bias="0.15"/>
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:fontFamily="@font/quicksand_bold"
-                android:textColor="@color/green"
-                android:textSize="24sp"
-                android:text="User"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/textHeader"
-                app:layout_constraintTop_toBottomOf="@id/textHeader"
-                app:layout_constraintVertical_bias="0" />
-
-            <Button
-                android:id="@+id/btnHomeSignOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out>"
-                android:textColor="@color/green"
-                android:textSize="12sp"
-                android:fontFamily="@font/quicksand_light"
-                android:backgroundTint="#00000000"
-                app:layout_constraintVertical_bias="1"
-                app:layout_constraintTop_toBottomOf="@id/textHeader"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userName"
-                app:layout_constraintBottom_toTopOf="@id/mainMenu" />
-
-            <ImageView
-                android:id="@+id/headerLogo"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginEnd="100dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/header_logo"
                 app:layout_constraintTop_toBottomOf="@id/searchBar"
-                app:layout_constraintEnd_toEndOf="@id/textHeader"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/mainMenu" />
+                app:layout_constraintBottom_toTopOf="@id/mainMenu"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/headerLogo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/header_logo" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome,"
+                        android:fontFamily="@font/quicksand_light"
+                        android:textColor="@color/green"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/green"
+                        android:textSize="24sp"
+                        android:text="User"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/textHeader"
+                        app:layout_constraintTop_toBottomOf="@id/textHeader"
+                        app:layout_constraintVertical_bias="0" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <ScrollView
                 android:id="@+id/mainMenu"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="128dp"
                 android:background="@drawable/scrollview_background"
-                android:scrollbarStyle="insideInset"
                 android:scrollbars="none"
                 android:verticalScrollbarPosition="right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userName"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@id/searchBar">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,6 +205,8 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             app:layout_constraintDimensionRatio="H,1:1" >
+
+                            <!--TODO: Update Icons-->
 
                             <LinearLayout
                                 android:layout_width="192dp"
