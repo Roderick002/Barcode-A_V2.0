@@ -39,7 +39,7 @@ class AccountSettings : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home_Manufacturer()
             parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, fragment)
+                .replace(R.id.frame_layout2, fragment)
                 .addToBackStack(null)
                 .commit()
         }

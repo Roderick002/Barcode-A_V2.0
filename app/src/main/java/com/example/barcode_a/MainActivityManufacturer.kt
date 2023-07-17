@@ -57,23 +57,4 @@ class MainActivityManufacturer : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout2,fragment)
         fragmentTransaction.commit()
     }
-
-    //Quit Application
-    override fun onBackPressed() {
-
-        if (quit == false){
-            Toast.makeText(this, "Press Again To Quit", Toast.LENGTH_SHORT).show()
-            quit = true
-
-            val handler = Handler()
-            handler.postDelayed({
-                quit = false
-            }, delay)
-        }
-        else{
-            finishAffinity()
-        }
-    }
-
-
 }
