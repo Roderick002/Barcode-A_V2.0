@@ -82,6 +82,11 @@ class ProductInformation : Fragment() {
         addDialog.setView(v)
         addDialog.setPositiveButton("Ok",null)
 
+        addDialog.setNegativeButton("Cancel"){
+                dialog,_->
+            dialog.dismiss()
+        }
+
         val dialog = addDialog.create()
         dialog.show()
 
@@ -141,11 +146,6 @@ class ProductInformation : Fragment() {
             }else{
                 Toast.makeText(requireContext(),"Product Information is not added", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        addDialog.setNegativeButton("Cancel"){
-                dialog,_->
-            dialog.dismiss()
         }
     }
 
