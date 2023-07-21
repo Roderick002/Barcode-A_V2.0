@@ -80,8 +80,12 @@ class ProductInformation : Fragment() {
         val productAller = v.findViewById<EditText>(R.id.productAllergens)
 
         addDialog.setView(v)
-        addDialog.setPositiveButton("Ok"){
-                dialog,_->
+        addDialog.setPositiveButton("Ok",null)
+
+        val dialog = addDialog.create()
+        dialog.show()
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val names = productName.text.toString()
             val ingredients = productIngre.text.toString()
             val allergens = productAller.text.toString()
@@ -138,12 +142,11 @@ class ProductInformation : Fragment() {
                 Toast.makeText(requireContext(),"Product Information is not added", Toast.LENGTH_SHORT).show()
             }
         }
+
         addDialog.setNegativeButton("Cancel"){
                 dialog,_->
             dialog.dismiss()
         }
-        addDialog.create()
-        addDialog.show()
     }
 
     private fun isValidFormat(ingredients: String):Boolean{
