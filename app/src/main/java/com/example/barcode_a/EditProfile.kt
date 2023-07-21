@@ -12,20 +12,28 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import com.example.barcode_a.databinding.FragmentAccountSettingsBinding
+import com.example.barcode_a.databinding.FragmentEditProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class EditProfile : Fragment() {
 
+    private var _binding : FragmentEditProfileBinding? = null
+    private  val binding get() = _binding!!
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    ): View {
 
-
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,6 +44,11 @@ class EditProfile : Fragment() {
         val email = view.findViewById<EditText>(R.id.et_email)
         val password = view.findViewById<EditText>(R.id.et_password)
         val confirmPassword = view.findViewById<EditText>(R.id.et_confirmPassword)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        val emaiL = firebaseAuth.currentUser?.email.toString()
+        val userName = emaiL.replace(Regex("[@.]"), "")
+        readData(userName)
 
         //edit button function
         edit.setOnClickListener {
@@ -52,13 +65,19 @@ class EditProfile : Fragment() {
 
         //update button
         update.setOnClickListener {
+            update.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
             val updatedFN = firstName.text.toString()
             val updatedSN = surname.text.toString()
-            val updatedEmail = email.text.toString()
-            val updatedPass = password.text.toString()
-            update.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            Toast.makeText(requireContext(), "Profile updated: $updatedFN, $updatedSN, $updatedEmail, $updatedPass",
-                Toast.LENGTH_SHORT).show()
+            val userinfo = UserProfile(updatedFN, updatedSN, userName, "Manufacturer")
+
+
+            database = FirebaseDatabase.getInstance().getReference("Users")
+            database.child(userName).setValue(userinfo).addOnSuccessListener {
+                //success
+            }.addOnFailureListener(){
+                Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+            }
+            Toast.makeText(activity , "User Profile Updated Successfully!" , Toast.LENGTH_SHORT).show()
 
             // Disable the edit mode and update the UI accordingly
             firstName.isEnabled = false
@@ -102,6 +121,29 @@ class EditProfile : Fragment() {
             R.drawable.ic_visibility_on // Set drawable for showing the password
         }
         passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
+    }
+
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
+
+            if(it.exists()){
+
+                val firstname = it.child("firstName").value.toString()
+                val lastname = it.child("lastName").value.toString()
+
+                binding.etFirstName.text.append(firstname)
+                binding.etSurname.text.append(lastname)
+                binding.tvDisplay.text = "$firstname $lastname"
+
+
+
+            }else{
+                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
     }
 
 

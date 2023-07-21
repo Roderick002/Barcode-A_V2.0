@@ -1,6 +1,7 @@
 package com.example.barcode_a
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -22,6 +25,7 @@ class LoginTab : AppCompatActivity() {
     private lateinit var binding: ActivityLoginTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private val CAMERA_REQUEST_CODE = 101
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
@@ -30,6 +34,7 @@ class LoginTab : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginTabBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupPermissions()
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             window.setFlags(
@@ -132,6 +137,36 @@ class LoginTab : AppCompatActivity() {
         }
         else{
             finishAffinity()
+        }
+    }
+
+    //Camera Permission
+    private fun setupPermissions(){
+        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+
+        if (permission != PackageManager.PERMISSION_GRANTED){
+            makeRequest()
+        }
+    }
+
+    private fun makeRequest(){
+        ActivityCompat.requestPermissions(this  , arrayOf( android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            CAMERA_REQUEST_CODE -> {
+                if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "You need the camera permission", Toast.LENGTH_SHORT).show()
+                }else {
+                    //successful
+                }
+            }
         }
     }
 }

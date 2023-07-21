@@ -8,124 +8,151 @@
     android:layout_margin="15dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="415dp"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
         <TextView
             android:id="@+id/tv_back"
-            android:text="Product Details"
-            android:textStyle="bold"
-            android:textSize="19sp"
-            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/green"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:elevation="15dp"
-            android:gravity="center"
             android:drawableEnd="@drawable/ic_close"
             android:drawableTint="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:elevation="15dp"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="8dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="8dp"
+            android:text="Product Details"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tv_productName"
-            android:hint="Product Name"
-            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/shape_background"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:enabled="false"
             android:gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:hint="Product Name"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:text="Ingredients:"
             android:textColor="@color/dark_gray"
-            android:textSize="15sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="15sp" />
+
         <EditText
             android:id="@+id/et_productIngredients"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:hint="Ingredients"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:enabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/shape_background"
+            android:enabled="false"
+            android:hint="Ingredients"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:text="Allergens:"
             android:textColor="@color/dark_gray"
-            android:textSize="15sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="15sp" />
+
         <EditText
             android:id="@+id/et_productAllergens"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:hint="Allergens"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:enabled="false"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/shape_background"
+            android:enabled="false"
+            android:hint="Allergens"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_productBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/shape_background"
+            android:enabled="false"
+            android:hint="Barcode"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete"
                 android:layout_marginRight="170dp"
+                android:text="Delete"
                 android:textColor="@color/red"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
                 android:layout_marginRight="15dp"
+                android:text="Edit"
                 android:textColor="@color/green"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
                 android:layout_marginRight="15dp"
+                android:enabled="false"
+                android:text="Save"
                 android:textColor="@color/dark_gray"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:enabled="false"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

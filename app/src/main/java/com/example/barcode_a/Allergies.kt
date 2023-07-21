@@ -211,7 +211,7 @@ class Allergies : Fragment() {
 
         val okayButton = dialog.findViewById<Button>(R.id.btnOkay)
         okayButton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)

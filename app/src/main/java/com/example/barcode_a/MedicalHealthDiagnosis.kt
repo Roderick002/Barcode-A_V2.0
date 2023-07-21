@@ -117,7 +117,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
                 val diabetic = it.child("diagnosis1").value.toString()
                 val lactose = it.child("diagnosis2").value.toString()
-                val gastro = it.child("allergy3").value.toString()
+                val gastro = it.child("diagnosis3").value.toString()
                 val hyper = it.child("diagnosis4").value.toString()
                 val others = it.child("diagnosis5").value.toString()
                 val editTextOther = view?.findViewById<TextView>(R.id.editTextOther)
@@ -169,7 +169,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         val okayButton = dialog.findViewById<Button>(R.id.btnOkay)
         okayButton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)

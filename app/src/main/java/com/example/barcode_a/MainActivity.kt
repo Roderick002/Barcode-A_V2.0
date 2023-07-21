@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private val CAMERA_REQUEST_CODE = 101
 
 
 
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupPermissions()
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -70,35 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//Camera Permission
-    private fun setupPermissions(){
-        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-
-        if (permission != PackageManager.PERMISSION_GRANTED){
-            makeRequest()
-        }
-    }
-
-    private fun makeRequest(){
-        ActivityCompat.requestPermissions(this  , arrayOf( android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            CAMERA_REQUEST_CODE -> {
-                if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this, "You need the camera permission", Toast.LENGTH_SHORT).show()
-                }else {
-                    //successful
-                }
-            }
-        }
-    }
 
     //Toggle Fragments
 

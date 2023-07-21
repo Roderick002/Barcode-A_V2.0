@@ -8,69 +8,89 @@
     android:layout_margin="15dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
         <TextView
-            android:text="Add the Product Information"
-            android:textStyle="bold"
-            android:textSize="19sp"
-            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/green"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
             android:elevation="15dp"
             android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:paddingLeft="15dp"
+            android:paddingTop="8dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="8dp"
+            android:text="Add the Product Information"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/productName"
-            android:hint="Product Name"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/shape_background"
+            android:hint="Product Name"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/productIngredients"
-            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/shape_background"
             android:hint="Ingredients"
             android:inputType="textPersonName"
+            android:padding="15dp"
             android:textColor="@color/green"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/productAllergens"
-            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/shape_background"
             android:hint="Allergens"
             android:inputType="textPersonName"
+            android:padding="15dp"
             android:textColor="@color/green"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/productBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/shape_background"
+            android:hint="Barcode"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
