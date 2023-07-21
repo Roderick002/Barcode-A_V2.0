@@ -341,26 +341,7 @@ class ProductInformation : Fragment() {
                                 //Delete button click listener
                                 /**Delete Product Data From Database*/
                                 delete.setOnClickListener {
-                                    database = FirebaseDatabase.getInstance().getReference("ProductInformation")
-                                    database.child(product).removeValue().addOnSuccessListener {
-
-
-                                    }.addOnFailureListener(){
-                                        Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
-                                    }
-
-                                    firebaseAuth = FirebaseAuth.getInstance()
-                                    //Get username
-                                    val email = firebaseAuth.currentUser?.email.toString()
-                                    val userName = email.replace(Regex("[@.]"), "")
-                                    val manufacturer = "Manufacturer$userName"
-                                    database = FirebaseDatabase.getInstance().getReference(manufacturer)
-                                    database.child(product).removeValue().addOnSuccessListener {
-                                        //success
-                                    }.addOnFailureListener(){
-                                        Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
-                                    }
-                                    userList.clear() /**Reset List to prevent items' duplicate*/
+                                    showDeleteConfirmation(product)
                                     alertDialog.dismiss()
                                 }
 
@@ -368,6 +349,42 @@ class ProductInformation : Fragment() {
 
                     })
                 }
+            }
+            //Function to show the delete confirmation pop-up
+            private fun showDeleteConfirmation(product: String){
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setTitle("Delete Product")
+                alertDialogBuilder.setMessage("Are you sure you want to delete $product?")
+                alertDialogBuilder.setPositiveButton("Ok"){
+                    dialog, which ->
+                    deleteProduct(product)
+                }
+                alertDialogBuilder.setNegativeButton("Cancel"){
+                    dialog, which ->
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.show()
+            }
+
+            private fun deleteProduct(product: String){
+                database = FirebaseDatabase.getInstance().getReference("ProductInformation")
+                database.child(product).removeValue().addOnSuccessListener {
+
+                }.addOnFailureListener {
+                    Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                }
+                firebaseAuth = FirebaseAuth.getInstance()
+                //Get username
+                val email = firebaseAuth.currentUser?.email.toString()
+                val userName = email.replace(Regex("[@.]"), "")
+                val manufacturer = "Manufacturer$userName"
+                database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                database.child(product).removeValue().addOnSuccessListener {
+                    //success
+                }.addOnFailureListener(){
+                    Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                }
+                userList.clear() /**Reset List to prevent items' duplicate*/
             }
 
             override fun onCancelled(error: DatabaseError) {
