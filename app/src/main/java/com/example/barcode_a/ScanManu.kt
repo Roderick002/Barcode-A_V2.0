@@ -113,6 +113,7 @@ class ScanManu : Fragment() {
 
         addDialog.setNegativeButton("Cancel"){
                 dialog,_->
+            codeScanner.startPreview()
             dialog.dismiss()
         }
 
@@ -121,9 +122,9 @@ class ScanManu : Fragment() {
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val barcodee = productBarcode.text.toString()
-            val names = productName.text.toString()
-            val ingredients = productIngre.text.toString()
-            val allergens = productAller.text.toString()
+            val names = productName.text.toString().trim()
+            val ingredients = productIngre.text.toString().trim()
+            val allergens = productAller.text.toString().trim()
 
             if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank() && barcodee.isNotBlank()){
                 if (isValidFormat(ingredients)){
@@ -153,15 +154,23 @@ class ScanManu : Fragment() {
                                 val manufacturer = "Manufacturer$userName"
 
                                 database = FirebaseDatabase.getInstance().getReference(manufacturer)
-                                database.child(names).setValue(manuProducts).addOnSuccessListener {
-                                    //success
-                                }.addOnFailureListener(){
-                                    Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
-                                }
+                                database.child(names).get().addOnSuccessListener {
+                                    if(it.exists()){
+                                        Toast.makeText(activity , "Product with same name exists" , Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                        database.child(names).setValue(manuProducts).addOnSuccessListener {
+                                            //success
+                                        }.addOnFailureListener(){
+                                            Toast.makeText(activity , "Database Error!" , Toast.LENGTH_SHORT).show()
+                                        }
 
-                                Toast.makeText(requireContext(),"Product Added", Toast.LENGTH_SHORT).show()
-                                codeScanner.startPreview()
-                                dialog.dismiss()
+                                        Toast.makeText(requireContext(),"Product Added", Toast.LENGTH_SHORT).show()
+                                        dialog.dismiss()
+                                    }
+                                }.addOnFailureListener{
+                                    Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }.addOnFailureListener{
                             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()

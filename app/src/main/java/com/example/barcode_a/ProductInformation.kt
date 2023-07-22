@@ -35,6 +35,7 @@ class ProductInformation : Fragment() {
     private lateinit var recv: RecyclerView
     private lateinit var userList:ArrayList<UserData>
     private lateinit var userAdapter:UserAdapter
+    var listempty = false
 
 
     @SuppressLint("MissingInflatedId")
@@ -104,9 +105,9 @@ class ProductInformation : Fragment() {
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val barcode = productBarcode.text.toString()
-            val names = productName.text.toString()
-            val ingredients = productIngre.text.toString()
-            val allergens = productAller.text.toString()
+            val names = productName.text.toString().trim()
+            val ingredients = productIngre.text.toString().trim()
+            val allergens = productAller.text.toString().trim()
 
             if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank() && barcode.isNotBlank()){
                 if (isValidFormat(ingredients)){
@@ -114,7 +115,6 @@ class ProductInformation : Fragment() {
 
                         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
                         database.child(barcode).get().addOnSuccessListener {
-
                             if(it.exists()){
                                 Toast.makeText(activity , "Product Already Exists!" , Toast.LENGTH_SHORT).show()
                             }else{
@@ -136,15 +136,24 @@ class ProductInformation : Fragment() {
                                 val manufacturer = "Manufacturer$userName"
 
                                 database = FirebaseDatabase.getInstance().getReference(manufacturer)
-                                database.child(names).setValue(manuProducts).addOnSuccessListener {
-                                    //success
-                                }.addOnFailureListener(){
-                                    Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
-                                }
+                                database.child(names).get().addOnSuccessListener {
+                                    if(it.exists()){
+                                        Toast.makeText(activity , "Product with same name exists" , Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                        database.child(names).setValue(manuProducts).addOnSuccessListener {
+                                            //success
+                                        }.addOnFailureListener(){
+                                            Toast.makeText(activity , "Database Error!" , Toast.LENGTH_SHORT).show()
+                                        }
 
-                                userList.clear() /**Reset List to prevent items' duplicate*/
-                                Toast.makeText(requireContext(),"Product Added", Toast.LENGTH_SHORT).show()
-                                dialog.dismiss()
+                                        userList.clear() /**Reset List to prevent items' duplicate*/
+                                        Toast.makeText(requireContext(),"Product Added", Toast.LENGTH_SHORT).show()
+                                        dialog.dismiss()
+                                    }
+                                }.addOnFailureListener{
+                                    Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }.addOnFailureListener{
                             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
@@ -157,7 +166,7 @@ class ProductInformation : Fragment() {
                     Toast.makeText(requireContext(),"Please enter ingredients in the format: Ingredient, Ingredient, Ingredient", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(requireContext(),"Product Information is not added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Fill up the required fields", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -233,7 +242,6 @@ class ProductInformation : Fragment() {
                                 return matches.map { it.groupValues[1] }.toList()
                             }
                             val source = item.replace(Regex("[=(),:]"), " ")
-                            Toast.makeText(activity , source , Toast.LENGTH_SHORT).show()
                             val extractedStrings = getStringsBetweenWords(source, "productName", "ingredients")
                                 val product = extractedStrings.toString().replace("[\\[\\]]".toRegex(), "").trim()
 
@@ -371,6 +379,17 @@ class ProductInformation : Fragment() {
                             }
 
                     })
+                }else{
+                    if (listempty == true){
+                        val fragment = Home_Manufacturer()
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.frame_layout2, fragment)
+                            .addToBackStack(null)
+                            .commit()
+                        listempty = false
+                        Toast.makeText(requireContext(),"Product list is empty", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             }
             //Function to show the delete confirmation pop-up
@@ -420,6 +439,8 @@ class ProductInformation : Fragment() {
                     Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
                 }
                 userList.clear() /**Reset List to prevent items' duplicate*/
+                listempty = true
+
             }
 
             override fun onCancelled(error: DatabaseError) {

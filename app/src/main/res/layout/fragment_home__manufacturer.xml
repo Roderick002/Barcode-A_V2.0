@@ -180,37 +180,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/layoutQR"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:padding="16dp"
-                        android:background="@drawable/rectangular_background"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/qrcode"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="QR Codes"
-                            android:fontFamily="@font/quicksand_regular"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </ScrollView>

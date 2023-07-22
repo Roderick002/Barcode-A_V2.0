@@ -101,14 +101,7 @@ class Home_Manufacturer : Fragment() {
                 .replace(R.id.frame_layout2, fragment)
                 .addToBackStack(null)
                 .commit()
-        }
-        val layoutQR = view.findViewById<LinearLayout>(R.id.layoutQR)
-        layoutQR.setOnClickListener {
-            val fragment = GenerateQR()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout2, fragment)
-                .addToBackStack(null)
-                .commit()
+
         }
 
         //side navigation
