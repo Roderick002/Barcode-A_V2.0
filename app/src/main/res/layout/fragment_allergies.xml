@@ -5,148 +5,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:padding="32dp"
     tools:context=".Allergies">
 
-    <TextView
+    <LinearLayout
         android:id="@+id/txtAllergies"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ALLERGIES"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/checklist_Allergy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/drwbackAllergies"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:text="Allergies"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/quicksand_semibold"
+            android:background="@drawable/rectangular_background"
+            android:backgroundTint="@color/colorPrimary"/>
 
-    <CheckBox
-        android:id="@+id/checkBoxNuts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nuts"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAllergies"
-        app:layout_constraintVertical_bias="0.042" />
+        <ImageView
+            android:id="@+id/drwbackAllergies"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/ic_close"/>
 
-    <CheckBox
-        android:id="@+id/checkBoxGluten"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gluten"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxNuts"
-        app:layout_constraintVertical_bias="0.031" />
+    </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/checkBoxEggs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eggs"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxGluten"
-        app:layout_constraintVertical_bias="0.036" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/checklist_Allergy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:padding="32dp"
+        android:background="@drawable/glass"
+        app:layout_constraintTop_toBottomOf="@id/txtAllergies"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <CheckBox
-        android:id="@+id/checkBoxCrustaceans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crustaceans"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxEggs"
-        app:layout_constraintVertical_bias="0.034" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Check all that applies:"
+            android:fontFamily="@font/quicksand_light"
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp"/>
 
-    <CheckBox
-        android:id="@+id/checkboxDairy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dairy Products"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxCrustaceans"
-        app:layout_constraintVertical_bias="0.051" />
+        <CheckBox
+            android:id="@+id/checkBoxNuts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuts"
+            android:textColor="@color/textPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.2"/>
 
-    <CheckBox
-        android:id="@+id/checkBoxOtherA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Other:"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkboxDairy"
-        app:layout_constraintVertical_bias="0.08" />
+        <CheckBox
+            android:id="@+id/checkBoxGluten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gluten"
+            android:textColor="@color/textPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxNuts" />
 
-    <EditText
-        android:id="@+id/editTextOtherA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Please specify here"
-        android:inputType="text"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxOtherA"
-        app:layout_constraintVertical_bias="0.087" />
+        <CheckBox
+            android:id="@+id/checkBoxEggs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eggs"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxGluten"/>
 
-    <Button
-        android:id="@+id/btnDoneAllergies"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/backgroundgreen"
-        android:text="Done"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOtherA"
-        app:layout_constraintVertical_bias="0.157" />
+        <CheckBox
+            android:id="@+id/checkBoxCrustaceans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crustaceans"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxEggs" />
+
+        <CheckBox
+            android:id="@+id/checkboxDairy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dairy Products"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxCrustaceans" />
+
+        <CheckBox
+            android:id="@+id/checkBoxOtherA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Others:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkboxDairy" />
+
+        <EditText
+            android:id="@+id/editTextOtherA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:hint="Please specify..."
+            android:inputType="text"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:textSize="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxOtherA" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDoneAllergies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHeight_max="40dp"
+            app:layout_constraintWidth_max="350dp"
+            android:background="@drawable/gradient_button"
+            android:text="Done"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextOtherA"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

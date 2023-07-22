@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BarcodeA" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Dark.Theme.BarcodeA" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <style name="Theme.BarcodeA.NoActionStatusBar" parent="Dark.Theme.BarcodeA" >
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@color/colorBackgroundDark</item>
+
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+
     </style>
 </resources>

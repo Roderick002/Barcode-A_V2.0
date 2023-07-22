@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightMode"
     tools:context=".RegisterTab">
 
     <View
@@ -32,7 +31,7 @@
             android:text="Register"
             android:textSize="24sp"
             android:fontFamily="@font/quicksand_bold"
-            android:textColor="@color/green" />
+            android:textColor="@color/colorPrimary" />
 
         <RadioGroup
             android:id="@+id/rdgUserType"
@@ -64,9 +63,9 @@
             android:ems="12"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
-            android:textColor="@color/green"
-            android:textColorHint="@color/green"
-            android:backgroundTint="@color/green"/>
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/etSignUpFirstname"
@@ -76,9 +75,9 @@
             android:ems="12"
             android:hint="First name"
             android:inputType="text"
-            android:textColor="@color/green"
-            android:textColorHint="@color/green"
-            android:backgroundTint="@color/green" />
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/etSignUpLastname"
@@ -88,9 +87,9 @@
             android:ems="12"
             android:hint="Last name"
             android:inputType="text"
-            android:textColor="@color/green"
-            android:textColorHint="@color/green"
-            android:backgroundTint="@color/green" />
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/etSignUpPassword"
@@ -100,9 +99,9 @@
             android:ems="12"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textColor="@color/green"
-            android:textColorHint="@color/green"
-            android:backgroundTint="@color/green"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary"
             android:drawableEnd="@drawable/ic_visibility_off"/>
 
         <EditText
@@ -113,9 +112,9 @@
             android:ems="12"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:textColor="@color/green"
-            android:textColorHint="@color/green"
-            android:backgroundTint="@color/green"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary"
+            android:backgroundTint="@color/colorPrimary"
             android:drawableEnd="@drawable/ic_visibility_off"/>
 
 
@@ -125,7 +124,7 @@
             android:layout_height="48dp"
             android:layout_margin="32dp"
             android:text="Sign Up"
-            android:textColor="@color/colorLightMode"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:fontFamily="sans-serif-black"
             android:background="@drawable/gradient_button" />

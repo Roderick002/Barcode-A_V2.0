@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightMode"
     tools:context=".LoginTab">
 
     <LinearLayout
@@ -14,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_margin="32dp"
         android:orientation="vertical"
-        android:background="@drawable/glass">
+        android:background="@drawable/glass"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:text="Welcome to Barcode-A!"
                 android:textSize="20sp"
                 android:fontFamily="@font/quicksand_bold"
-                android:textColor="@color/green" />
+                android:textColor="@color/textPrimary" />
 
             <ImageView
                 android:id="@+id/headerLogo"
@@ -46,79 +46,104 @@
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:fontFamily="@font/quicksand_regular"
-                android:textColor="@color/green" />
+                android:textColor="@color/textPrimary" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_margin="24dp" >
 
-            <EditText
-                android:id="@+id/etSignInEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="13"
-                android:hint="E-mail"
-                android:textSize="16sp"
-                android:textColorHint="@color/green"
-                android:textColor="@color/green"
-                android:backgroundTint="@color/green"
-                android:fontFamily="@font/quicksand_light"
-                android:inputType="textEmailAddress" />
-
-            <EditText
-                android:id="@+id/etSignInPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="13"
-                android:hint="Password"
-                android:textSize="16sp"
-                android:textColorHint="@color/green"
-                android:textColor="@color/green"
-                android:backgroundTint="@color/green"
-                android:fontFamily="@font/quicksand_light"
-                android:inputType="textPassword"
-                android:drawableEnd="@drawable/ic_visibility_off" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSignIn"
+            <LinearLayout
+                android:id="@+id/input_Login"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="32dp"
-                android:layout_marginHorizontal="16dp"
-                android:text="Login"
-                android:textColor="@color/colorLightMode"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-black"
-                android:background="@drawable/gradient_button" />
-
-            <TextView
-                android:id="@+id/tvSignInRegister"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="No Account Yet?"
-                android:textSize="11sp"
-                android:textColor="@color/green" />
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0">
 
-            <Button
-                android:id="@+id/btnOpenSignUp"
+                <EditText
+                    android:id="@+id/etSignInEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ems="13"
+                    android:hint="E-mail"
+                    android:textSize="16sp"
+                    android:textColorHint="@color/textPrimary"
+                    android:textColor="@color/textPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/quicksand_light"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/etSignInPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ems="13"
+                    android:hint="Password"
+                    android:textSize="16sp"
+                    android:textColorHint="@color/textPrimary"
+                    android:textColor="@color/textPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/quicksand_light"
+                    android:inputType="textPassword"
+                    android:drawableEnd="@drawable/ic_visibility_off" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttons_Login"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:text="SIGN UP"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-black"
-                android:backgroundTint="@color/white" />
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_max="300dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/input_Login"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1">
 
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="Login"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-black"
+                    android:background="@drawable/gradient_button" />
+
+                <TextView
+                    android:id="@+id/tvSignInRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="No Account Yet?"
+                    android:textSize="11sp"
+                    android:textColor="@color/textPrimary" />
+
+                <Button
+                    android:id="@+id/btnOpenSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="SIGN UP"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-black"
+                    android:backgroundTint="@color/white" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

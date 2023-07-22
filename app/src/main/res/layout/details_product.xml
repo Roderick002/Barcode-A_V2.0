@@ -44,7 +44,7 @@
             android:gravity="center"
             android:hint="Product Name"
             android:padding="15dp"
-            android:textColor="@color/green"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:text="Ingredients:"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/subtext"
             android:textSize="15sp" />
 
         <EditText
@@ -70,7 +70,7 @@
             android:hint="Ingredients"
             android:inputType="textPersonName"
             android:padding="15dp"
-            android:textColor="@color/green"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -80,7 +80,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:text="Allergens:"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/subtext"
             android:textSize="15sp" />
 
         <EditText
@@ -96,7 +96,7 @@
             android:hint="Allergens"
             android:inputType="textPersonName"
             android:padding="15dp"
-            android:textColor="@color/green"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:text="Barcode:"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/subtext"
             android:textSize="15sp" />
 
         <EditText
@@ -122,7 +122,7 @@
             android:hint="Barcode"
             android:inputType="textPersonName"
             android:padding="15dp"
-            android:textColor="@color/green"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -160,7 +160,7 @@
                 android:layout_marginRight="15dp"
                 android:enabled="false"
                 android:text="Save"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

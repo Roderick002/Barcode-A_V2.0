@@ -13,5 +13,10 @@
         android:title="Log Out"
         android:icon="@drawable/ic_logout"/>
 
+    <item
+        android:id="@+id/toggleDarkMode"
+        android:title="Dark Mode"
+        android:icon="@drawable/ic_darkmode" />
+
 
 </menu>

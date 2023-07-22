@@ -3,6 +3,7 @@ package com.example.barcode_a
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -72,14 +74,6 @@ class Home : Fragment() {
             }
         }
 
-        val layoutHealth = view.findViewById<LinearLayout>(R.id.layoutHealth)
-        layoutHealth.setOnClickListener {
-            val fragment = HealthPreference()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
         val layoutNotification = view.findViewById<LinearLayout>(R.id.layoutNotification)
         layoutNotification.setOnClickListener {
             val fragment = AlarmsNotification()
@@ -97,7 +91,7 @@ class Home : Fragment() {
                 .commit()
         }
 
-        val btnMHD = view.findViewById<Button>(R.id.btnMHD)
+        val btnMHD = view.findViewById<LinearLayout>(R.id.btnMHD)
         btnMHD.setOnClickListener {
             val fragment = MedicalHealthDiagnosis()
             parentFragmentManager.beginTransaction()
@@ -105,7 +99,7 @@ class Home : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        val btnDR = view.findViewById<Button>(R.id.btnDRP)
+        val btnDR = view.findViewById<LinearLayout>(R.id.btnDRP)
         btnDR.setOnClickListener {
             val fragment = DietaryRestriction()
             parentFragmentManager.beginTransaction()
@@ -113,7 +107,7 @@ class Home : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        val btnAllergies = view.findViewById<Button>(R.id.btnAllergies)
+        val btnAllergies = view.findViewById<LinearLayout>(R.id.btnAllergies)
         btnAllergies.setOnClickListener {
             val fragment = Allergies()
             parentFragmentManager.beginTransaction()
@@ -129,6 +123,7 @@ class Home : Fragment() {
         toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){

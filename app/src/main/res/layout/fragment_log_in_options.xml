@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundgreen"
     tools:context=".LogInOptions">
 
     <!-- TODO: Update blank fragment layout -->
@@ -30,7 +29,7 @@
         android:id="@+id/btn_personal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorBackground"
+        android:backgroundTint="@color/white"
         android:text="Personal"
         android:textColor="@color/black"
         android:textSize="20sp"

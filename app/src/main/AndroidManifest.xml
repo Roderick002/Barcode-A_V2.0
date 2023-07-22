@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_barcodea_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BarcodeA"
+        android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
         tools:targetApi="31">
         <activity
             android:name=".ContainerActivity"

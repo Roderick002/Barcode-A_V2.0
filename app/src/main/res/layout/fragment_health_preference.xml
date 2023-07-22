@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightMode"
     tools:context=".HealthPreference">
 
     <!-- TODO: Update blank fragment layout -->
@@ -24,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:text="HEALTH CHECKLIST"
-                android:textColor="@color/green"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30dp"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +44,7 @@
                     android:layout_height="50dp"
                     android:backgroundTint="@color/white"
                     android:text="Medical Health Diagnosis"
-                    android:textColor="@color/green"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
@@ -59,7 +58,7 @@
                     android:layout_height="50dp"
                     android:backgroundTint="@color/white"
                     android:text="Dietary Restriction/Preference"
-                    android:textColor="@color/green"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
@@ -73,7 +72,7 @@
                     android:layout_height="50dp"
                     android:backgroundTint="@color/white"
                     android:text="Allergies"
-                    android:textColor="@color/green"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"

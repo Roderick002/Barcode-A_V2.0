@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLightMode">
+    android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -49,7 +48,7 @@
                 android:src="@drawable/ic_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/green" />
+                app:tint="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:text="Welcome,"
                         android:fontFamily="@font/quicksand_light"
-                        android:textColor="@color/green"
+                        android:textColor="@color/textPrimary"
                         android:textSize="24sp" />
 
                     <TextView
@@ -88,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_bold"
-                        android:textColor="@color/green"
+                        android:textColor="@color/textPrimary"
                         android:textSize="24sp"
                         android:text="User"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -137,7 +136,7 @@
                             android:layout_height="32dp"
                             android:layout_margin="32dp"
                             android:src="@drawable/notification"
-                            app:tint="@color/green" />
+                            app:tint="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -150,7 +149,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/quicksand_semibold"
                                 android:text="@string/alarms_and_notification"
-                                android:textColor="@color/green"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -174,23 +173,17 @@
                         android:layout_marginStart="32dp"
                         android:fontFamily="@font/quicksand_bold"
                         android:text="Setup"
-                        android:textColor="@color/green"
+                        android:textColor="@color/textPrimary"
                         android:textSize="24sp"/>
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/layoutHealth">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:fontFamily="@font/quicksand_regular"
-                            android:text="@string/health_preference"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="20sp" />
-                    </LinearLayout>
+                        android:layout_marginStart="32dp"
+                        android:fontFamily="@font/quicksand_regular"
+                        android:text="@string/health_preference"
+                        android:textColor="@color/subtext"
+                        android:textSize="20sp" />
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -209,12 +202,13 @@
                             <!--TODO: Update Icons-->
 
                             <LinearLayout
+                                android:id="@+id/btnMHD"
                                 android:layout_width="192dp"
                                 android:layout_height="96dp"
                                 android:layout_marginStart="32dp"
                                 android:layout_marginEnd="12dp"
                                 android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/green"
+                                android:backgroundTint="@color/colorPrimary"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
                                 android:padding="8dp"
@@ -228,8 +222,7 @@
                                     android:src="@drawable/health"
                                     app:tint="@color/white" />
 
-                                <Button
-                                    android:id="@+id/btnMHD"
+                                <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -244,11 +237,12 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/btnDRP"
                                 android:layout_width="192dp"
                                 android:layout_height="96dp"
                                 android:layout_marginHorizontal="12dp"
                                 android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/green"
+                                android:backgroundTint="@color/colorPrimary"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
                                 android:padding="8dp"
@@ -262,8 +256,7 @@
                                     android:src="@drawable/health"
                                     app:tint="@color/white" />
 
-                                <Button
-                                    android:id="@+id/btnDRP"
+                                <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -278,11 +271,12 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/btnAllergies"
                                 android:layout_width="192dp"
                                 android:layout_height="96dp"
                                 android:layout_marginHorizontal="12dp"
                                 android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/green"
+                                android:backgroundTint="@color/colorPrimary"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
                                 android:padding="8dp"
@@ -296,8 +290,7 @@
                                     android:src="@drawable/health"
                                     app:tint="@color/white" />
 
-                                <Button
-                                    android:id="@+id/btnAllergies"
+                                <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -320,9 +313,9 @@
                         android:id="@+id/layoutEdit"
                         android:layout_width="match_parent"
                         android:layout_height="96dp"
-                        android:layout_margin="32dp"
+                        android:layout_marginHorizontal="32dp"
                         android:background="@drawable/rectangular_background"
-                        android:backgroundTint="@color/green"
+                        android:backgroundTint="@color/colorPrimary"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 

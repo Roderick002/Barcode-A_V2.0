@@ -1,18 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BarcodeA" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Light.Theme.BarcodeA" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.BarcodeA" parent="Base.Theme.BarcodeA" />
-    <style name="Theme.BarcodeA.NoActionStatusBar">
+    <style name="Theme.BarcodeA.NoActionStatusBar" parent="Light.Theme.BarcodeA" >
         <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:fitsSystemWindows">true</item>
         <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@color/colorBackgroundLight</item>
     </style>
 
     <style name="DialogAnimation">
