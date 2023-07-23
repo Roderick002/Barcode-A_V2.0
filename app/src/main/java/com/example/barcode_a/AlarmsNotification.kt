@@ -1,5 +1,6 @@
 package com.example.barcode_a
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -85,6 +86,7 @@ class AlarmsNotification : Fragment() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun readData(){
         firebaseAuth = FirebaseAuth.getInstance()
         val email = firebaseAuth.currentUser?.email.toString()
