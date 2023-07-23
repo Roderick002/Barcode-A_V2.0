@@ -41,9 +41,6 @@ class EditProfile : Fragment() {
         val update = view.findViewById<Button>(R.id.btn_update)
         val firstName = view.findViewById<EditText>(R.id.et_firstName)
         val surname = view.findViewById<EditText>(R.id.et_surname)
-        val email = view.findViewById<EditText>(R.id.et_email)
-        val password = view.findViewById<EditText>(R.id.et_password)
-        val confirmPassword = view.findViewById<EditText>(R.id.et_confirmPassword)
 
         firebaseAuth = FirebaseAuth.getInstance()
         val emaiL = firebaseAuth.currentUser?.email.toString()
@@ -54,9 +51,6 @@ class EditProfile : Fragment() {
         edit.setOnClickListener {
             firstName.isEnabled = true
             surname.isEnabled = true
-            email.isEnabled = true
-            password.isEnabled = true
-            confirmPassword.isEnabled = true
             update.isEnabled = true
             update.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
             Toast.makeText(requireContext(), "The fields are now enabled",
@@ -82,19 +76,7 @@ class EditProfile : Fragment() {
             // Disable the edit mode and update the UI accordingly
             firstName.isEnabled = false
             surname.isEnabled = false
-            email.isEnabled = false
-            password.isEnabled = false
-            confirmPassword.isEnabled = false
             update.isEnabled = false
-        }
-
-        val passwordEditText = view.findViewById<EditText>(R.id.et_password)
-        passwordEditText.setOnClickListener {
-            onPasswordVisibilityClicked(passwordEditText)
-        }
-        val confirmEditText = view.findViewById<EditText>(R.id.et_confirmPassword)
-        confirmEditText.setOnClickListener {
-            onPasswordVisibilityClicked(confirmEditText)
         }
 
 
@@ -110,18 +92,6 @@ class EditProfile : Fragment() {
         }
     }
 
-    private fun onPasswordVisibilityClicked(passwordEditText: EditText){
-        val visibilityToggleDrawable = if (passwordEditText.transformationMethod == null) {
-            // Password is currently visible, so hide it
-            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
-            R.drawable.ic_visibility_off // Set drawable for hiding the password
-        } else {
-            // Password is currently hidden, so show it
-            passwordEditText.transformationMethod = null
-            R.drawable.ic_visibility_on // Set drawable for showing the password
-        }
-        passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
-    }
 
     private fun readData(userName: String){
         database = FirebaseDatabase.getInstance().getReference("Users")
