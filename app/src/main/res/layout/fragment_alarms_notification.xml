@@ -5,19 +5,203 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="32dp"
     tools:context=".AlarmsNotification">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/txtAlarmsNotif"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Alarms and Notification"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="@color/textPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/checklist_AlarmsNotif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:text="Alarms and Notification"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/quicksand_semibold"
+            android:background="@drawable/rectangular_background"
+            android:backgroundTint="@color/colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/drwback"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/ic_close"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/checklist_AlarmsNotif"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:padding="32dp"
+        android:background="@drawable/glass"
+        app:layout_constraintTop_toBottomOf="@id/txtAlarmsNotif"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_medical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="For your set medical diagnosis"
+            android:textColor="@color/textPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioGroup
+            android:id="@+id/rg_medical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_medical"
+            app:layout_constraintVertical_bias="0.02">
+
+            <RadioButton
+                android:id="@+id/rb_rgm_alarmnotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Alarm and Notification"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rgm_notif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Notification Only"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rgm_disable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Disable alarms and notifications"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_dietary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="For your dietary restrictions"
+            android:textColor="@color/textPrimary"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rg_medical"
+            app:layout_constraintVertical_bias="0.02"
+            tools:layout_editor_absoluteX="48dp" />
+
+        <RadioGroup
+            android:id="@+id/rg_diertary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dietary"
+            app:layout_constraintVertical_bias="0.022">
+
+            <RadioButton
+                android:id="@+id/rb_rgd_alarmsnotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Alarm and Notification"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rgd_notif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Notification Only"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rgd_disable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Disable alarms and notifications"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_allergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="For your allergies"
+            android:textColor="@color/textPrimary"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rg_diertary"
+            app:layout_constraintVertical_bias="0.028" />
+
+        <RadioGroup
+            android:id="@+id/rg_allergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_allergies"
+            app:layout_constraintVertical_bias="0.051">
+
+            <RadioButton
+                android:id="@+id/rb_rga_alarmsnotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Alarm and Notification"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rga_notif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Notification Only"
+                android:textColor="@color/textPrimary"
+                android:textSize="15sp" />
+        </RadioGroup>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

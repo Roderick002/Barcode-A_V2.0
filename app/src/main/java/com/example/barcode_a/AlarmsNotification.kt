@@ -5,55 +5,84 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.databinding.DataBindingUtil
+import com.example.barcode_a.databinding.FragmentAlarmsNotificationBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AlarmsNotification.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AlarmsNotification : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var binding: FragmentAlarmsNotificationBinding
+    private lateinit var medicalSelection: String
+    private lateinit var dietarySelection: String
+    private lateinit var allergiesSelection: String
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_alarms_notification, container, false)
+        binding = FragmentAlarmsNotificationBinding.inflate(
+            inflater,
+            container,
+            false
+        )
+
+        binding.rgMedical.setOnCheckedChangeListener { _, checkedId ->
+            medicalSelection = when (checkedId){
+                R.id.rb_rgm_alarmnotif -> "Alarms and Notification"
+                R.id.rb_rgm_notif -> "Notifications Only"
+                R.id.rb_rgm_disable -> "Disable alarms and Notifications"
+                else -> ""
+            }
+            showToast("Medical: $medicalSelection")
+        }
+
+        binding.rgDiertary.setOnCheckedChangeListener { _, checkedId ->
+            dietarySelection = when (checkedId){
+                R.id.rb_rgd_alarmsnotif -> "Alarms and Notification"
+                R.id.rb_rgd_notif -> "Notifications Only"
+                R.id.rb_rgd_disable -> "Disable alarms and Notifications"
+                else -> ""
+            }
+            showToast("Dietary: $dietarySelection")
+        }
+
+        binding.rgAllergies.setOnCheckedChangeListener { _, checkedId ->
+            allergiesSelection = when(checkedId){
+                R.id.rb_rga_alarmsnotif -> "Alarms and Notification"
+                R.id.rb_rga_notif -> "Notifications Only"
+                else -> ""
+            }
+            showToast("Allergies: $allergiesSelection")
+        }
+        return binding.root
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val backbutton = view.findViewById<ImageView>(R.id.drwback)
+        backbutton.setOnClickListener {
+            val fragment = Home()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        //Back Button Function
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            val fragment = Home()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alarms_notification, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AlarmsNotification.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AlarmsNotification().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
