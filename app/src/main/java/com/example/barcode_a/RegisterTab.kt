@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.Toast
 import com.example.barcode_a.databinding.ActivityRegisterTabBinding
+import com.example.barcode_a.model.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -72,6 +72,18 @@ class RegisterTab : AppCompatActivity() {
                                         "Account Created Successfully!",
                                         Toast.LENGTH_SHORT
                                     ).show()
+
+                                    if(userType == "Personal"){
+                                        val notification = Notification("None", "None", "None")
+
+                                        database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
+                                        database.child(userName).setValue(notification).addOnSuccessListener {
+                                            //success
+                                        }.addOnFailureListener(){
+                                            Toast.makeText(this , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+
                                 }.addOnFailureListener() {
                                     Toast.makeText(
                                         this,

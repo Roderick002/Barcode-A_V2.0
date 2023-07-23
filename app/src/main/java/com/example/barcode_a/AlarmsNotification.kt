@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import com.example.barcode_a.databinding.FragmentAlarmsNotificationBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class AlarmsNotification : Fragment() {
 
@@ -17,6 +20,9 @@ class AlarmsNotification : Fragment() {
     private lateinit var medicalSelection: String
     private lateinit var dietarySelection: String
     private lateinit var allergiesSelection: String
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,25 +33,27 @@ class AlarmsNotification : Fragment() {
             container,
             false
         )
+        readData()
 
         binding.rgMedical.setOnCheckedChangeListener { _, checkedId ->
             medicalSelection = when (checkedId){
                 R.id.rb_rgm_alarmnotif -> "Alarms and Notification"
                 R.id.rb_rgm_notif -> "Notifications Only"
-                R.id.rb_rgm_disable -> "Disable alarms and Notifications"
+                R.id.rb_rgm_disable -> "Disable Alarms and Notifications"
                 else -> ""
             }
-            showToast("Medical: $medicalSelection")
+            addInfo("medical", medicalSelection)
+
         }
 
         binding.rgDiertary.setOnCheckedChangeListener { _, checkedId ->
             dietarySelection = when (checkedId){
                 R.id.rb_rgd_alarmsnotif -> "Alarms and Notification"
                 R.id.rb_rgd_notif -> "Notifications Only"
-                R.id.rb_rgd_disable -> "Disable alarms and Notifications"
+                R.id.rb_rgd_disable -> "Disable Alarms and Notifications"
                 else -> ""
             }
-            showToast("Dietary: $dietarySelection")
+            addInfo("dietary", dietarySelection)
         }
 
         binding.rgAllergies.setOnCheckedChangeListener { _, checkedId ->
@@ -54,13 +62,68 @@ class AlarmsNotification : Fragment() {
                 R.id.rb_rga_notif -> "Notifications Only"
                 else -> ""
             }
-            showToast("Allergies: $allergiesSelection")
+            addInfo("allergies", allergiesSelection)
         }
         return binding.root
+
     }
 
     private fun showToast(message: String){
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addInfo(type: String, value: String){
+        firebaseAuth = FirebaseAuth.getInstance()
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+
+        database = FirebaseDatabase.getInstance().getReference("AlarmsNotification/$userName")
+        database.child(type).setValue(value).addOnSuccessListener {
+            //success
+        }.addOnFailureListener(){
+            Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun readData(){
+        firebaseAuth = FirebaseAuth.getInstance()
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
+        database.child(userName).get().addOnSuccessListener {
+            if(it.exists()){
+
+                val medical = it.child("medical").value.toString()
+                    if (medical == "Alarms and Notification"){
+                        binding.rbRgmAlarmnotif.isChecked = true
+                    }else if (medical == "Notifications Only"){
+                        binding.rbRgmNotif.isChecked = true
+                    }else if (medical == "Disable Alarms and Notifications" ){
+                        binding.rbRgmDisable.isChecked = true
+                    }
+
+                val dietary = it.child("dietary").value.toString()
+                    if (dietary == "Alarms and Notification"){
+                        binding.rbRgdAlarmsnotif.isChecked = true
+                    }else if (dietary == "Notifications Only"){
+                        binding.rbRgdNotif.isChecked = true
+                    }else if (dietary == "Disable Alarms and Notifications" ){
+                        binding.rbRgdDisable.isChecked = true
+                    }
+
+                val allergies = it.child("allergies").value.toString()
+                    if (allergies == "Alarms and Notification"){
+                        binding.rbRgaAlarmsnotif.isChecked = true
+                    }else if (allergies == "Notifications Only") {
+                        binding.rbRgaNotif.isChecked = true
+                    }
+
+            }else{
+                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +146,7 @@ class AlarmsNotification : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
     }
 
 }
