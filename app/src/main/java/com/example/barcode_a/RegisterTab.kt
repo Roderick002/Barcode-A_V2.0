@@ -48,13 +48,12 @@ class RegisterTab : AppCompatActivity() {
 
         binding.btnSignUp.setOnClickListener() {
 
-            val firstName = binding.etSignUpFirstname.text.toString()
-            val lastName = binding.etSignUpLastname.text.toString()
-            val email = binding.etSignUpEmail.text.toString()
+            val firstName = binding.etSignUpFirstname.text.toString().trim()
+            val lastName = binding.etSignUpLastname.text.toString().trim()
+            val email = binding.etSignUpEmail.text.toString().trim()
             val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
             val password = binding.etSignUpPassword.text.toString()
             val confirmpass = binding.etSignUpConfirmPassword.text.toString()
-
 
 
             if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty() && userType.isNotBlank()) {
@@ -63,38 +62,8 @@ class RegisterTab : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                database = FirebaseDatabase.getInstance().getReference("Users")
-                                val User = User(firstName, lastName, email, userType)
+                                sendVerificationEmail()
 
-                                database.child(userName).setValue(User).addOnSuccessListener {
-                                    Toast.makeText(
-                                        this,
-                                        "Account Created Successfully!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-
-                                    if(userType == "Personal"){
-                                        val notification = Notification("None", "None", "None")
-
-                                        database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
-                                        database.child(userName).setValue(notification).addOnSuccessListener {
-                                            //success
-                                        }.addOnFailureListener(){
-                                            Toast.makeText(this , "Database ERROR!" , Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
-
-                                }.addOnFailureListener() {
-                                    Toast.makeText(
-                                        this,
-                                        "Account Creation Failed!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                firebaseAuth.signOut()
-                                val intent = Intent(this, LoginTab::class.java)
-                                startActivity(intent)
                             } else {
                                 Toast.makeText(
                                     this,
@@ -119,6 +88,58 @@ class RegisterTab : AppCompatActivity() {
             onPasswordVisibilityClicked(confirmEditText)
         }
     }
+    private fun sendVerificationEmail() {
+        val user = firebaseAuth.currentUser
+
+        user?.let {
+            it.sendEmailVerification()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val firstName = binding.etSignUpFirstname.text.toString().trim()
+                        val lastName = binding.etSignUpLastname.text.toString().trim()
+                        val email = binding.etSignUpEmail.text.toString().trim()
+                        val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
+
+                        database = FirebaseDatabase.getInstance().getReference("Users")
+                        val User = User(firstName, lastName, email, userType)
+
+                        database.child(userName).setValue(User).addOnSuccessListener {
+                            Toast.makeText(
+                                this,
+                                "Account Created Successfully!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            if(userType == "Personal"){
+                                val notification = Notification("None", "None", "None")
+
+                                database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
+                                database.child(userName).setValue(notification).addOnSuccessListener {
+                                    //success
+                                }.addOnFailureListener(){
+                                    Toast.makeText(this , "Database ERROR!" , Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                        }.addOnFailureListener() {
+                            Toast.makeText(
+                                this,
+                                "Account Creation Failed!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        firebaseAuth.signOut()
+                        val intent = Intent(this, LoginTab::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Failed to send verification email: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+    }
+
+
     private fun onPasswordVisibilityClicked(passwordEditText: EditText) {
         val visibilityToggleDrawable = if (passwordEditText.transformationMethod == null) {
             // Password is currently visible, so hide it

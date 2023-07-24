@@ -1,9 +1,11 @@
 package com.example.barcode_a
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -30,6 +32,10 @@ class LoginTab : AppCompatActivity() {
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
 
+    private lateinit var loginTimer: CountDownTimer
+    private var loginAttempts = 0
+    private var isLoginBlocked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginTabBinding.inflate(layoutInflater)
@@ -42,6 +48,8 @@ class LoginTab : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
+        // Start the timer before calling the signInWithEmailAndPassword method
+        startLoginTimer()
 
         firebaseAuth = FirebaseAuth.getInstance()
          binding.btnOpenSignUp.setOnClickListener{
@@ -54,30 +62,38 @@ class LoginTab : AppCompatActivity() {
             val email = binding.etSignInEmail.text.toString()
             val password = binding.etSignInPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()){
+            if (!isLoginBlocked) {
+                if (loginAttempts < 5) {
 
-                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                        if (it.isSuccessful){
+                    // Call the signInWithEmailAndPassword method
+                    if (email.isNotEmpty() && password.isNotEmpty()){
 
-                            val userName = email.replace(Regex("[@.]"), "")
-                            readData(userName)
+                        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
+                            if (it.isSuccessful){
 
-                        }else{
-                            if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted."){
-                                Toast.makeText(this , "Invalid E-mail!" , Toast.LENGTH_SHORT).show()
-                            }else if (it.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The password is invalid or the user does not have a password."){
-                                Toast.makeText(this , "Invalid Password!" , Toast.LENGTH_SHORT).show()
+                                val userName = email.replace(Regex("[@.]"), "")
+                                readData(userName)
+                                loginAttempts = 0
+
                             }else{
-                                Toast.makeText(this , it.exception.toString() , Toast.LENGTH_SHORT).show()
+                                loginAttempts++
+                                Toast.makeText(this , it.exception.toString().replace("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: ", ""). trim() , Toast.LENGTH_SHORT).show()
                             }
-
                         }
-                    }
 
-                }else{
-                    Toast.makeText(this , "Empty Fields Are Not Allowed!" , Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this , "Empty Fields Are Not Allowed!" , Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    blockLoginAttempts()
+                    // Block login attempts and set a waiting period of 30 seconds before allowing login again
+                    Toast.makeText(this, "You have exceeded the maximum number of login attempts. Please wait...", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Toast.makeText(this, "You have exceeded the maximum number of login attempts. Please wait...", Toast.LENGTH_SHORT).show()
             }
+
+        }
 
         val passwordEditText = binding.etSignInPassword
         passwordEditText.setOnClickListener {
@@ -96,6 +112,45 @@ class LoginTab : AppCompatActivity() {
             R.drawable.ic_visibility_on // Set drawable for showing the password
         }
         passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
+    }
+
+    private fun startLoginTimer() {
+        loginTimer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                // Do something on each tick if needed (e.g., show a progress indicator)
+            }
+
+            override fun onFinish() {
+                // Cancel the authentication process if the timer finishes before authentication is complete
+                firebaseAuth = FirebaseAuth.getInstance()
+                firebaseAuth.signOut()
+                cancelLoginTimer()
+
+                Toast.makeText(this@LoginTab, "Login timed out.", Toast.LENGTH_SHORT).show()
+                finishAffinity()
+            }
+        }
+        loginTimer.start()
+    }
+    private fun cancelLoginTimer() {
+        if (::loginTimer.isInitialized) {
+            loginTimer.cancel()
+        }
+    }
+
+    private fun blockLoginAttempts() {
+        isLoginBlocked = true
+        loginAttempts = 0 // Reset the login attempts counter when blocking login attempts
+        val blockTimer = object : CountDownTimer(15000, 1000) { // 30 seconds waiting period
+            override fun onTick(millisUntilFinished: Long) {
+                // Do something on each tick if needed (e.g., show a countdown)
+            }
+
+            override fun onFinish() {
+                isLoginBlocked = false // Unblock login attempts after the waiting period
+            }
+        }
+        blockTimer.start()
     }
 
     private fun readData(userName: String){
