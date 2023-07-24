@@ -104,7 +104,7 @@ class ProductInformation : Fragment() {
         dialog.show()
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val barcode = productBarcode.text.toString()
+            val barcode = productBarcode.text.toString().trim()
             val names = productName.text.toString().trim()
             val ingredients = productIngre.text.toString().trim()
             val allergens = productAller.text.toString().trim()
@@ -138,7 +138,7 @@ class ProductInformation : Fragment() {
                                 database = FirebaseDatabase.getInstance().getReference(manufacturer)
                                 database.child(names).get().addOnSuccessListener {
                                     if(it.exists()){
-                                        Toast.makeText(activity , "Product with same name exists" , Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(activity , "Product name exists, you can append the variant or name extension" , Toast.LENGTH_SHORT).show()
                                     }else{
                                         database = FirebaseDatabase.getInstance().getReference(manufacturer)
                                         database.child(names).setValue(manuProducts).addOnSuccessListener {
@@ -170,6 +170,7 @@ class ProductInformation : Fragment() {
             }
         }
     }
+
 
     private fun isValidFormat(ingredients: String):Boolean{
         val regex = Regex("^[a-zA-Z]+(,\\s[a-zA-Z]+)*$")

@@ -156,7 +156,7 @@ class ScanManu : Fragment() {
                                 database = FirebaseDatabase.getInstance().getReference(manufacturer)
                                 database.child(names).get().addOnSuccessListener {
                                     if(it.exists()){
-                                        Toast.makeText(activity , "Product with same name exists" , Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(activity , "Product name exists, you can append the variant or name extension" , Toast.LENGTH_SHORT).show()
                                     }else{
                                         database = FirebaseDatabase.getInstance().getReference(manufacturer)
                                         database.child(names).setValue(manuProducts).addOnSuccessListener {

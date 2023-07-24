@@ -164,6 +164,7 @@ class LoginTab : AppCompatActivity() {
                     startActivity(intent)
                     Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
                 } else if (userType == "Manufacturer"){
+                    cancelLoginTimer()
                     val intent = Intent(this, MainActivityManufacturer::class.java)
                     startActivity(intent)
                     Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
