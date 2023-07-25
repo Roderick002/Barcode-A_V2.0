@@ -132,14 +132,14 @@
             android:id="@+id/editTextOtherA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="12"
+            android:fontFamily="@font/quicksand_bold"
             android:hint="Please specify..."
             android:inputType="text"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
             android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxOtherA" />
 

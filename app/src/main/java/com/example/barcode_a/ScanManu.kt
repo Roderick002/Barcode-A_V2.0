@@ -54,7 +54,6 @@ class ScanManu : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnScan = view.findViewById<Button>(R.id.btnScannerScan)
 
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()

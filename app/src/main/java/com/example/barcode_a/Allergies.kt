@@ -120,6 +120,8 @@ class Allergies : Fragment() {
 
         val checkboxOtherA = view?.findViewById<CheckBox>(R.id.checkBoxOtherA)
         val editTextOtherA = view?.findViewById<TextView>(R.id.editTextOtherA)
+
+
         if (checkboxOtherA?.isChecked == true && !editTextOtherA?.text.isNullOrBlank()) {
             selectedOptions.add(editTextOtherA?.text.toString())
             allergy6 = editTextOtherA?.text.toString()

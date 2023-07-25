@@ -70,7 +70,7 @@ class LoginTab : AppCompatActivity() {
 
                         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                             if (it.isSuccessful){
-
+                                cancelLoginTimer()
                                 val userName = email.replace(Regex("[@.]"), "")
                                 readData(userName)
                                 loginAttempts = 0
