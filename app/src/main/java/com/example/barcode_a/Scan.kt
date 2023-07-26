@@ -1,17 +1,22 @@
 package com.example.barcode_a
 
 import android.app.AlarmManager
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.os.Vibrator
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -36,6 +41,11 @@ class Scan : Fragment() {
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var vibrator: Vibrator
+
+    private lateinit var tvProductName: TextView
+    private lateinit var tvIngredients: TextView
+    private lateinit var tvAllergens: TextView
+    private lateinit var tvNoteLabel: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -202,17 +212,44 @@ class Scan : Fragment() {
 
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scan, container, false)
+        val view = inflater.inflate(R.layout.fragment_scan, container, false)
 
-
+        val btnOpenPopup:Button = view.findViewById(R.id.btn_openPopup)
+        btnOpenPopup.setOnClickListener {
+            showPopup()
+        }
+        return view
     }
 
+    private fun showPopup(){
+        val inflater = requireActivity().layoutInflater
+        val popupView = inflater.inflate(R.layout.popup_scan, null)
 
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+        val alertDialog = alertDialogBuilder.create()
+        val drw_backScan = popupView.findViewById<ImageView>(R.id.drw_backScan)
+        drw_backScan.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
+
+
+        tvProductName = popupView.findViewById(R.id.tvProductName)
+        tvIngredients = popupView.findViewById(R.id.tvIngredients)
+        tvAllergens = popupView.findViewById(R.id.tvAllergens)
+        tvNoteLabel = popupView.findViewById(R.id.tvNoteLabel)
+
+        tvIngredients.text = getString(R.string.ingredients_sample)
+        tvAllergens.text = getString(R.string.allergens_sample)
+        tvNoteLabel.text = "Note: " + getString(R.string.note_sample)
+
+
+        // Set a dismiss listener to handle clean-up when the AlertDialog is dismissed
+        alertDialog.setOnDismissListener { }
+    }
 
     //Scanner Function
 

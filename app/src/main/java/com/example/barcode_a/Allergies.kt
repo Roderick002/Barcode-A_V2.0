@@ -85,6 +85,17 @@ class Allergies : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         readData(userName)
+
+        val editTextOtherA = view.findViewById<EditText>(R.id.editTextOtherA)
+        val checkBoxOtherA = view.findViewById<CheckBox>(R.id.checkBoxOtherA)
+        editTextOtherA.isEnabled = checkBoxOtherA.isChecked
+
+        checkBoxOtherA.setOnCheckedChangeListener { _, isChecked ->
+            editTextOtherA.isEnabled = isChecked
+            if (isChecked) {
+                editTextOtherA.requestFocus()
+            }
+        }
     }
 
     private fun saveData(){

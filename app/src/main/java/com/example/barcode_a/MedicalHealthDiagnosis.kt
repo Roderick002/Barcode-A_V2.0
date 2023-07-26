@@ -205,6 +205,17 @@ class MedicalHealthDiagnosis : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         readData(userName)
+
+        val editTextOther = view.findViewById<EditText>(R.id.editTextOther)
+        val checkBoxOther = view.findViewById<CheckBox>(R.id.checkBoxOther)
+        editTextOther.isEnabled = checkBoxOther.isChecked
+
+        checkBoxOther.setOnCheckedChangeListener { _, isChecked ->
+            editTextOther.isEnabled = isChecked
+            if (isChecked) {
+                editTextOther.requestFocus()
+            }
+        }
     }
 
 

@@ -143,6 +143,7 @@
             android:textColorHint="@color/colorPrimary"
             android:backgroundTint="@color/colorPrimary"
             android:textSize="16dp"
+            android:enabled="false"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxOther" />
