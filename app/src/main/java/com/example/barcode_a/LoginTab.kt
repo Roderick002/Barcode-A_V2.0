@@ -1,5 +1,6 @@
 package com.example.barcode_a
 
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,8 +10,10 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -59,6 +62,8 @@ class LoginTab : AppCompatActivity() {
 
         binding.btnSignIn.setOnClickListener{
 
+            startLoading(100)
+
             val email = binding.etSignInEmail.text.toString()
             val password = binding.etSignInPassword.text.toString()
 
@@ -74,6 +79,8 @@ class LoginTab : AppCompatActivity() {
                                 val userName = email.replace(Regex("[@.]"), "")
                                 readData(userName)
                                 loginAttempts = 0
+
+                                startLoading(2000)
 
                             }else{
                                 loginAttempts++
@@ -224,5 +231,26 @@ class LoginTab : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun startLoading(duration : Long){
+        //Progress Bar
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val targetWidth = progressBar.width
+        val currentWidth = 0
+
+        progressBar.visibility = View.INVISIBLE
+        progressBar.visibility = View.VISIBLE
+
+        val valueAnimator = ValueAnimator.ofInt(currentWidth, targetWidth)
+        valueAnimator.addUpdateListener { animation ->
+            val layoutParams = progressBar.layoutParams
+            layoutParams.width = animation.animatedValue as Int
+            progressBar.layoutParams = layoutParams
+        }
+        valueAnimator.duration = duration
+        valueAnimator.start()
+
+        //End of Progress Bar
     }
 }
