@@ -170,6 +170,13 @@ class ScanManu : Fragment() {
                                 }.addOnFailureListener{
                                     Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
                                 }
+
+                                    val fragment = ProductInformation()
+                                    parentFragmentManager.beginTransaction()
+                                        .replace(R.id.frame_layout2, fragment)
+                                        .addToBackStack(null)
+                                        .commit()
+
                             }
                         }.addOnFailureListener{
                             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()

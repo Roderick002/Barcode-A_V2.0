@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.os.Vibrator
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -79,7 +80,6 @@ class Scan : Fragment() {
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
 
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
                 getProductData(it.text, userName)
                 btnScan.isVisible = true
 
@@ -119,8 +119,10 @@ class Scan : Fragment() {
 
     private fun getProductData(product: String, userName: String){
 
-        database = FirebaseDatabase.getInstance().getReference("Product Information")
+        database = FirebaseDatabase.getInstance().getReference("ProductInformation")
         database.child(product).get().addOnSuccessListener {
+
+            var Note = ""
 
             if(it.exists()){
 
@@ -128,42 +130,299 @@ class Scan : Fragment() {
                 val allergens = it.child("allergens").value.toString()
                 val ingredients = it.child("ingredients").value.toString()
 
-                checkAllergens(allergens, userName)
+
+                //Check Allergen
+
+                database = FirebaseDatabase.getInstance().getReference("Allergens")
+                database.child(userName).get().addOnSuccessListener {
+                    if(it.exists()){
+                        val allergen = allergens.replace(Regex("[,]"), " ")
+                        val nuts = it.child("allergy1").value.toString()
+                        val gluten = it.child("allergy2").value.toString()
+                        val eggs = it.child("allergy3").value.toString()
+                        val crustaceans = it.child("allergy4").value.toString()
+                        val dairyproducts = it.child("allergy5").value.toString()
+                        val others = it.child("allergy6").value.toString()
+
+                        var allergenNote = " ALLERGEN: "
+
+                        if (nuts != "null" && allergen.contains(nuts) ){
+                            allergenNote = allergenNote.plus("Nuts, ")
+                        }
+                        if (gluten != "null" && allergen.contains(gluten) ){
+                            allergenNote = allergenNote.plus("Gluten, ")
+                        }
+                        if (eggs != "null" && allergen.contains(eggs) ){
+                            allergenNote = allergenNote.plus("Eggs, ")
+                        }
+                        if (crustaceans != "null" && allergen.contains(crustaceans) ){
+                            allergenNote = allergenNote.plus("Crustaceans, ")
+                        }
+                        if (dairyproducts != "null" && allergen.contains(dairyproducts.replace(Regex("[ ]"), "")) ){
+                            allergenNote = allergenNote.plus("Dairy Products, ")
+                        }
+                        if (others != "null" && allergen.contains(others) ){
+                            allergenNote = allergenNote.plus("$others, ")
+                        }
+                        if (allergenNote == " ALLERGEN: "){
+                            allergenNote = ""
+                        }
+                        Note = Note.plus(allergenNote)
 
 
-            }else{
-                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener{
-            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
-        }
-    }
+                    }else{
+                        //Ignore
+                    }
 
-    private fun checkAllergens(allergens: String, userName: String){
-        database = FirebaseDatabase.getInstance().getReference("Allergens")
-        database.child(userName).get().addOnSuccessListener {
-            if(it.exists()){
-                val allergen = allergens.replace(Regex("[,]"), " ")
-                val nuts = it.child("allergy1").value.toString()
-                val gluten = it.child("allergy2").value.toString()
-                val eggs = it.child("allergy3").value.toString()
-                val crustaceans = it.child("allergy4").value.toString()
-                val dairyproducts = it.child("allergy5").value.toString()
-                val others = it.child("allergy6").value.toString()
+                    //Check Dietary Restrictions
 
-                var alarm = ""
+                    database = FirebaseDatabase.getInstance().getReference("Dietaries")
+                    database.child(userName).get().addOnSuccessListener {
+                        if(it.exists()){
+                            val ingredient = ingredients.replace(Regex("[,]"), " ")
+                            val vegetarian = it.child("dietary1").value.toString()
+                            val vegan = it.child("dietary2").value.toString()
+                            val pollutarian = it.child("dietary3").value.toString()
+                            val pescetarian = it.child("dietary4").value.toString()
 
-                if (nuts == "Nuts" && allergen.contains(nuts) ){
-                    triggerAlarm()
+
+                            var dietaryNote = " DIETARY RESTRICTIONS: "
+
+                            if (vegetarian != "null"){
+                                //Insert here all the ingredients that could trigger the condition
+                                val vegetarianrestrict = listOf("vegetarian", "Natural Cheddar Cheese", "Buttermilk", "Natural Cheese", "Milk Solids", "Milk Solids: Buttermilk Powder",
+                                "Natural Cheese", "Milk Proteins", "Cheese", "Buttermilk Powder", "Milk Powder", "Sodium Caseinate", "Caseinate", "Skim Milk Powder",
+                                "Milk", "Skimmed Milk", "Milk Fat",)
+                                checkStringsInParagraph(ingredient, vegetarianrestrict)
+                                val note = context?.let { it1 -> readString(it1, "vegetarian") }
+                                dietaryNote = dietaryNote.plus(note)
+                            }
+                            if (vegan != "null"){
+                                //Insert here all the ingredients that could trigger the condition
+                                val veganrestrict = listOf("vegan", "Natural Cheddar Cheese", "Buttermilk", "Natural Cheese", "Milk Solids", "Milk Solids: Buttermilk Powder",
+                                    "Natural Cheese", "Milk Proteins", "Cheese", "Buttermilk Powder", "Milk Powder","Annato" ,"Sodium Caseinate", "Caseinate", "Skim Milk Powder",
+                                    "Milk", "Skimmed Milk", "Milk Fat",)
+                                checkStringsInParagraph(ingredient, veganrestrict)
+                                val note = context?.let { it1 -> readString(it1, "vegan") }
+                                dietaryNote = dietaryNote.plus(note)
+                            }
+                            if (dietaryNote == " DIETARY RESTRICTIONS: "){
+                                dietaryNote = ""
+                            }
+                            Note = Note.plus(dietaryNote)
+
+                        }else{
+                            //Ignore
+                        }
+
+                        //Check Medical Diagnosis
+
+                        database = FirebaseDatabase.getInstance().getReference("Dietaries")
+                        database.child(userName).get().addOnSuccessListener {
+                            if(it.exists()){
+                                val ingredient = ingredients.replace(Regex("[,]"), " ")
+                                val diabetic = it.child("diagnosis1").value.toString()
+                                val lactose = it.child("diagnosis2").value.toString()
+                                val gerd = it.child("diagnosis3").value.toString()
+                                val hyperuricemia = it.child("diagnosis4").value.toString()
+                                val others = it.child("diagnosis5").value.toString()
+
+
+                                var diagnosisNote = " MEDICAL DIAGNOSIS: "
+
+                                if (diabetic != "null"){
+                                    //Insert here all the ingredients that could trigger the condition
+                                    val diabeticrestrict = listOf("diabetic", "Sugar", "Sweeteners", "Sweetener: Sucralose", "Sweetener: Acesulfame potassium",
+                                        "Cane Sugar", "Refined Sugar", "Palm Sugar", "Maltodextrine", "Cornstarch")
+                                    checkStringsInParagraph(ingredient, diabeticrestrict)
+                                    val note = context?.let { it1 -> readString(it1, "diabetic") }
+                                    diagnosisNote = diagnosisNote.plus(note)
+                                }
+                                if (lactose != "null"){
+                                    //Insert here all the ingredients that could trigger the condition
+                                    val lactoserestrict = listOf("lactoseIntolerant", "Natural Cheddar Cheese", "Skimmed Milk", "Buttermilk", "Natural Cheese", "Milk Solids", "Milk Solids: Buttermilk Powder",
+                                        "Natural Cheese", "Milk Proteins", "Cheese", "Buttermilk Powder", "Milk Powder","Whey Powder" ,"Sodium Caseinate", "Caseinate", "Skim Milk Powder",
+                                        "Milk", "Skimmed Milk", "Milk Fat",)
+                                    checkStringsInParagraph(ingredient, lactoserestrict)
+                                    val note = context?.let { it1 -> readString(it1, "lactoseIntolerant") }
+                                    diagnosisNote = diagnosisNote.plus(note)
+                                }
+                                if (gerd != "null"){
+                                    //Insert here all the ingredients that could trigger the condition
+                                    val gerdrestrict = listOf("GRD", "Cheddar Cheese", "Butter Milk", "Milk Solids", "Vinegar", "Citric Acid",
+                                        "Cheese", "Milk Proteins", "Milk Fat", "Buttermilk Powder", "Carbonated Water", "Acidulant", "Caffeine"
+                                        , "Coffee", "Instant Coffee", "Cocoa Powder", "Corn Oil", "Palm Oil", "Chocolate", "Peanut", "Stabilizer"
+                                        , "Peanut Oil", "Vegetable Oil")
+                                    checkStringsInParagraph(ingredient, gerdrestrict)
+                                    val note = context?.let { it1 -> readString(it1, "GRD") }
+                                    diagnosisNote = diagnosisNote.plus(note)
+                                }
+                                if (hyperuricemia != "null"){
+                                    //Insert here all the ingredients that could trigger the condition
+                                    val hyperuricemiarestrict = listOf("Hyperuricemia", "Palm Oil", "Cheddar Cheese", "Natural Cheese", "Milk Solids", "Milk Proteins",
+                                        "Cheese", "Milk Proteins", "Milk Powder", "Buttermilk Powder", "Sweeteners", "Acidulant", "Caffeine"
+                                        , "Coffee", "Instant Coffee", "Natural Flavors", "Sugar", "Salt")
+                                    checkStringsInParagraph(ingredient, hyperuricemiarestrict)
+                                    val note = context?.let { it1 -> readString(it1, "Hyperuricemia") }
+                                    diagnosisNote = diagnosisNote.plus(note)
+                                }
+                                if (diagnosisNote == " MEDICAL DIAGNOSIS: "){
+                                    diagnosisNote = ""
+                                }
+                                Note = Note.plus(diagnosisNote)
+
+                            }else{
+                                //Ignore
+                            }
+
+                            showPopup(productName, ingredients, Note, userName)
+
+                        }.addOnFailureListener{
+                            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+                        }
+
+                    }.addOnFailureListener{
+                        Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+                    }
+
+                }.addOnFailureListener{
+                    Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
                 }
-
             }else{
-                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity , "Product is not registered in the database" , Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun checkStringsInParagraph(paragraph: String, stringsToCheck: List<String>){
+        val presentStrings = mutableListOf<String>()
+
+        for (stringToCheck in stringsToCheck) {
+            if (paragraph.contains(stringToCheck, ignoreCase = true)) {
+                presentStrings.add(stringToCheck)
+            }
+        }
+
+        if (presentStrings.isNotEmpty()) {
+            val toastMessage = presentStrings.joinToString(", ")
+            if(stringsToCheck.contains("vegetarian")){
+                context?.let { saveString(it, "vegetarian", toastMessage) }
+            }
+            if(stringsToCheck.contains("vegan")){
+                context?.let { saveString(it, "vegan", toastMessage) }
+            }
+            if(stringsToCheck.contains("diabetic")){
+                context?.let { saveString(it, "diabetic", toastMessage) }
+            }
+            if(stringsToCheck.contains("lactoseIntolerant")){
+                context?.let { saveString(it, "lactoseIntolerant", toastMessage) }
+            }
+            if(stringsToCheck.contains("GRD")){
+                context?.let { saveString(it, "GRD", toastMessage) }
+            }
+            if(stringsToCheck.contains("Hyperuricemia")){
+                context?.let { saveString(it, "Hyperuricemia", toastMessage) }
+            }
+
+        } else {
+            context?.let { saveString(it, "vegetarian", "") }
+            context?.let { saveString(it, "vegan", "") }
+            context?.let { saveString(it, "diabetic", "") }
+            context?.let { saveString(it, "lactoseIntolerant", "") }
+            context?.let { saveString(it, "GRD", "") }
+            context?.let { saveString(it, "Hyperuricemia", "") }
+        }
+
+    }
+
+    fun saveString(context: Context, key: String, value: String) {
+        val sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun readString(context: Context, key: String): String? {
+        val sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString(key, null)
+    }
+
+
+    private fun showPopup(name: String, ingredients: String, note: String, userName: String){
+        val inflater = requireActivity().layoutInflater
+        val popupView = inflater.inflate(R.layout.popup_scan, null)
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+        val alertDialog = alertDialogBuilder.create()
+        val drw_backScan = popupView.findViewById<ImageView>(R.id.drw_backScan)
+
+        tvProductName = popupView.findViewById(R.id.tvProductName)
+        tvIngredients = popupView.findViewById(R.id.tvIngredients)
+        tvAllergens = popupView.findViewById(R.id.tvAllergens)
+        tvNoteLabel = popupView.findViewById(R.id.tvNoteLabel)
+
+
+        database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
+        database.child(userName).get().addOnSuccessListener {
+            if(it.exists()) {
+
+                val allergen = it.child("allergies").value.toString()
+                val dietary = it.child("dietary").value.toString()
+                val medical = it.child("medical").value.toString()
+
+                if (note.contains("ALLERGEN:")){
+
+                    if(allergen == "Alarms and Notification"){
+                        triggerAlarm()
+                    }
+                }else if (note.contains("DIETARY")){
+                    if (dietary == "Notifications Only"){
+
+                    }else if (dietary == "Alarms And Notification"){
+                        triggerAlarm()
+                    }
+
+                }else if (note.contains("MEDICAL")){
+                    if (medical == "Notifications Only"){
+
+                    }else if (medical == "Alarms And Notification"){
+                        triggerAlarm()
+                    }
+
+                }
+            }else{
+                //Ignore
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
+
+        alertDialog.show()
+
+        tvProductName.text = name
+        tvIngredients.text = ingredients
+
+        if (note != ""){
+            tvNoteLabel.text = "This product contains ingredients contrary to your HEALTH PREFERENCES.$note"
+        }else{
+            tvNoteLabel.text = "This product is SAFE for your consumption"
+        }
+
+
+
+        drw_backScan.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        // Set a dismiss listener to handle clean-up when the AlertDialog is dismissed
+        alertDialog.setOnDismissListener {codeScanner.startPreview()}
+    }
+
+
+
+
     private fun triggerAlarm(){
         val delayInMilliseconds = 5000 // 5 seconds
 
@@ -182,7 +441,7 @@ class Scan : Fragment() {
 
     private fun vibrateDevice() {
         if (vibrator.hasVibrator()) {
-            val pattern = longArrayOf(0, 500, 200, 500) // Vibration pattern (wait, vibrate, wait, vibrate)
+            val pattern = longArrayOf(0, 1000, 200, 1000, 200, 1000) // Vibration pattern (wait, vibrate, wait, vibrate)
             vibrator.vibrate(pattern, -1)
         }
     }
@@ -216,40 +475,9 @@ class Scan : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_scan, container, false)
 
-        val btnOpenPopup:Button = view.findViewById(R.id.btn_openPopup)
-        btnOpenPopup.setOnClickListener {
-            showPopup()
-        }
         return view
     }
 
-    private fun showPopup(){
-        val inflater = requireActivity().layoutInflater
-        val popupView = inflater.inflate(R.layout.popup_scan, null)
-
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setView(popupView)
-        val alertDialog = alertDialogBuilder.create()
-        val drw_backScan = popupView.findViewById<ImageView>(R.id.drw_backScan)
-        drw_backScan.setOnClickListener {
-            alertDialog.dismiss()
-        }
-        alertDialog.show()
-
-
-        tvProductName = popupView.findViewById(R.id.tvProductName)
-        tvIngredients = popupView.findViewById(R.id.tvIngredients)
-        tvAllergens = popupView.findViewById(R.id.tvAllergens)
-        tvNoteLabel = popupView.findViewById(R.id.tvNoteLabel)
-
-        tvIngredients.text = getString(R.string.ingredients_sample)
-        tvAllergens.text = getString(R.string.allergens_sample)
-        tvNoteLabel.text = "Note: " + getString(R.string.note_sample)
-
-
-        // Set a dismiss listener to handle clean-up when the AlertDialog is dismissed
-        alertDialog.setOnDismissListener { }
-    }
 
     //Scanner Function
 
