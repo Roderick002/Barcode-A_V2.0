@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="32dp"
-        android:padding="32dp"
+        android:padding="25dp"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -57,65 +57,97 @@
 
         <EditText
             android:id="@+id/etSignUpEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="12"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textPrimary"
-            android:backgroundTint="@color/colorPrimary"/>
+            android:textColorHint="@color/textPrimary" />
 
         <EditText
             android:id="@+id/etSignUpFirstname"
-            android:layout_width="wrap_content"
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="12"
             android:hint="First name"
             android:inputType="text"
             android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textPrimary"
-            android:backgroundTint="@color/colorPrimary" />
+            android:textColorHint="@color/textPrimary" />
 
         <EditText
             android:id="@+id/etSignUpLastname"
-            android:layout_width="wrap_content"
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="12"
             android:hint="Last name"
             android:inputType="text"
             android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textPrimary"
-            android:backgroundTint="@color/colorPrimary" />
+            android:textColorHint="@color/textPrimary" />
 
-        <EditText
-            android:id="@+id/etSignUpPassword"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:ems="12"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textPrimary"
-            android:backgroundTint="@color/colorPrimary"
-            android:drawableEnd="@drawable/ic_visibility_off"/>
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:background="@android:color/transparent">
 
-        <EditText
-            android:id="@+id/etSignUpConfirmPassword"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/etSignUpPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:ems="12"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textPrimary"
+                android:backgroundTint="@color/colorPrimary"/>
+            <ImageButton
+                android:id="@+id/btnTogglePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_visibility_off"
+                android:background="@android:color/transparent"
+                android:padding="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:ems="12"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textPrimary"
-            android:backgroundTint="@color/colorPrimary"
-            android:drawableEnd="@drawable/ic_visibility_off"/>
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:background="@android:color/transparent">
+
+            <EditText
+                android:id="@+id/etSignUpConfirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:ems="12"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textPrimary"
+                android:backgroundTint="@color/colorPrimary"/>
+            <ImageButton
+                android:id="@+id/btnToggleConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_visibility_off"
+                android:background="@android:color/transparent"
+                android:padding="8dp"/>
+
+        </LinearLayout>
 
 
         <androidx.appcompat.widget.AppCompatButton

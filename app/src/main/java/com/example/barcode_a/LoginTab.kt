@@ -103,22 +103,24 @@ class LoginTab : AppCompatActivity() {
         }
 
         val passwordEditText = binding.etSignInPassword
-        passwordEditText.setOnClickListener {
-            onPasswordVisibilityClicked(passwordEditText)
+        val btnTogglePass = binding.btnTogglePassword
+
+        var passwordVisible = false
+
+        btnTogglePass.setOnClickListener {
+            passwordVisible = !passwordVisible
+
+            if (passwordVisible){
+                //show password
+                passwordEditText.transformationMethod = null
+                btnTogglePass.setImageResource(R.drawable.ic_visibility_on)
+            }else{
+                passwordEditText.transformationMethod = PasswordTransformationMethod()
+                btnTogglePass.setImageResource(R.drawable.ic_visibility_off)
+            }
+            passwordEditText.setSelection(passwordEditText.text.length)
         }
 
-    }
-    private fun onPasswordVisibilityClicked(passwordEditText: EditText) {
-        val visibilityToggleDrawable = if (passwordEditText.transformationMethod == null) {
-            // Password is currently visible, so hide it
-            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
-            R.drawable.ic_visibility_off // Set drawable for hiding the password
-        } else {
-            // Password is currently hidden, so show it
-            passwordEditText.transformationMethod = null
-            R.drawable.ic_visibility_on // Set drawable for showing the password
-        }
-        passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
     }
 
     private fun startLoginTimer() {

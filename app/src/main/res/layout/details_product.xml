@@ -36,6 +36,32 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
+            android:text="Product Name:"
+            android:textColor="@color/subtext"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_background"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="Product Name"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:text="Barcode:"
             android:textColor="@color/subtext"
             android:textSize="15sp" />
@@ -58,31 +84,6 @@
             android:textStyle="bold"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:text="Product Name:"
-            android:textColor="@color/subtext"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_productName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/shape_background"
-            android:enabled="false"
-            android:gravity="center"
-            android:hint="Product Name"
-            android:padding="15dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"

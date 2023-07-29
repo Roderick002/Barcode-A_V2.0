@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.example.barcode_a.databinding.ActivityRegisterTabBinding
 import com.example.barcode_a.model.Notification
@@ -80,13 +81,13 @@ class RegisterTab : AppCompatActivity() {
             }
         }
         val passwordEditText = binding.etSignUpPassword
-        passwordEditText.setOnClickListener {
-            onPasswordVisibilityClicked(passwordEditText)
-        }
-        val confirmEditText = binding.etSignUpConfirmPassword
-        confirmEditText.setOnClickListener {
-            onPasswordVisibilityClicked(confirmEditText)
-        }
+        val btnTogglePass = binding.btnTogglePassword
+
+        val confirmPasswordEditText = binding.etSignUpConfirmPassword
+        val btnToggleConfirmPass = binding.btnToggleConfirm
+
+        togglePasswordVisibility(passwordEditText, btnTogglePass)
+        togglePasswordVisibility(confirmPasswordEditText, btnToggleConfirmPass)
     }
     private fun sendVerificationEmail() {
         val user = firebaseAuth.currentUser
@@ -140,17 +141,25 @@ class RegisterTab : AppCompatActivity() {
     }
 
 
-    private fun onPasswordVisibilityClicked(passwordEditText: EditText) {
-        val visibilityToggleDrawable = if (passwordEditText.transformationMethod == null) {
-            // Password is currently visible, so hide it
-            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
-            R.drawable.ic_visibility_off // Set drawable for hiding the password
-        } else {
-            // Password is currently hidden, so show it
-            passwordEditText.transformationMethod = null
-            R.drawable.ic_visibility_on // Set drawable for showing the password
+
+
+    private fun togglePasswordVisibility(passwordEditText: EditText, btnTogglePass: ImageButton) {
+        var passwordVisible = false
+
+        btnTogglePass.setOnClickListener {
+            passwordVisible = !passwordVisible
+
+            if (passwordVisible) {
+                // Show password
+                passwordEditText.transformationMethod = null
+                btnTogglePass.setImageResource(R.drawable.ic_visibility_on)
+            } else {
+                // Hide password
+                passwordEditText.transformationMethod = PasswordTransformationMethod()
+                btnTogglePass.setImageResource(R.drawable.ic_visibility_off)
+            }
+            passwordEditText.setSelection(passwordEditText.text.length)
         }
-        passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, visibilityToggleDrawable, 0)
     }
 
     override fun onBackPressed() {
