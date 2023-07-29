@@ -8,20 +8,15 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 
-class AboutsUs : Fragment() {
-
+class AboutUsManufacturer : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,7 +54,6 @@ class AboutsUs : Fragment() {
         tv_emailBAsqdE.setOnClickListener(emailClickListener)
         return  view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,9 +63,9 @@ class AboutsUs : Fragment() {
         }
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            val fragment = Home()
+            val fragment = Home_Manufacturer()
             parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, fragment)
+                .replace(R.id.frame_layout2, fragment)
                 .addToBackStack(null)
                 .commit()
         }
