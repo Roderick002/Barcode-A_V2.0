@@ -18,4 +18,11 @@
         <item name="android:windowExitAnimation">@anim/slide_out</item>
 
     </style>
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+
+        <item name="colorControlNormal">#4D000000</item>
+        <item name="colorControlActivated">@color/colorPrimaryLight</item>
+
+    </style>
 </resources>

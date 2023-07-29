@@ -127,7 +127,13 @@ class Home : Fragment() {
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.nav_aboutus->Toast.makeText(requireContext(), "About Us", Toast.LENGTH_SHORT).show()
+                R.id.nav_aboutus->{
+                    val aboutUsFragment = AboutsUs()
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, aboutUsFragment)
+                        .commit()
+                }
                 R.id.nav_logout->{
                     firebaseAuth.signOut()
                     Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
