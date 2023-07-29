@@ -12,6 +12,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -28,6 +29,12 @@ class DietaryRestriction : Fragment() {
     private lateinit var checkboxNone: CheckBox
     private lateinit var buttonSave: Button
 
+    private lateinit var rbVegetarian: RadioButton
+    private lateinit var rbVegan: RadioButton
+    private lateinit var rbPollutarian: RadioButton
+    private lateinit var rbPescetarian: RadioButton
+    private lateinit var rbNone: RadioButton
+
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var  database : DatabaseReference
 
@@ -42,9 +49,16 @@ class DietaryRestriction : Fragment() {
         checkboxNone = view.findViewById(R.id.checkboxNone)
         buttonSave = view.findViewById(R.id.btnDoneDR)
 
+        rbVegetarian = view.findViewById(R.id.rbVegetarian)
+        rbVegan =  view.findViewById(R.id.rbVegan)
+        rbPollutarian = view.findViewById(R.id.rbPollutarian)
+        rbPescetarian = view.findViewById(R.id.rbPescetarian)
+        rbNone = view.findViewById(R.id.rbNone)
+
         val buttonSave = view.findViewById<Button>(R.id.btnDoneDR)
         buttonSave.setOnClickListener {
             saveData()
+            //saveDataRB() --> for radio button function
         }
         return view
     }
@@ -128,6 +142,45 @@ class DietaryRestriction : Fragment() {
             val selectedOptionsString = selectedOptions.joinToString(", ")
             showDialog(selectedOptionsString)
         }
+    }
+
+    //for radio buttons
+    private fun saveDataRB(){
+        val selectedOption: String?
+
+        when {
+            rbNone.isChecked -> {
+                selectedOption = "None"
+            }
+            rbVegetarian.isChecked -> {
+                selectedOption = "Vegetarian"
+            }
+            rbVegan.isChecked -> {
+                selectedOption = "Vegan"
+            }
+            rbPollutarian.isChecked -> {
+                selectedOption = "Pollutarian"
+            }
+            rbPescetarian.isChecked -> {
+                selectedOption = "Pescetarian"
+            }
+            else -> {
+                Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        database = FirebaseDatabase.getInstance().getReference("Dietaries")
+        database.child(userName).setValue(selectedOption).addOnSuccessListener {
+            Toast.makeText(activity, "Details Updated!", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener() {
+            Toast.makeText(activity, "Update Details Failed!", Toast.LENGTH_SHORT).show()
+        }
+
+        showDialog(selectedOption)
     }
 
     private fun readData(userName: String){

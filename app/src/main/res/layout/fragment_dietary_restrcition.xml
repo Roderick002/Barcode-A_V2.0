@@ -52,13 +52,15 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Check all that applies:"
             android:fontFamily="@font/quicksand_light"
+            android:text="Check all that applies:"
             android:textColor="@color/textPrimary"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="32dp" />
 
         <CheckBox
             android:id="@+id/checkBoxVegetarian"
@@ -116,6 +118,64 @@
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxPescetarian" />
+
+        <RadioGroup
+            android:id="@+id/rgDietaryRestriction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkboxNone"
+            app:layout_constraintVertical_bias="0.242"
+            tools:layout_editor_absoluteX="32dp">
+
+            <RadioButton
+                android:id="@+id/rbVegetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Vegetarian"
+                android:textColor="@color/textPrimary"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/rbVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Vegan"
+                android:textColor="@color/textPrimary"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/rbPollutarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Pollutarian"
+                android:textColor="@color/textPrimary"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/rbPescetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Pescetarian"
+                android:textColor="@color/textPrimary"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/rbNone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="No dietary Restrictions"
+                android:textColor="@color/textPrimary"
+                android:textSize="16dp" />
+
+
+        </RadioGroup>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDoneDR"
