@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-
+    <item
+        android:id="@+id/nav_edit"
+        android:title="Edit Profile"
+        android:icon="@drawable/ic_edit"/>
     <item
         android:id="@+id/nav_aboutus"
         android:title="About Us"
@@ -15,7 +18,7 @@
 
     <item
         android:id="@+id/toggleDarkMode"
-        android:title="Dark Mode"
+        android:title="Light/Dark Mode"
         android:icon="@drawable/ic_darkmode" />
 
 

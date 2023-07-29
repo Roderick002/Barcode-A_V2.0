@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:padding="25dp"
+                    android:padding="24dp"
                     android:layout_centerInParent="true"/>
 
             </RelativeLayout>
@@ -49,28 +49,31 @@
                 android:text="Rate Barcode-A"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textPrimary"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:text="If you are enjoyig our app, would you mind rating us?" />
+                android:layout_marginTop="12dp"
+                android:text="If you are enjoyig our app, would you mind rating us?"
+                style="@style/TextIconTintInvert"/>
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/ratingbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:theme="@style/MyRatingBar"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

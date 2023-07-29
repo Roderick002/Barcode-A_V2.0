@@ -22,13 +22,15 @@
             android:layout_height="match_parent">
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnScannerScan"
-                android:layout_width="162dp"
-                android:layout_height="51dp"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
                 android:text="Scan"
-                android:textColorLink="#FFFFFF"
-                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:fontFamily="@font/quicksand_bold"
+                android:background="@drawable/gradient_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"

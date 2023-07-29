@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:paddingTop="16dp"
+    android:paddingBottom="32dp"
+    android:paddingHorizontal="16dp"
+    android:background="@drawable/rectangular_background"
+    style="@style/Menu">
 
     <ImageView
         android:id="@+id/drw_backScan"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_close"
         android:layout_gravity="end"/>
 
@@ -19,34 +22,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Product Name"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:layout_margin="10dp"/>
+        android:textSize="20sp"
+        style="@style/TextIconTintInvert"
+        android:fontFamily="@font/quicksand_semibold"
+        android:layout_margin="16dp"/>
 
     <TextView
         android:id="@+id/tvIngredientsLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ingredients:"
-        android:textStyle="bold"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_margin="10dp"/>
+        android:textColor="@color/green"
+        android:fontFamily="@font/quicksand_bold"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="16dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp">
 
         <TextView
             android:id="@+id/tvIngredients"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"/>
+            style="@style/TextIconTintInvert"/>
 
     </ScrollView>
 
@@ -55,21 +59,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Allergens:"
-        android:textStyle="bold"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_margin="10dp"/>
+        android:textColor="@color/green"
+        android:fontFamily="@font/quicksand_bold"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="16dp"/>
 
-    <TextView
-        android:id="@+id/tvAllergens"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/tvAllergens"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            style="@style/TextIconTintInvert" />
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/tvNoteLabel"
@@ -77,7 +86,9 @@
         android:layout_height="wrap_content"
         android:text="Note:"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_margin="10dp"/>
+        android:textColor="@color/green"
+        android:fontFamily="@font/quicksand_bold"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="16dp"/>
 
 </LinearLayout>

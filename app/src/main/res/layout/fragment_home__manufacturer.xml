@@ -24,7 +24,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/glass"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Glass">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchBar"
@@ -104,6 +105,7 @@
                 android:background="@drawable/scrollview_background"
                 android:overScrollMode="never"
                 android:scrollbars="none"
+                style="@style/Menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/searchBar">
 
@@ -133,7 +135,7 @@
                             android:layout_weight="0.5"
                             android:contentDescription="@string/app_name"
                             android:src="@drawable/ic_info"
-                            app:tint="@color/white"/>
+                            style="@style/TextIconTint"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -141,7 +143,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="Product Info"
-                            android:textColor="@color/white"
+                            style="@style/TextIconTint"
                             android:fontFamily="@font/quicksand_regular"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -165,7 +167,7 @@
                             android:layout_weight="0.5"
                             android:contentDescription="@string/app_name"
                             android:src="@drawable/ic_account"
-                            app:tint="@color/white"/>
+                            style="@style/TextIconTint"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -174,7 +176,7 @@
                             android:gravity="center"
                             android:text="Account Setting"
                             android:fontFamily="@font/quicksand_regular"
-                            android:textColor="@color/white"
+                            style="@style/TextIconTint"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 

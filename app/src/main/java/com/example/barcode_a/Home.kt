@@ -19,6 +19,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.core.app.ActivityCompat.finishAffinity
@@ -82,14 +83,6 @@ class Home : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        val layoutEdit = view.findViewById<LinearLayout>(R.id.layoutEdit)
-        layoutEdit.setOnClickListener {
-            val fragment = EditProfile()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
 
         val btnMHD = view.findViewById<LinearLayout>(R.id.btnMHD)
         btnMHD.setOnClickListener {
@@ -127,6 +120,13 @@ class Home : Fragment() {
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
+                R.id.nav_edit-> {
+                    val fragment = EditProfile()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
                 R.id.nav_aboutus->{
                     val aboutUsFragment = AboutsUs()
                     val fragmentManager = requireActivity().supportFragmentManager
@@ -139,6 +139,18 @@ class Home : Fragment() {
                     Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
                     val intent = Intent(activity, LoginTab::class.java)
                     startActivity(intent)}
+
+                R.id.toggleDarkMode -> {
+                    val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
+                    val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+                    val newNightMode = if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    } else {
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    }
+                    sharedPrefs.edit().putInt("night_mode", newNightMode).apply()
+                    AppCompatDelegate.setDefaultNightMode(newNightMode)
+                }
             }
             true
         }
@@ -148,6 +160,10 @@ class Home : Fragment() {
             drawerLayout.openDrawer(GravityCompat.END)
         }
 
+    }
+
+    private fun recreateActivity() {
+        TODO("Not yet implemented")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

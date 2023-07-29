@@ -21,24 +21,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_barcodea_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
-        tools:targetApi="31">
+        android:theme="@style/Theme.BarcodeA"
+        tools:targetApi="31"
+        android:configChanges="uiMode">
         <activity
             android:name=".ContainerActivity"
             android:exported="true"
             android:label="@string/title_activity_container"
-            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
+            android:theme="@style/Theme.BarcodeA"
             android:launchMode="singleTop"/>
         <activity
             android:name=".MainActivityManufacturer"
-            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
+            android:theme="@style/Theme.BarcodeA.GreenStatusBar"
             android:exported="false" />
         <activity
             android:name=".RegisterTab"
+            android:theme="@style/Theme.BarcodeA.TransparentStatusBar"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
+            android:theme="@style/Theme.BarcodeA.TransparentStatusBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,11 +52,12 @@
             android:name=".LoginTab"
             android:exported="false"
             android:label="@string/title_activity_login_tab"
-            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"/>
+            android:theme="@style/Theme.BarcodeA.TransparentStatusBar"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.BarcodeA.NoActionStatusBar"
-            android:exported="false" />
+            android:theme="@style/Theme.BarcodeA.GreenStatusBar"
+            android:exported="false"
+            android:configChanges="uiMode"/>
     </application>
 
 </manifest>

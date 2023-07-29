@@ -9,8 +9,8 @@
     android:padding="20dp">
     
     <ImageView
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:src="@drawable/logo_circle"
         android:layout_marginLeft="5dp"/>
 
@@ -20,7 +20,8 @@
         android:text="Barcode-A"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_bold"
+        style="@style/TextIconTint"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="5dp"/>

@@ -1,24 +1,24 @@
 package com.example.barcode_a
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.barcode_a.databinding.FragmentHomeBinding
+import androidx.fragment.app.Fragment
 import com.example.barcode_a.databinding.FragmentHomeManufacturerBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -108,6 +108,9 @@ class Home_Manufacturer : Fragment() {
         drawerLayout = view.findViewById(R.id.drawer_layout_manu)
         val navView: NavigationView = view.findViewById(R.id.nav_viewside_manu)
 
+        val navMenu: Menu = navView.menu //Hides "Edit Profile" item
+        navMenu.findItem((R.id.nav_edit)).isVisible = false
+
         toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -126,9 +129,23 @@ class Home_Manufacturer : Fragment() {
                     Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
                     val intent = Intent(activity, LoginTab::class.java)
                     startActivity(intent)
-                }else->{
+                }
+                R.id.toggleDarkMode -> {
+                    val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
+                    val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+                    val newNightMode = if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    } else {
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    }
+                    sharedPrefs.edit().putInt("night_mode", newNightMode).apply()
+                    AppCompatDelegate.setDefaultNightMode(newNightMode)
+                }
+                else->{
 
                 }
+
+
             }
             true
         }
