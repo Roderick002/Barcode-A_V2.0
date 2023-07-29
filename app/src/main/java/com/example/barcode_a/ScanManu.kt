@@ -195,7 +195,7 @@ class ScanManu : Fragment() {
     }
 
     private fun isValidFormat(ingredients: String):Boolean{
-        val regex = Regex("^[a-zA-Z]+(,\\s[a-zA-Z]+)*$")
+        val regex = Regex("^[a-zA-Z\\s():]+(,[\\sa-zA-Z():]+)*$")
         return regex.matches(ingredients)
     }
 

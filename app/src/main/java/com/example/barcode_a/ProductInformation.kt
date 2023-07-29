@@ -173,7 +173,7 @@ class ProductInformation : Fragment() {
 
 
     private fun isValidFormat(ingredients: String):Boolean{
-        val regex = Regex("^[a-zA-Z]+(,\\s[a-zA-Z]+)*$")
+        val regex = Regex("^[a-zA-Z\\s():]+(,[\\sa-zA-Z():]+)*$")
         return regex.matches(ingredients)
     }
 
@@ -242,7 +242,7 @@ class ProductInformation : Fragment() {
                                 val matches = pattern.findAll(source)
                                 return matches.map { it.groupValues[1] }.toList()
                             }
-                            val source = item.replace(Regex("[=(),:]"), " ")
+                            val source = item.replace(Regex("[=,:]"), " ")
                             val extractedStrings = getStringsBetweenWords(source, "productName", "ingredients")
                                 val product = extractedStrings.toString().replace("[\\[\\]]".toRegex(), "").trim()
 
@@ -365,7 +365,6 @@ class ProductInformation : Fragment() {
                                     // Disable the edit mode and update the UI accordingly
                                     productIngredients.isEnabled = false
                                     productAllergens.isEnabled = false
-                                    productBarcode.isEnabled = false
                                     save.isEnabled = false
                                     alertDialog.dismiss()
                                     }

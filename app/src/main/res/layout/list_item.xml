@@ -10,47 +10,51 @@
     style="@style/Menu">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:orientation="vertical"
             android:padding="4dp">
 
             <TextView
                 android:id="@+id/mTitle"
-                android:text="Title"
                 style="@style/TextIconTintInvert"
-                android:textSize="24sp"
-                android:textColor="@color/colorPrimary"
-                android:fontFamily="@font/quicksand_bold"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Title"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/mSubTitle"
-                android:text="SubTitle"
                 style="@style/TextIconTintInvert"
-                android:textSize="20sp"
-                android:fontFamily="@font/quicksand_semibold"
-                android:layout_marginTop="4dp"
-                android:layout_marginHorizontal="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_semibold"
+                android:text="SubTitle"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/mSubTitle2"
-                android:text="SubTitle"
                 style="@style/TextIconTintInvert"
-                android:textSize="20sp"
-                android:fontFamily="@font/quicksand_semibold"
-                android:layout_marginTop="4dp"
-                android:layout_marginHorizontal="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_semibold"
+                android:text="SubTitle"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>

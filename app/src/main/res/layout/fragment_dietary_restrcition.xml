@@ -43,14 +43,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/checklist_DRP"
+        style="@style/Glass"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:padding="32dp"
         android:background="@drawable/glass"
-        app:layout_constraintTop_toBottomOf="@id/txtDRP"
+        android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Glass">
+        app:layout_constraintTop_toBottomOf="@id/txtDRP"
+        tools:layout_editor_absoluteX="16dp">
 
         <TextView
             android:id="@+id/textView"
@@ -63,71 +64,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="32dp" />
 
-        <CheckBox
-            android:id="@+id/checkBoxVegetarian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetarian"
-            android:textColor="@color/textPrimary"
-            android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
-
-        <CheckBox
-            android:id="@+id/checkBoxVegan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegan"
-            android:textColor="@color/textPrimary"
-            android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxVegetarian" />
-
-        <CheckBox
-            android:id="@+id/checkBoxPollutarian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pollutarian"
-            android:textColor="@color/textPrimary"
-            android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxVegan" />
-
-        <CheckBox
-            android:id="@+id/checkBoxPescetarian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pescetarian"
-            android:textColor="@color/textPrimary"
-            android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxPollutarian" />
-
-        <CheckBox
-            android:id="@+id/checkboxNone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No dietary Restrictions"
-            android:textColor="@color/textPrimary"
-            android:textSize="16dp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxPescetarian" />
-
         <RadioGroup
             android:id="@+id/rgDietaryRestriction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkboxNone"
-            app:layout_constraintVertical_bias="0.242"
+            app:layout_constraintTop_toTopOf="@+id/textView"
             tools:layout_editor_absoluteX="32dp">
 
             <RadioButton
@@ -182,18 +125,16 @@
             android:id="@+id/btnDoneDR"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHeight_max="40dp"
-            app:layout_constraintWidth_max="350dp"
             android:background="@drawable/gradient_button"
-            android:text="Done"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:fontFamily="@font/quicksand_bold"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="40dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkboxNone"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintWidth_max="350dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

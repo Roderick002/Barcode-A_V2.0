@@ -48,18 +48,20 @@
 
                 <TextView
                     android:id="@+id/tv_productName"
+                    style="@style/Menu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:elevation="5dp"
                     android:background="@drawable/shape_background"
-                    style="@style/Menu"
+                    android:elevation="5dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Product Name"
                     android:inputType="textPersonName"
                     android:padding="15dp"
+                    android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:fontFamily="@font/quicksand_bold"
                     android:textStyle="bold" />
 
                 <TextView
@@ -73,18 +75,20 @@
 
                 <EditText
                     android:id="@+id/et_productBarcode"
+                    style="@style/Menu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:elevation="5dp"
                     android:background="@drawable/shape_background"
-                    style="@style/Menu"
+                    android:elevation="5dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Barcode Number"
                     android:inputType="textPersonName"
                     android:padding="15dp"
+                    android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:fontFamily="@font/quicksand_bold"
                     android:textStyle="bold" />
 
 
@@ -99,18 +103,20 @@
 
                 <EditText
                     android:id="@+id/et_productIngredients"
+                    style="@style/Menu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:elevation="5dp"
                     android:background="@drawable/shape_background"
-                    style="@style/Menu"
+                    android:elevation="5dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Ingredients"
                     android:inputType="textPersonName"
                     android:padding="15dp"
+                    android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:fontFamily="@font/quicksand_bold"
                     android:textStyle="bold" />
 
                 <TextView
@@ -124,19 +130,21 @@
 
                 <EditText
                     android:id="@+id/et_productAllergens"
+                    style="@style/Menu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:elevation="5dp"
                     android:background="@drawable/shape_background"
-                    style="@style/Menu"
+                    android:elevation="5dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Allergens"
                     android:inputType="textPersonName"
                     android:padding="15dp"
+                    android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:textStyle="bold"  />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

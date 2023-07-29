@@ -22,11 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class DietaryRestriction : Fragment() {
 
-    private lateinit var checkboxVegetarian: CheckBox
-    private lateinit var checkboxVegan: CheckBox
-    private lateinit var checkboxPollutarian: CheckBox
-    private lateinit var checkboxPescetarian: CheckBox
-    private lateinit var checkboxNone: CheckBox
+
     private lateinit var buttonSave: Button
 
     private lateinit var rbVegetarian: RadioButton
@@ -42,11 +38,7 @@ class DietaryRestriction : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dietary_restrcition, container, false)
 
-        checkboxVegetarian = view.findViewById(R.id.checkBoxVegetarian)
-        checkboxVegan = view.findViewById(R.id.checkBoxVegan)
-        checkboxPollutarian = view.findViewById(R.id.checkBoxPollutarian)
-        checkboxPescetarian = view.findViewById(R.id.checkBoxPescetarian)
-        checkboxNone = view.findViewById(R.id.checkboxNone)
+
         buttonSave = view.findViewById(R.id.btnDoneDR)
 
         rbVegetarian = view.findViewById(R.id.rbVegetarian)
@@ -57,8 +49,8 @@ class DietaryRestriction : Fragment() {
 
         val buttonSave = view.findViewById<Button>(R.id.btnDoneDR)
         buttonSave.setOnClickListener {
-            saveData()
-            //saveDataRB() --> for radio button function
+            //saveData()
+            saveDataRB()
         }
         return view
     }
@@ -90,63 +82,14 @@ class DietaryRestriction : Fragment() {
         readData(userName)
     }
 
-    private fun saveData() {
-        val selectedOptions = mutableListOf<String>()
-        var dietary1: String? = null
-        var dietary2: String? = null
-        var dietary3: String? = null
-        var dietary4: String? = null
-
-        if (checkboxNone.isChecked){
-            selectedOptions.add("None")
-            checkboxVegetarian.isChecked = false
-            checkboxVegan.isChecked = false
-            checkboxPollutarian.isChecked = false
-            checkboxPescetarian.isChecked = false
-        }
-        if (checkboxVegetarian.isChecked) {
-            selectedOptions.add("Vegetarian")
-            dietary1 = "Vegetarian"
-        }
-        if (checkboxVegan.isChecked) {
-            selectedOptions.add("Vegan")
-            dietary2 = "Vegan"
-        }
-        if (checkboxPollutarian.isChecked) {
-            selectedOptions.add("Pollutarian")
-            dietary3 = "Pollutarian"
-        }
-        if (checkboxPescetarian.isChecked) {
-            selectedOptions.add("Pescetarian")
-            dietary4 = "Pescetarian"
-        }
-
-        if (selectedOptions.isEmpty()) {
-            Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
-        } else {
-            firebaseAuth = FirebaseAuth.getInstance()
-
-            val email = firebaseAuth.currentUser?.email.toString()
-            val userName = email.replace(Regex("[@.]"), "")
-
-            database = FirebaseDatabase.getInstance().getReference("Dietaries")
-
-            val dietary = Dietary(dietary1, dietary2, dietary3, dietary4)
-
-            database.child(userName).setValue(dietary).addOnSuccessListener {
-                Toast.makeText(activity , "Details Updated!" , Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener(){
-                Toast.makeText(activity , "Update Details Failed!" , Toast.LENGTH_SHORT).show()
-            }
-
-            val selectedOptionsString = selectedOptions.joinToString(", ")
-            showDialog(selectedOptionsString)
-        }
-    }
 
     //for radio buttons
     private fun saveDataRB(){
         val selectedOption: String?
+        var dietary1: String? = null
+        var dietary2: String? = null
+        var dietary3: String? = null
+        var dietary4: String? = null
 
         when {
             rbNone.isChecked -> {
@@ -154,15 +97,19 @@ class DietaryRestriction : Fragment() {
             }
             rbVegetarian.isChecked -> {
                 selectedOption = "Vegetarian"
+                dietary1 = "Vegetarian"
             }
             rbVegan.isChecked -> {
                 selectedOption = "Vegan"
+                dietary2 = "Vegan"
             }
             rbPollutarian.isChecked -> {
                 selectedOption = "Pollutarian"
+                dietary3 = "Pollutarian"
             }
             rbPescetarian.isChecked -> {
                 selectedOption = "Pescetarian"
+                dietary4 = "Pescetarian"
             }
             else -> {
                 Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
@@ -174,10 +121,11 @@ class DietaryRestriction : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         database = FirebaseDatabase.getInstance().getReference("Dietaries")
-        database.child(userName).setValue(selectedOption).addOnSuccessListener {
-            Toast.makeText(activity, "Details Updated!", Toast.LENGTH_SHORT).show()
+        val dietary = Dietary(dietary1, dietary2, dietary3, dietary4)
+        database.child(userName).setValue(dietary).addOnSuccessListener {
+            Toast.makeText(activity, "Dietary Restriction Updated!", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener() {
-            Toast.makeText(activity, "Update Details Failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Dietary Restriction Update Failed!", Toast.LENGTH_SHORT).show()
         }
 
         showDialog(selectedOption)
@@ -194,20 +142,20 @@ class DietaryRestriction : Fragment() {
                 val pescetarian = it.child("dietary4").value.toString()
 
                 if(vegetarian != "null"){
-                    checkboxVegetarian.isChecked = true
+                    rbVegetarian.isChecked = true
                 }
                 if(vegan != "null"){
-                    checkboxVegan.isChecked = true
+                    rbVegan.isChecked = true
                 }
                 if(pollutarian != "null"){
-                    checkboxPollutarian.isChecked = true
+                    rbPollutarian.isChecked = true
                 }
                 if(pescetarian != "null"){
-                    checkboxPescetarian.isChecked = true
+                    rbPescetarian.isChecked = true
                 }
 
             }else{
-                checkboxNone.isChecked = true
+                rbNone.isChecked = true
             }
         }.addOnFailureListener{
             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()

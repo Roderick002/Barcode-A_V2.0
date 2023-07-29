@@ -2,9 +2,14 @@ package com.example.barcode_a
 
 import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.os.Vibrator
@@ -20,6 +25,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -31,6 +37,8 @@ import com.example.barcode_a.view.AlarmReceiver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import androidx.core.app.NotificationCompat
+import com.example.barcode_a.model.Notification
 
 
 class Scan : Fragment() {
@@ -47,6 +55,9 @@ class Scan : Fragment() {
     private lateinit var tvIngredients: TextView
     private lateinit var tvAllergens: TextView
     private lateinit var tvNoteLabel: TextView
+
+    private val CHANNEL_ID = "channel_id_example_01"
+    private val notificationId = 101
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,6 +126,48 @@ class Scan : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+
+    }
+    fun showNotification(Title: String, Description: String, Content: String) {
+        val channelId = "my_channel_id"
+        val channelName = "My Channel"
+        val notificationId = 1
+
+        // Create a pending intent for the notification
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            requireContext(),
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_notification)
+
+
+
+        // Build the notification
+        val notificationBuilder = NotificationCompat.Builder(requireContext(), channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setLargeIcon(bitmap)
+            .setContentTitle(Title)
+            .setContentText(Description)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(Content))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        // Create the notification channel (for Android 8.0 Oreo or higher)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+            val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        // Show the notification
+        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     private fun getProductData(product: String, userName: String){
@@ -372,26 +425,29 @@ class Scan : Fragment() {
                 val allergen = it.child("allergies").value.toString()
                 val dietary = it.child("dietary").value.toString()
                 val medical = it.child("medical").value.toString()
+                val warning = "Health Preference Warning!"
+                val notification = "This product contains ingredients contrary to your HEALTH PREFERENCES.$note"
 
                 if (note.contains("ALLERGEN:")){
-
+                    showNotification(warning,"Ingredient/s found that may trigger your allergies" ,notification)
                     if(allergen == "Alarms and Notification"){
                         triggerAlarm()
                     }
                 }else if (note.contains("DIETARY")){
                     if (dietary == "Notifications Only"){
-
+                        showNotification(warning, "Ingredient/s found against your Dietary Restriction", notification)
                     }else if (dietary == "Alarms And Notification"){
+                        showNotification(warning,"Ingredient/s found against your Dietary Restriction" ,notification)
                         triggerAlarm()
                     }
 
                 }else if (note.contains("MEDICAL")){
                     if (medical == "Notifications Only"){
-
+                        showNotification(warning,"Ingredient/s found against your Medical Diagnosis" ,notification)
                     }else if (medical == "Alarms And Notification"){
+                        showNotification(warning,"Ingredient/s found against your Medical Diagnosis", notification)
                         triggerAlarm()
                     }
-
                 }
             }else{
                 //Ignore
@@ -416,8 +472,13 @@ class Scan : Fragment() {
         drw_backScan.setOnClickListener {
             alertDialog.dismiss()
         }
+        val btnScan = view?.findViewById<Button>(R.id.btnScannerScan)
         // Set a dismiss listener to handle clean-up when the AlertDialog is dismissed
-        alertDialog.setOnDismissListener {codeScanner.startPreview()}
+        alertDialog.setOnDismissListener {codeScanner.startPreview()
+        btnScan?.isVisible = false
+        }
+
+
     }
 
 
