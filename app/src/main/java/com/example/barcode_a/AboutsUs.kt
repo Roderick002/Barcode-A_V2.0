@@ -27,29 +27,31 @@ class AboutsUs : Fragment() {
         val tv_email2 = view.findViewById<TextView>(R.id.tv_email2)
         val tv_email3 = view.findViewById<TextView>(R.id.tv_email3)
         val tv_email4 = view.findViewById<TextView>(R.id.tv_email4)
+        val tv_emailBAsqdE = view.findViewById<TextView>(R.id.tv_emailBAsqdE)
 
-        val recipientEmails = listOf("gordoraxyra@gmail.com", "ballaranroderick@gmail.com", "louisasantosl12@gmail.com", "johnlawrence.e.trinidad@gmail.com")
+        val recipientEmails = listOf("gordoraxyra@gmail.com", "ballaranroderick@gmail.com", "louisasantosl12@gmail.com", "johnlawrence.e.trinidad@gmail.com", "basqde@gmail.com")
         val subject = "Regarding Barcode-A App"
 
         val emailClickListener = View.OnClickListener { v ->
             val emailIndex = v.tag as Int
             val recipientEmail = recipientEmails[emailIndex]
             val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:$recipientEmail")
-                putExtra(Intent.EXTRA_SUBJECT, subject)
+                data = Uri.parse("mailto:$recipientEmail?subject=$subject")
             }
-            startActivity(Intent.createChooser(emailIntent, "Send email"))
+            startActivity(emailIntent)
         }
 
         tv_email1.tag = 0
         tv_email2.tag = 1
         tv_email3.tag = 2
         tv_email4.tag = 3
+        tv_emailBAsqdE.tag = 4
 
         tv_email1.setOnClickListener(emailClickListener)
         tv_email2.setOnClickListener(emailClickListener)
         tv_email3.setOnClickListener(emailClickListener)
         tv_email4.setOnClickListener(emailClickListener)
+        tv_emailBAsqdE.setOnClickListener(emailClickListener)
         return  view
     }
 
@@ -97,7 +99,8 @@ class AboutsUs : Fragment() {
             2 -> R.drawable.two_star
             3 -> R.drawable.three_star
             4 -> R.drawable.four_star
-            else -> R.drawable.five_star
+            5 -> R.drawable.five_star
+            else -> R.drawable.logo
         }
         imageView.setImageResource(drawableRes)
     }
@@ -108,7 +111,8 @@ class AboutsUs : Fragment() {
             2 -> R.drawable.two_star
             3 -> R.drawable.three_star
             4 -> R.drawable.four_star
-            else -> R.drawable.five_star
+            5 -> R.drawable.five_star
+            else -> R.drawable.logo
         }
 
         imageView.animate()

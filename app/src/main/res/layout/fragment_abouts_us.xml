@@ -89,9 +89,10 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="20dp"/>
                     <TextView
+                        android:id="@+id/tv_emailBAsqdE"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="basquarede@gmail.com"
+                        android:text="basqde@gmail.com"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary"
                         android:layout_marginTop="8dp"
@@ -116,11 +117,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+63 XXX XXX XXXX"
+                        android:text="+639 476 923 129"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary"
                         android:layout_marginTop="8dp"
-                        android:layout_marginStart="40dp"/>
+                        android:layout_marginStart="35dp"
+                        android:autoLink="phone"/>
                 </LinearLayout>
 
                 <!--Developers-->
