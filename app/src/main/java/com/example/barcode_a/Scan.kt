@@ -208,14 +208,14 @@ class Scan : Fragment() {
 
                         if (nuts != "null"){
                             //Insert here all the ingredients that could trigger the condition
-                            val nutsrestrict = listOf("Nuts", "Nut", "Peanut", "Peanuts", "Peanut Puree", "Roasted Peanuts", "Peanut Oil")
+                            val nutsrestrict = listOf("Nuts")
                             checkStringsInParagraph(allergen, nutsrestrict)
                             val note = context?.let { it1 -> readString(it1, "Nuts") }
                             allergenNote = allergenNote.plus(note)
                         }
                         if (gluten != "null"){
                             //Insert here all the ingredients that could trigger the condition
-                            val glutenrestrict = listOf("Gluten", "Malt Extract", "Malt")
+                            val glutenrestrict = listOf("Gluten", "Malt")
                             checkStringsInParagraph(allergen, glutenrestrict)
                             val note = context?.let { it1 -> readString(it1, "Gluten") }
                             allergenNote = allergenNote.plus(note)
@@ -258,7 +258,7 @@ class Scan : Fragment() {
                             val pescetarian = it.child("dietary4").value.toString()
 
 
-                            var dietaryNote = " DIETARY RESTRICTIONS: "
+                            var dietaryNote = " DIETARY RESTRICTION: "
 
                             if (vegetarian != "null"){
                                 //Insert here all the ingredients that could trigger the condition
@@ -459,7 +459,7 @@ class Scan : Fragment() {
                 val dietary = it.child("dietary").value.toString()
                 val medical = it.child("medical").value.toString()
                 val warning = "Health Preference Warning!"
-                val notification = "This product contains ingredients contrary to your HEALTH PREFERENCES.$note"
+                val notification = "This product contains ingredients contrary to your HEALTH PREFERENCES->$note"
 
                 if (note.contains("ALLERGEN:")){
                     showNotification(warning,"Ingredient/s found that may trigger your allergies" ,notification)
