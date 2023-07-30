@@ -65,10 +65,6 @@ class Scan : Fragment() {
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationId = 101
 
-    //padelete na lang, for popup display lang 'to
-    private val handler = Handler()
-    private val popup1DelayMillis = 3000L // 3 seconds
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -210,20 +206,32 @@ class Scan : Fragment() {
 
                         var allergenNote = " ALLERGEN: "
 
-                        if (nuts != "null" && allergen.contains(nuts) ){
-                            allergenNote = allergenNote.plus("Nuts, ")
+                        if (nuts != "null"){
+                            //Insert here all the ingredients that could trigger the condition
+                            val nutsrestrict = listOf("Nuts", "Nut", "Peanut", "Peanuts", "Peanut Puree", "Roasted Peanuts", "Peanut Oil")
+                            checkStringsInParagraph(allergen, nutsrestrict)
+                            val note = context?.let { it1 -> readString(it1, "Nuts") }
+                            allergenNote = allergenNote.plus(note)
                         }
-                        if (gluten != "null" && allergen.contains(gluten) ){
-                            allergenNote = allergenNote.plus("Gluten, ")
+                        if (gluten != "null"){
+                            //Insert here all the ingredients that could trigger the condition
+                            val glutenrestrict = listOf("Gluten", "Malt Extract", "Malt")
+                            checkStringsInParagraph(allergen, glutenrestrict)
+                            val note = context?.let { it1 -> readString(it1, "Gluten") }
+                            allergenNote = allergenNote.plus(note)
                         }
-                        if (eggs != "null" && allergen.contains(eggs) ){
+                        if (eggs != "null" && allergen.contains(eggs, ignoreCase = true) ){
                             allergenNote = allergenNote.plus("Eggs, ")
                         }
-                        if (crustaceans != "null" && allergen.contains(crustaceans) ){
+                        if (crustaceans != "null" && allergen.contains(crustaceans, ignoreCase = true) ){
                             allergenNote = allergenNote.plus("Crustaceans, ")
                         }
-                        if (dairyproducts != "null" && allergen.contains(dairyproducts.replace(Regex("[ ]"), "")) ){
-                            allergenNote = allergenNote.plus("Dairy Products, ")
+                        if (dairyproducts != "null"){
+                            //Insert here all the ingredients that could trigger the condition
+                            val dairyrestrict = listOf("Dairy", "Milk", "Cheese", "Whey")
+                            checkStringsInParagraph(allergen, dairyrestrict)
+                            val note = context?.let { it1 -> readString(it1, "Dairy") }
+                            allergenNote = allergenNote.plus(note)
                         }
                         if (others != "null" && allergen.contains(others) ){
                             allergenNote = allergenNote.plus("$others, ")
@@ -389,6 +397,15 @@ class Scan : Fragment() {
             if(stringsToCheck.contains("Hyperuricemia")){
                 context?.let { saveString(it, "Hyperuricemia", toastMessage) }
             }
+            if(stringsToCheck.contains("Nuts")){
+                context?.let { saveString(it, "Nuts", toastMessage) }
+            }
+            if(stringsToCheck.contains("Gluten")){
+                context?.let { saveString(it, "Gluten", toastMessage) }
+            }
+            if(stringsToCheck.contains("Dairy")){
+                context?.let { saveString(it, "Dairy", toastMessage) }
+            }
 
         } else {
             context?.let { saveString(it, "vegetarian", "") }
@@ -397,6 +414,9 @@ class Scan : Fragment() {
             context?.let { saveString(it, "lactoseIntolerant", "") }
             context?.let { saveString(it, "GRD", "") }
             context?.let { saveString(it, "Hyperuricemia", "") }
+            context?.let { saveString(it, "Nuts", "") }
+            context?.let { saveString(it, "Gluten", "") }
+            context?.let { saveString(it, "Dairy", "") }
         }
 
     }

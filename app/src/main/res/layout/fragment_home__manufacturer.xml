@@ -123,28 +123,28 @@
                         android:id="@+id/layoutProductInfo"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:padding="16dp"
                         android:background="@drawable/rectangular_background"
                         android:backgroundTint="@color/colorPrimary"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="16dp">
 
                         <ImageView
+                            style="@style/TextIconTint"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
                             android:contentDescription="@string/app_name"
-                            android:src="@drawable/ic_info"
-                            style="@style/TextIconTint"/>
+                            android:src="@drawable/ic_info" />
 
                         <TextView
+                            style="@style/TextIconTint"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:fontFamily="@font/quicksand_regular"
                             android:gravity="center"
                             android:text="Product Info"
-                            style="@style/TextIconTint"
-                            android:fontFamily="@font/quicksand_regular"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
