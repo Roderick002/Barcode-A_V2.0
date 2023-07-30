@@ -140,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,33 +149,34 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true"
+                    android:backgroundTint="@color/buff"
                     app:cardCornerRadius="16dp"
-                    android:backgroundTint="@color/buff">
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_gravity="center"
                         android:layout_marginHorizontal="10dp"
-                        android:padding="15dp"
-                        android:layout_gravity="center">
+                        android:orientation="horizontal"
+                        android:padding="15dp">
 
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/warning"
-                            android:layout_marginRight="35dp"/>
+                            android:layout_marginRight="35dp"
+                            android:src="@drawable/warning" />
+
                         <TextView
                             android:id="@+id/tvNoteLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Note: WARNING!"
-                            android:textSize="15sp"
-                            android:textColor="@color/red"
-                            android:textStyle="bold"
+                            android:layout_gravity="center"
                             android:fontFamily="@font/quicksand_bold"
-                            android:layout_gravity="center" />
+                            android:text="Note: WARNING!"
+                            android:textColor="@color/red"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

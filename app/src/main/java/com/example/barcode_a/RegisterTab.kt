@@ -72,6 +72,12 @@ class RegisterTab : AppCompatActivity() {
                                     Toast.LENGTH_SHORT)
                                     .show()
                             }
+                        }.addOnFailureListener() {
+                            Toast.makeText(
+                                this,
+                                "Account Creation Failed!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                 } else {
                     Toast.makeText(this, "Password doesn't match", Toast.LENGTH_SHORT).show()

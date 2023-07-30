@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -58,6 +59,8 @@ class Scan : Fragment() {
     private lateinit var tvIngredients: TextView
     private lateinit var tvAllergens: TextView
     private lateinit var tvNoteLabel: TextView
+    private lateinit var noteSafe: RelativeLayout
+    private lateinit var noteWarning: RelativeLayout
 
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationId = 101
@@ -266,7 +269,7 @@ class Scan : Fragment() {
                                 val note = context?.let { it1 -> readString(it1, "vegan") }
                                 dietaryNote = dietaryNote.plus(note)
                             }
-                            if (dietaryNote == " DIETARY RESTRICTIONS: "){
+                            if (dietaryNote == " DIETARY RESTRICTION: "){
                                 dietaryNote = ""
                             }
                             Note = Note.plus(dietaryNote)
@@ -277,7 +280,7 @@ class Scan : Fragment() {
 
                         //Check Medical Diagnosis
 
-                        database = FirebaseDatabase.getInstance().getReference("Dietaries")
+                        database = FirebaseDatabase.getInstance().getReference("Diagnosis")
                         database.child(userName).get().addOnSuccessListener {
                             if(it.exists()){
                                 val ingredient = ingredients.replace(Regex("[,]"), " ")
@@ -423,6 +426,8 @@ class Scan : Fragment() {
         tvProductName = popupView.findViewById(R.id.tvProductName)
         tvIngredients = popupView.findViewById(R.id.tvIngredients)
         tvNoteLabel = popupView.findViewById(R.id.tvNoteLabel)
+        noteSafe = popupView.findViewById(R.id.noteSafe)
+        noteWarning = popupView.findViewById(R.id.noteWarning)
 
 
         database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
@@ -441,9 +446,10 @@ class Scan : Fragment() {
                         triggerAlarm()
                     }
                 }else if (note.contains("DIETARY")){
+                    Toast.makeText(activity , dietary , Toast.LENGTH_SHORT).show()
                     if (dietary == "Notifications Only"){
                         showNotification(warning, "Ingredient/s found against your Dietary Restriction", notification)
-                    }else if (dietary == "Alarms And Notification"){
+                    }else if (dietary == "Alarms and Notification"){
                         showNotification(warning,"Ingredient/s found against your Dietary Restriction" ,notification)
                         triggerAlarm()
                     }
@@ -451,7 +457,7 @@ class Scan : Fragment() {
                 }else if (note.contains("MEDICAL")){
                     if (medical == "Notifications Only"){
                         showNotification(warning,"Ingredient/s found against your Medical Diagnosis" ,notification)
-                    }else if (medical == "Alarms And Notification"){
+                    }else if (medical == "Alarms and Notification"){
                         showNotification(warning,"Ingredient/s found against your Medical Diagnosis", notification)
                         triggerAlarm()
                     }
@@ -469,9 +475,9 @@ class Scan : Fragment() {
         tvIngredients.text = ingredients
 
         if (note != ""){
-            tvNoteLabel.text = "This product contains ingredients contrary to your HEALTH PREFERENCES.$note"
+            tvNoteLabel.text = "This product contains ingredients contrary to your HEALTH PREFERENCES->$note"
         }else{
-            tvNoteLabel.text = "This product is SAFE for your consumption"
+            noteWarning.isVisible = false
         }
 
 

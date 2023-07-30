@@ -57,6 +57,7 @@ class LoginTab : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
          binding.btnOpenSignUp.setOnClickListener{
+             cancelLoginTimer()
              val intent = Intent(this, RegisterTab::class.java)
              startActivity(intent)
          }
@@ -125,7 +126,7 @@ class LoginTab : AppCompatActivity() {
     }
 
     private fun startLoginTimer() {
-        loginTimer = object : CountDownTimer(60000, 1000) {
+        loginTimer = object : CountDownTimer(90000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Do something on each tick if needed (e.g., show a progress indicator)
             }
@@ -170,6 +171,7 @@ class LoginTab : AppCompatActivity() {
             if(it.exists()){
                 val userType = it.child("userType").value.toString()
                 if (userType == "Personal"){
+                    cancelLoginTimer()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
