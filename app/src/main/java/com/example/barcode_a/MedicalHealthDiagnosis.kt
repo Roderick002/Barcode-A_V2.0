@@ -117,7 +117,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
                 val diabetic = it.child("diagnosis1").value.toString()
                 val lactose = it.child("diagnosis2").value.toString()
-                val gastro = it.child("allergy3").value.toString()
+                val gastro = it.child("diagnosis3").value.toString()
                 val hyper = it.child("diagnosis4").value.toString()
                 val others = it.child("diagnosis5").value.toString()
                 val editTextOther = view?.findViewById<TextView>(R.id.editTextOther)
@@ -169,7 +169,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         val okayButton = dialog.findViewById<Button>(R.id.btnOkay)
         okayButton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -186,7 +186,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -195,7 +195,7 @@ class MedicalHealthDiagnosis : Fragment() {
 
         val backbutton = view.findViewById<ImageView>(R.id.drwbackMD)
         backbutton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -205,6 +205,17 @@ class MedicalHealthDiagnosis : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         readData(userName)
+
+        val editTextOther = view.findViewById<EditText>(R.id.editTextOther)
+        val checkBoxOther = view.findViewById<CheckBox>(R.id.checkBoxOther)
+        editTextOther.isEnabled = checkBoxOther.isChecked
+
+        checkBoxOther.setOnCheckedChangeListener { _, isChecked ->
+            editTextOther.isEnabled = isChecked
+            if (isChecked) {
+                editTextOther.requestFocus()
+            }
+        }
     }
 
 

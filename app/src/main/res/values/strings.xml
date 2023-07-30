@@ -51,5 +51,11 @@
     <string name="open_nav">Open navigation drawer</string>
     <string name="close_nav">Close navigation drawer</string>
     <string name="title_activity_container">ContainerActivity</string>
+    <string name="ingredients_sample">
+        sugar, non-dairy creamer, sodium caseinate, dipotassium phosphate, emulsifier, stabilizer, instant coffee,
+        malt extract, skim milk powder, cocoa powder, palm sugar, milk flavor, vanillin.
+    </string>
+    <string name="allergens_sample">Milk</string>
+    <string name="note_sample">This product may trigger GERD and may contain milk among its ingredients.</string>
 
 </resources>

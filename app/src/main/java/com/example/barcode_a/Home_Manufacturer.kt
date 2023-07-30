@@ -1,18 +1,29 @@
 package com.example.barcode_a
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.example.barcode_a.databinding.FragmentHomeManufacturerBinding
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 private const val ARG_PARAM1 = "param1"
@@ -20,6 +31,8 @@ private const val ARG_PARAM2 = "param2"
 
 
 class Home_Manufacturer : Fragment() {
+    private var _binding : FragmentHomeManufacturerBinding? = null
+    private  val binding get() = _binding!!
 
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -29,6 +42,12 @@ class Home_Manufacturer : Fragment() {
 
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
+
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+
+    private lateinit var database : DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +61,13 @@ class Home_Manufacturer : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val signOut = view.findViewById<Button>(R.id.btnSignout)
         val activity = requireActivity()
+
+        //Get username
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        readData(userName)
+
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -61,13 +85,6 @@ class Home_Manufacturer : Fragment() {
             }
         }
 
-        //Sign Out Function
-        signOut.setOnClickListener(){
-            firebaseAuth.signOut()
-            Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
-            val intent = Intent(activity, LoginTab::class.java)
-            startActivity(intent)
-        }
 
         val layoutProductInfo = view.findViewById<LinearLayout>(R.id.layoutProductInfo)
         layoutProductInfo.setOnClickListener {
@@ -84,42 +101,102 @@ class Home_Manufacturer : Fragment() {
                 .replace(R.id.frame_layout2, fragment)
                 .addToBackStack(null)
                 .commit()
+
         }
-        val layoutQR = view.findViewById<LinearLayout>(R.id.layoutQR)
-        layoutQR.setOnClickListener {
-            val fragment = GenerateQR()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout2, fragment)
-                .addToBackStack(null)
-                .commit()
+
+        //side navigation
+        drawerLayout = view.findViewById(R.id.drawer_layout_manu)
+        val navView: NavigationView = view.findViewById(R.id.nav_viewside_manu)
+
+        val navMenu: Menu = navView.menu //Hides "Edit Profile" item
+        navMenu.findItem((R.id.nav_edit)).isVisible = false
+
+        toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_aboutus->{
+                    val aboutUsFragment = AboutUsManufacturer()
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout2, aboutUsFragment)
+                        .commit()
+                }
+                R.id.nav_logout->{
+                    firebaseAuth.signOut()
+                    Toast.makeText(activity , "Account Signed Out!" , Toast.LENGTH_SHORT).show()
+                    val intent = Intent(activity, LoginTab::class.java)
+                    startActivity(intent)
+                }
+                R.id.toggleDarkMode -> {
+                    val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
+                    val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+                    val newNightMode = if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    } else {
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    }
+                    sharedPrefs.edit().putInt("night_mode", newNightMode).apply()
+                    AppCompatDelegate.setDefaultNightMode(newNightMode)
+                }
+                R.id.nav_tutorial ->{
+                    val tutorialFragment = TutorialManufacturer()
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout2, tutorialFragment)
+                        .commit()
+                }
+                else->{
+
+                }
+
+
+            }
+            true
         }
+        val menuImageView: ImageView = view.findViewById(R.id.imageMenu_manu)
+        menuImageView.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+    }
+
+    private fun readData(userName: String){
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        database.child(userName).get().addOnSuccessListener {
+
+            if(it.exists()){
+
+                val firstname = it.child("firstName").value.toString()
+                binding.userName.text = firstname
+
+
+
+            }else{
+                Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home__manufacturer, container, false)
+    ): View {
+        _binding = FragmentHomeManufacturerBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home_Manufacturer.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home_Manufacturer().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

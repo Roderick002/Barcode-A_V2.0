@@ -5,72 +5,146 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_margin="15dp">
+    android:layout_margin="20dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            android:elevation="16dp"
+            android:gravity="center"
+            android:padding="12dp"
             android:text="Add the Product Information"
-            android:textStyle="bold"
-            android:textSize="19sp"
-            android:textColor="@color/white"
-            android:background="@color/green"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:elevation="15dp"
-            android:layout_gravity="center"
+            style="@style/TextIconTint"
+            android:textSize="20sp"
+            android:fontFamily="@font/quicksand_bold"
+            android:textStyle="bold" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/productName"
-            android:hint="Product Name"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/productIngredients"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:hint="Ingredients"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/productAllergens"
-            android:padding="15dp"
-            android:background="@drawable/shape_background"
-            android:hint="Allergens"
-            android:inputType="textPersonName"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Barcode Number:"
+                    style="@style/TextIconTintInvert"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/productBarcode"
+                    style="@style/Menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/shape_background"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:hint="Barcode"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Product Name:"
+                    style="@style/TextIconTintInvert"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/productName"
+                    style="@style/Menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/shape_background"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:hint="Product Name"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextIconTintInvert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Ingredients (Separate with comma &quot;,&quot;) :"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/productIngredients"
+                    style="@style/Menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/shape_background"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:hint="Ingedients, Ingredients, Ingredients"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextIconTintInvert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Allergens (separate with comma&quot;,&quot;) :"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/productAllergens"
+                    style="@style/Menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/shape_background"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:hint="Allergens, Allergens, Allergens"
+                    android:inputType="textPersonName"
+                    android:padding="15dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 
 </LinearLayout>

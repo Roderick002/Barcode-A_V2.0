@@ -5,143 +5,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundgreen"
     tools:context=".RegisterTab">
 
-    <EditText
-        android:id="@+id/etSignUpLastname"
-        android:layout_width="217dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:hint="Last name"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443" />
-
-    <TextView
-        android:id="@+id/tvSignUpLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
-
-    <EditText
-        android:id="@+id/etSignUpPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437" />
-
-    <EditText
-        android:id="@+id/etSignUpConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <EditText
-        android:id="@+id/etSignUpEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
-
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
-
-    <EditText
-        android:id="@+id/etSignUpFirstname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="First name"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345" />
-
-    <RadioGroup
-        android:id="@+id/rdgUserType"
+    <View
+        android:id="@+id/glassView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/etSignUpEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSignUpLabel"
-        app:layout_constraintVertical_bias="0.3">
+        android:layout_height="match_parent"
+        android:layout_margin="32dp"
+        android:background="@drawable/glass">
 
-        <RadioButton
-            android:id="@+id/rbPersonal"
+    </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="32dp"
+        android:padding="25dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvSignUpLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Personal"
-            android:layout_marginEnd="16dp"/>
+            android:text="Register"
+            android:textSize="24sp"
+            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/colorPrimary" />
 
-        <RadioButton
-            android:id="@+id/rbManufacturer"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/rdgUserType"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manufacturer"
-            android:layout_marginStart="16dp"/>
-    </RadioGroup>
+            android:layout_marginVertical="16dp"
+            android:orientation="horizontal"
+            android:gravity="center" >
 
-    <Button
-        android:id="@+id/btnToast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Toast"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
-        app:layout_constraintVertical_bias="0.171" />
+            <RadioButton
+                android:id="@+id/rbPersonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Personal" />
+
+            <RadioButton
+                android:id="@+id/rbManufacturer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manufacturer" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etSignUpEmail"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:ems="12"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary" />
+
+        <EditText
+            android:id="@+id/etSignUpFirstname"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:ems="12"
+            android:hint="First name"
+            android:inputType="text"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary" />
+
+        <EditText
+            android:id="@+id/etSignUpLastname"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:ems="12"
+            android:hint="Last name"
+            android:inputType="text"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textPrimary" />
+
+        <LinearLayout
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:background="@android:color/transparent">
+
+            <EditText
+                android:id="@+id/etSignUpPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:ems="12"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textPrimary"
+                android:backgroundTint="@color/colorPrimary"/>
+            <ImageButton
+                android:id="@+id/btnTogglePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_visibility_off"
+                android:background="@android:color/transparent"
+                android:padding="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:background="@android:color/transparent">
+
+            <EditText
+                android:id="@+id/etSignUpConfirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:ems="12"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textPrimary"
+                android:backgroundTint="@color/colorPrimary"/>
+            <ImageButton
+                android:id="@+id/btnToggleConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_visibility_off"
+                android:background="@android:color/transparent"
+                android:padding="8dp"/>
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSignUp"
+            android:layout_width="256dp"
+            android:layout_height="48dp"
+            android:layout_margin="32dp"
+            android:text="Sign Up"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-black"
+            android:background="@drawable/gradient_button" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

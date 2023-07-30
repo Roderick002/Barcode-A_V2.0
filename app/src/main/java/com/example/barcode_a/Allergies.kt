@@ -67,7 +67,7 @@ class Allergies : Fragment() {
 
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -75,7 +75,7 @@ class Allergies : Fragment() {
         }
         val backbutton = view.findViewById<ImageView>(R.id.drwbackAllergies)
         backbutton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
@@ -85,6 +85,17 @@ class Allergies : Fragment() {
         val email = firebaseAuth.currentUser?.email.toString()
         val userName = email.replace(Regex("[@.]"), "")
         readData(userName)
+
+        val editTextOtherA = view.findViewById<EditText>(R.id.editTextOtherA)
+        val checkBoxOtherA = view.findViewById<CheckBox>(R.id.checkBoxOtherA)
+        editTextOtherA.isEnabled = checkBoxOtherA.isChecked
+
+        checkBoxOtherA.setOnCheckedChangeListener { _, isChecked ->
+            editTextOtherA.isEnabled = isChecked
+            if (isChecked) {
+                editTextOtherA.requestFocus()
+            }
+        }
     }
 
     private fun saveData(){
@@ -120,6 +131,8 @@ class Allergies : Fragment() {
 
         val checkboxOtherA = view?.findViewById<CheckBox>(R.id.checkBoxOtherA)
         val editTextOtherA = view?.findViewById<TextView>(R.id.editTextOtherA)
+
+
         if (checkboxOtherA?.isChecked == true && !editTextOtherA?.text.isNullOrBlank()) {
             selectedOptions.add(editTextOtherA?.text.toString())
             allergy6 = editTextOtherA?.text.toString()
@@ -211,7 +224,7 @@ class Allergies : Fragment() {
 
         val okayButton = dialog.findViewById<Button>(R.id.btnOkay)
         okayButton.setOnClickListener {
-            val fragment = HealthPreference()
+            val fragment = Home()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)

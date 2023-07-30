@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/glassView"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/glass"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/welcomeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BA²E"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/textPrimary" />
+
+                <ImageView
+                    android:id="@+id/headerLogo"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barcode-A, an innovative app designed to help people make informed and healthier food choices."
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:textColor="@color/textPrimary" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_margin="16dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Contact Us"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/textPrimary"/>
+                    <!-- Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:layout_gravity="center_vertical"
+                            android:text="Email:"
+                            android:textSize="16sp"
+                            style="@style/TextIconTintInvert"
+                            android:fontFamily="@font/quicksand_semibold"/>
+                        <TextView
+                            android:id="@+id/tv_emailBAsqdE"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:layout_gravity="center_vertical"
+                            android:text="basqde@gmail.com"
+                            android:textSize="16sp"
+                            style="@style/TextIconTintInvert"
+                            android:fontFamily="@font/quicksand_semibold"/>
+                    </LinearLayout>
+
+                    <!-- Phone Number -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:layout_gravity="center_vertical"
+                            android:text="Phone:"
+                            android:textSize="16sp"
+                            style="@style/TextIconTintInvert"
+                            android:fontFamily="@font/quicksand_semibold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:layout_gravity="center_vertical"
+                            android:text="+639 476 923 129"
+                            android:textSize="16sp"
+                            android:textColor="@color/textPrimary"
+                            android:fontFamily="@font/quicksand_semibold"
+                            android:autoLink="phone"/>
+                    </LinearLayout>
+
+                    <!--Developers-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="8dp"
+                            android:text="Barcode-A Developers"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:textStyle="bold"
+                            android:textColor="@color/textPrimary"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginHorizontal="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_person"
+                                android:contentDescription="Team Member 1"
+                                android:layout_marginEnd="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gordora, Xyra Shenne"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    style="@style/TextIconTintInvert"/>
+
+                                <TextView
+                                    android:id="@+id/tv_email1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="gordoraxyra@gmail.com"
+                                    android:textSize="12sp"
+                                    style="@style/TextIconTintInvert"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginHorizontal="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_person"
+                                android:contentDescription="Team Member 1"
+                                android:layout_marginEnd="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Palmes, Roderick"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    style="@style/TextIconTintInvert"/>
+                                <TextView
+                                    android:id="@+id/tv_email2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="ballaranroderick@gmail.com"
+                                    android:textSize="12sp"
+                                    style="@style/TextIconTintInvert"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginHorizontal="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_person"
+                                android:contentDescription="Team Member 1"
+                                android:layout_marginEnd="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Santos, Louisa Reighn"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    style="@style/TextIconTintInvert"/>
+                                <TextView
+                                    android:id="@+id/tv_email3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="louisasantosl12@gmail.com"
+                                    android:textSize="12sp"
+                                    style="@style/TextIconTintInvert"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginHorizontal="8dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_person"
+                                android:contentDescription="Team Member 1"
+                                android:layout_marginEnd="16dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Trinidad, John Lawrence"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/quicksand_semibold"
+                                    style="@style/TextIconTintInvert"/>
+                                <TextView
+                                    android:id="@+id/tv_email4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="johnlawrence.e.trinidad@gmail.com"
+                                    android:textSize="12sp"
+                                    style="@style/TextIconTintInvert"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_rateus"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:text="Rate us"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        style="@style/TextIconTint"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:gravity="center"
+                        android:layout_margin="24dp"
+                        android:background="@drawable/gradient_button"/>
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

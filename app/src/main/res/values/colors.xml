@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#2BCC6F</color>
-    <color name="colorPrimaryDark">#2BCC6F</color>
-    <color name="colorPrimaryLight">#E9F8F1</color>
-    <color name="colorBackground">#EBEBEB</color>
-    <color name="colorHealth">#9ED2EE</color>
-    <color name="colorNotification">#DCBDBC</color>
-    <color name="colorBarcode">#D3D0FF</color>
-    <color name="background">#226B8E</color>
-    <color name="backgroundgreen">#4BA84F</color>
-    <color name="colorLightMode">#F6F4E1</color>
-    <color name="colorDarkMode">#12232D</color>
-    <color name="green">#37A252</color>
-    <color name="dark_gray">#A9A9A9</color>
+    <color name="black">#16161d</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorPrimary">#37a252</color>
+    <color name="colorPrimaryDark">#288a41</color>
+    <color name="colorPrimaryLight">#36bf58</color>
+    <color name="colorBackgroundLight">#F6F4E1</color>
+    <color name="colorBackgroundDark">#12232D</color>
+    <color name="textPrimary">#37A252</color>
+    <color name="subtext">#a1a1a1</color>
+    <color name="green">#37a252</color>
+    <color name="red">#bf1106</color>
+    <color name="dark_gray">#545454</color>
+    <color name="glass20">#20FFFFFF</color>
+    <color name="dark_tea_green">#C4E0B2</color>
+    <color name="buff">#FFE799</color>
 </resources>
