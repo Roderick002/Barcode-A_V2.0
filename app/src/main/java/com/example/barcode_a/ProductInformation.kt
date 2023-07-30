@@ -242,7 +242,7 @@ class ProductInformation : Fragment() {
                                 val matches = pattern.findAll(source)
                                 return matches.map { it.groupValues[1] }.toList()
                             }
-                            val source = item.replace(Regex("[=,:]"), " ")
+                            val source = item.replace(Regex("[=,]"), " ")
                             val extractedStrings = getStringsBetweenWords(source, "productName", "ingredients")
                                 val product = extractedStrings.toString().replace("[\\[\\]]".toRegex(), "").trim()
 
