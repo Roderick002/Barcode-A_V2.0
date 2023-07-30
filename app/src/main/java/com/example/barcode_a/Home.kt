@@ -151,6 +151,13 @@ class Home : Fragment() {
                     sharedPrefs.edit().putInt("night_mode", newNightMode).apply()
                     AppCompatDelegate.setDefaultNightMode(newNightMode)
                 }
+                R.id.nav_tutorial ->{
+                    val tutorialFragment = TutorialPersonal()
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, tutorialFragment)
+                        .commit()
+                }
             }
             true
         }

@@ -8,18 +8,21 @@
         android:title="Edit Profile"
         android:icon="@drawable/ic_edit"/>
     <item
-        android:id="@+id/nav_aboutus"
-        android:title="About Us"
-        android:icon="@drawable/ic_aboutus"/>
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Log Out"
-        android:icon="@drawable/ic_logout"/>
-
+        android:id="@+id/nav_tutorial"
+        android:title="Tutorial"
+        android:icon="@drawable/ic_help"/>
     <item
         android:id="@+id/toggleDarkMode"
         android:title="Light/Dark Mode"
         android:icon="@drawable/ic_darkmode" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Log Out"
+        android:icon="@drawable/ic_logout"/>
+    <item
+        android:id="@+id/nav_aboutus"
+        android:title="About Us"
+        android:icon="@drawable/ic_aboutus"/>
 
 
 </menu>
