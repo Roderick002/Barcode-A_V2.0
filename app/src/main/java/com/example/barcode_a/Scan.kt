@@ -152,7 +152,8 @@ class Scan : Fragment() {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_notification)
+        val logoResourceId = R.drawable.logo
+        val bitmap = BitmapFactory.decodeResource(resources, logoResourceId)
 
 
 
