@@ -88,13 +88,14 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
+                    style="@style/TextIconTintInvert"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="12dp"
-                    android:text="Ingredients:"
-                    style="@style/TextIconTintInvert"
+                    android:text="Ingredients (Separate with comma &quot;,&quot;) :"
                     android:textSize="15sp" />
 
                 <EditText
@@ -106,20 +107,21 @@
                     android:background="@drawable/shape_background"
                     android:elevation="5dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:hint="Ingredients"
+                    android:hint="Ingedients, Ingredients, Ingredients"
                     android:inputType="textPersonName"
                     android:padding="15dp"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
+                    style="@style/TextIconTintInvert"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="12dp"
-                    android:text="Allergens:"
-                    style="@style/TextIconTintInvert"
+                    android:text="Allergens (separate with comma&quot;,&quot;) :"
                     android:textSize="15sp" />
 
                 <EditText
@@ -131,7 +133,7 @@
                     android:background="@drawable/shape_background"
                     android:elevation="5dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:hint="Allergens"
+                    android:hint="Allergens, Allergens, Allergens"
                     android:inputType="textPersonName"
                     android:padding="15dp"
                     android:textAlignment="textStart"

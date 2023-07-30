@@ -123,6 +123,8 @@ class LoginTab : AppCompatActivity() {
             passwordEditText.setSelection(passwordEditText.text.length)
         }
 
+
+
     }
 
     private fun startLoginTimer() {
