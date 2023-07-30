@@ -557,7 +557,7 @@ class Scan : Fragment() {
         super.onDestroy()
         val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            requireContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         alarmManager.cancel(pendingIntent)
