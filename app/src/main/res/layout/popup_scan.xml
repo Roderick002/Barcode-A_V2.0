@@ -1,94 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="16dp"
-    android:paddingBottom="32dp"
-    android:paddingHorizontal="16dp"
-    android:background="@drawable/rectangular_background"
-    style="@style/Menu">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/drw_backScan"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/ic_close"
-        android:layout_gravity="end"/>
-
-    <TextView
-        android:id="@+id/tvProductName"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Product Name"
-        android:textSize="20sp"
-        style="@style/TextIconTintInvert"
-        android:fontFamily="@font/quicksand_semibold"
-        android:layout_margin="16dp"/>
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="16dp">
 
-    <TextView
-        android:id="@+id/tvIngredientsLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingredients:"
-        android:textSize="16sp"
-        android:textColor="@color/green"
-        android:fontFamily="@font/quicksand_bold"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rectangular_background"
+            style="@style/Menu">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="16dp">
+        <ImageView
+            android:id="@+id/drw_backScan"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:layout_gravity="end"/>
 
         <TextView
-            android:id="@+id/tvIngredients"
+            android:id="@+id/tvProductName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            style="@style/TextIconTintInvert"/>
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/tvAllergensLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Allergens:"
-        android:textSize="16sp"
-        android:textColor="@color/green"
-        android:fontFamily="@font/quicksand_bold"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="16dp"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="16dp">
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:textSize="20sp"
+            style="@style/TextIconTintInvert"
+            android:fontFamily="@font/quicksand_semibold"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
 
         <TextView
-            android:id="@+id/tvAllergens"
+            android:id="@+id/tvIngredientsLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients:"
             android:textSize="16sp"
-            style="@style/TextIconTintInvert" />
+            android:textColor="@color/green"
+            android:fontFamily="@font/quicksand_bold"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="16dp"/>
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp">
 
-    <TextView
-        android:id="@+id/tvNoteLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Note:"
-        android:textSize="16sp"
-        android:textColor="@color/green"
-        android:fontFamily="@font/quicksand_bold"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="16dp"/>
+            <TextView
+                android:id="@+id/tvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                style="@style/TextIconTintInvert"/>
 
-</LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp">
+
+            <TextView
+                android:id="@+id/tvNoteLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note:"
+                android:textSize="16sp"
+                android:textColor="@color/green"
+                android:fontFamily="@font/quicksand_bold"
+                android:textStyle="bold"/>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

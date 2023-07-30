@@ -9,8 +9,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
 import android.os.Vibrator
 import android.provider.ContactsContract.CommonDataKinds.Note
@@ -58,6 +61,10 @@ class Scan : Fragment() {
 
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationId = 101
+
+    //padelete na lang, for popup display lang 'to
+    private val handler = Handler()
+    private val popup1DelayMillis = 3000L // 3 seconds
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -410,11 +417,11 @@ class Scan : Fragment() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setView(popupView)
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val drw_backScan = popupView.findViewById<ImageView>(R.id.drw_backScan)
 
         tvProductName = popupView.findViewById(R.id.tvProductName)
         tvIngredients = popupView.findViewById(R.id.tvIngredients)
-        tvAllergens = popupView.findViewById(R.id.tvAllergens)
         tvNoteLabel = popupView.findViewById(R.id.tvNoteLabel)
 
 
@@ -536,10 +543,52 @@ class Scan : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_scan, container, false)
 
+        val button = view.findViewById<Button>(R.id.btn_popUp)
+        button.setOnClickListener {
+            showPopup1()
+        }
         return view
     }
 
+    private fun showPopup1() {
+        val popup1View = layoutInflater.inflate(R.layout.safe_scan_dialog, null)
 
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(popup1View)
+            .setCancelable(false)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window?.setGravity(Gravity.BOTTOM)
+        alertDialog.window?.attributes?.verticalMargin = 0.03f
+        alertDialog.show()
+
+        // Dismiss popup1 after the delay
+        handler.postDelayed({
+            alertDialog.dismiss()
+            showPopup2()
+        }, popup1DelayMillis)
+    }
+
+    private fun showPopup2() {
+        val popup2View = layoutInflater.inflate(R.layout.warning_scan_dialog, null)
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(popup2View)
+            .setCancelable(true) // Allow closing by clicking outside the dialog
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window?.setGravity(Gravity.BOTTOM)
+        alertDialog.window?.attributes?.verticalMargin = 0.03f
+        alertDialog.show()
+    }
+
+    override fun onDestroyView() {
+        // Remove any pending callbacks to avoid memory leaks
+        handler.removeCallbacksAndMessages(null)
+        super.onDestroyView()
+    }
     //Scanner Function
 
 }
