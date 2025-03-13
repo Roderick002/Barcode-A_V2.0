@@ -1,5 +1,4 @@
-# Credits To The Original Authors
-
+# Barcode-A-by-BAsq2E
 Gordora, Xyra Shenne A.
 Palmes, Roderick B. 
 Santos, Louisa Reighn A.

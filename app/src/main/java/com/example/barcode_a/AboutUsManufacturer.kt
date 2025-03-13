@@ -38,7 +38,7 @@ class AboutUsManufacturer : Fragment() {
             val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:$recipientEmail?subject=$subject")
             }
-            startActivity(emailIntent)
+            this.startActivity(emailIntent)
         }
 
         tv_email1.tag = 0
