@@ -171,6 +171,8 @@ class LoginTab : AppCompatActivity() {
         database.child(userName).get().addOnSuccessListener {
 
             if(it.exists()){
+                Toast.makeText(this , firebaseAuth.currentUser?.uid ?: "eme", Toast.LENGTH_SHORT).show()
+
                 val userType = it.child("userType").value.toString()
                 if (userType == "Personal"){
                     cancelLoginTimer()
