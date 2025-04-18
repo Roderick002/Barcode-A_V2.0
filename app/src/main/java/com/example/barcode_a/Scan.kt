@@ -1,5 +1,6 @@
 package com.example.barcode_a
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.NotificationChannel
@@ -7,29 +8,23 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.os.SystemClock
 import android.os.Vibrator
-import android.provider.ContactsContract.CommonDataKinds.Note
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -42,7 +37,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import androidx.core.app.NotificationCompat
-import com.example.barcode_a.model.Notification
 
 
 class Scan : Fragment() {
@@ -65,13 +59,10 @@ class Scan : Fragment() {
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationId = 101
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,40 +81,34 @@ class Scan : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         //Get username
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-
+        val uID = firebaseAuth.currentUser?.uid.toString()
 
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-
-                getProductData(it.text, userName)
+                getProductData(it.text, uID)
                 btnScan.isVisible = true
 
-        codeScanner.apply {
-            camera = CodeScanner.CAMERA_BACK
-            formats = CodeScanner.ALL_FORMATS
+                codeScanner.apply {
+                camera = CodeScanner.CAMERA_BACK
+                formats = CodeScanner.ALL_FORMATS
 
-            autoFocusMode = AutoFocusMode.SAFE
-            scanMode = ScanMode.SINGLE
-            isAutoFocusEnabled = true
-            isFlashEnabled = false
-        }
-        btnScan.setOnClickListener {
-
-            codeScanner.startPreview()
-            btnScan.isVisible = false
-
+                autoFocusMode = AutoFocusMode.SAFE
+                scanMode = ScanMode.SINGLE
+                isAutoFocusEnabled = true
+                isFlashEnabled = false
+                }
+                btnScan.setOnClickListener {
+                    codeScanner.startPreview()
+                    btnScan.isVisible = false
                 }
             }
-            codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
-                activity.runOnUiThread {
-                    Toast.makeText(activity, "Camera initialization error: ${it.message}",
-                        Toast.LENGTH_LONG).show()
+                codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
+                    activity.runOnUiThread {
+                        Toast.makeText(activity, "Camera initialization error: ${it.message}",
+                            Toast.LENGTH_LONG).show()
+                    }
                 }
-            }
         }
-
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home()
@@ -132,10 +117,8 @@ class Scan : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-
     }
-    fun showNotification(Title: String, Description: String, Content: String) {
+    private fun showNotification(Title: String, Description: String, Content: String) {
         val channelId = "my_channel_id"
         val channelName = "My Channel"
         val notificationId = 1
@@ -150,8 +133,6 @@ class Scan : Fragment() {
         )
         val logoResourceId = R.drawable.logo
         val bitmap = BitmapFactory.decodeResource(resources, logoResourceId)
-
-
 
         // Build the notification
         val notificationBuilder = NotificationCompat.Builder(requireContext(), channelId)
@@ -171,7 +152,6 @@ class Scan : Fragment() {
             val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
-
         // Show the notification
         val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
@@ -181,15 +161,11 @@ class Scan : Fragment() {
 
         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
         database.child(product).get().addOnSuccessListener {
-
             var Note = ""
-
             if(it.exists()){
-
                 val productName = it.child("productName").value.toString()
                 val allergens = it.child("allergens").value.toString()
                 val ingredients = it.child("ingredients").value.toString()
-
 
                 //Check Allergen
 
@@ -512,11 +488,7 @@ class Scan : Fragment() {
         btnScan?.isVisible = false
         }
 
-
     }
-
-
-
 
     private fun triggerAlarm(){
         val delayInMilliseconds = 5000 // 5 seconds
@@ -524,6 +496,7 @@ class Scan : Fragment() {
         setAlarm(delayInMilliseconds)
         vibrateDevice()
     }
+    @SuppressLint("ScheduleExactAlarm")
     private fun setAlarm(delayInMilliseconds: Int) {
         val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
@@ -540,8 +513,6 @@ class Scan : Fragment() {
             vibrator.vibrate(pattern, -1)
         }
     }
-
-
 
     override fun onResume() {
         super.onResume()
@@ -563,9 +534,6 @@ class Scan : Fragment() {
         alarmManager.cancel(pendingIntent)
         vibrator.cancel()
     }
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_scan, container, false)

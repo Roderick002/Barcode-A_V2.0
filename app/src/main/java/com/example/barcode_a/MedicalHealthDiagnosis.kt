@@ -59,7 +59,6 @@ class MedicalHealthDiagnosis : Fragment() {
         var diagnosis3: String? = null
         var diagnosis4: String? = null
 
-
         if (checkboxDiabetic.isChecked) {
             selectedOptions.add("Diabetic")
             diagnosis1 = "Diabetic"
@@ -92,8 +91,7 @@ class MedicalHealthDiagnosis : Fragment() {
         } else {
             firebaseAuth = FirebaseAuth.getInstance()
 
-            val email = firebaseAuth.currentUser?.email.toString()
-            val userName = email.replace(Regex("[@.]"), "")
+            val userName = firebaseAuth.currentUser?.uid.toString()
 
             database = FirebaseDatabase.getInstance().getReference("Diagnosis")
 
@@ -184,6 +182,9 @@ class MedicalHealthDiagnosis : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val userName = firebaseAuth.currentUser?.uid.toString()
+        readData(userName)
+
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home()
@@ -201,10 +202,6 @@ class MedicalHealthDiagnosis : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        readData(userName)
 
         val editTextOther = view.findViewById<EditText>(R.id.editTextOther)
         val checkBoxOther = view.findViewById<CheckBox>(R.id.checkBoxOther)

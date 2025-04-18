@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
@@ -24,20 +23,17 @@ class DietaryRestriction : Fragment() {
 
 
     private lateinit var buttonSave: Button
-
     private lateinit var rbVegetarian: RadioButton
     private lateinit var rbVegan: RadioButton
     private lateinit var rbPollutarian: RadioButton
     private lateinit var rbPescetarian: RadioButton
     private lateinit var rbNone: RadioButton
-
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var  database : DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dietary_restrcition, container, false)
-
 
         buttonSave = view.findViewById(R.id.btnDoneDR)
 
@@ -60,6 +56,9 @@ class DietaryRestriction : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val userName = firebaseAuth.currentUser?.uid.toString()
+        readData(userName)
+
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home()
@@ -76,12 +75,7 @@ class DietaryRestriction : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        readData(userName)
     }
-
 
     //for radio buttons
     private fun saveDataRB(){
@@ -118,8 +112,7 @@ class DietaryRestriction : Fragment() {
         }
 
         firebaseAuth = FirebaseAuth.getInstance()
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
+        val userName = firebaseAuth.currentUser?.uid.toString()
         database = FirebaseDatabase.getInstance().getReference("Dietaries")
         val dietary = Dietary(dietary1, dietary2, dietary3, dietary4)
         database.child(userName).setValue(dietary).addOnSuccessListener {
@@ -127,7 +120,6 @@ class DietaryRestriction : Fragment() {
         }.addOnFailureListener() {
             Toast.makeText(activity, "Dietary Restriction Update Failed!", Toast.LENGTH_SHORT).show()
         }
-
         showDialog(selectedOption)
     }
 
