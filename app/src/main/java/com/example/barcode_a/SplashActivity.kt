@@ -1,6 +1,5 @@
 package com.example.barcode_a
 
-import android.app.ApplicationExitInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -56,9 +55,8 @@ class SplashActivity : AppCompatActivity() {
             firebaseAuth = FirebaseAuth.getInstance()
 
             if(firebaseAuth.currentUser != null){
-                val email = firebaseAuth.currentUser?.email.toString()
-                val userName = email.replace(Regex("[@.]"), "")
-                readData(userName)
+                val uID = firebaseAuth.currentUser?.uid.toString();
+                readData(uID)
             }else{
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, LoginTab::class.java)

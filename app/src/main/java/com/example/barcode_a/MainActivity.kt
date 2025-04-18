@@ -47,11 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-
-
-
-
-
         replaceFragment(Home())
         binding.bottomNavigationView2.setOnItemSelectedListener {
 

@@ -90,7 +90,6 @@
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/textPrimary"
                         android:textSize="24sp"
-                        android:text="User"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/textHeader"
                         app:layout_constraintTop_toBottomOf="@id/textHeader"

@@ -9,23 +9,15 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EdgeEffect
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.budiyev.android.codescanner.CodeScannerView
 import com.example.barcode_a.databinding.FragmentHomeBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -53,16 +45,14 @@ class Home : Fragment() {
         val activity = requireActivity()
 
         firebaseAuth = FirebaseAuth.getInstance()
-
-        //Get username
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        readData(userName)
-
+        val uID = firebaseAuth.currentUser?.uid;
+        if (uID != null) {
+            readData(uID)
+        }
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (quit == false){
-                Toast.makeText(activity, "Press Again To Quit", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Press/Slide Again To Quit", Toast.LENGTH_SHORT).show()
                 quit = true
 
                 val handler = Handler()
@@ -83,7 +73,6 @@ class Home : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
         val btnMHD = view.findViewById<LinearLayout>(R.id.btnMHD)
         btnMHD.setOnClickListener {
             val fragment = MedicalHealthDiagnosis()
@@ -116,7 +105,6 @@ class Home : Fragment() {
         toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open_nav, R.string.close_nav)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -169,10 +157,6 @@ class Home : Fragment() {
 
     }
 
-    private fun recreateActivity() {
-        TODO("Not yet implemented")
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (toggle.onOptionsItemSelected(item)){
@@ -181,17 +165,13 @@ class Home : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun readData(userName: String){
+    private fun readData(uID: String){
         database = FirebaseDatabase.getInstance().getReference("Users")
-        database.child(userName).get().addOnSuccessListener {
+        database.child(uID).get().addOnSuccessListener {
 
             if(it.exists()){
-
                 val firstname = it.child("firstName").value.toString()
                 binding.userName.text = firstname
-
-
-
             }else{
                 Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
             }

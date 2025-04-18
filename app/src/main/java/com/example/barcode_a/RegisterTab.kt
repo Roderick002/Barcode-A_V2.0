@@ -14,6 +14,7 @@ import com.example.barcode_a.model.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.delay
 import java.security.AuthProvider
 
 class RegisterTab : AppCompatActivity() {
@@ -113,13 +114,11 @@ class RegisterTab : AppCompatActivity() {
                         val firstName = binding.etSignUpFirstname.text.toString().trim()
                         val lastName = binding.etSignUpLastname.text.toString().trim()
                         val email = binding.etSignUpEmail.text.toString().trim()
-                        val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
+                        val uID = user.uid
+                        val user = User(firstName, lastName, email, userType)
 
                         database = FirebaseDatabase.getInstance().getReference("Users")
-                        val User = User(firstName, lastName, email, userType)
-
-
-                        database.child(userName).setValue(User).addOnSuccessListener {
+                        database.child(uID).setValue(user).addOnSuccessListener {
                             Toast.makeText(
                                 this,
                                 "Account Created Successfully!",
@@ -128,9 +127,8 @@ class RegisterTab : AppCompatActivity() {
 
                             if(userType == "Personal"){
                                 val notification = Notification("None", "None", "None")
-
                                 database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
-                                database.child(userName).setValue(notification).addOnSuccessListener {
+                                database.child(uID).setValue(notification).addOnSuccessListener {
                                     //success
                                 }.addOnFailureListener(){
                                     Toast.makeText(this , "Database ERROR!" , Toast.LENGTH_SHORT).show()
