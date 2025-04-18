@@ -57,5 +57,15 @@
     </string>
     <string name="allergens_sample">Milk</string>
     <string name="note_sample">This product may trigger GERD and may contain milk among its ingredients.</string>
+    <string name="logo">Logo</string>
+    <string name="greetings">Welcome to Barcode-A!</string>
+    <string name="app_description">an innovative app designed to help people make informed and healthier food choices.</string>
+    <string name="email_address">Email address</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="toggle_password_visibility">Toggle Password Visibility</string>
+    <string name="login">Login</string>
+    <string name="no_account_yet">No account yet?</string>
+    <string name="sign_up">Sign up</string>
 
 </resources>
