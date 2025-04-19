@@ -1,5 +1,6 @@
 package com.example.barcode_a
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -234,14 +235,23 @@ class LoginTab : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
         progressBar.visibility = View.VISIBLE
 
-        val valueAnimator = ValueAnimator.ofInt(currentWidth, targetWidth)
-        valueAnimator.addUpdateListener { animation ->
-            val layoutParams = progressBar.layoutParams
-            layoutParams.width = animation.animatedValue as Int
-            progressBar.layoutParams = layoutParams
+        val valueAnimator = ValueAnimator.ofInt(currentWidth, targetWidth).apply {
+            addUpdateListener { animation ->
+                progressBar.layoutParams = progressBar.layoutParams.apply {
+                    width = animation.animatedValue as Int
+                }
+            }
+            this.duration = duration
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
+                override fun onAnimationEnd(animation: Animator) {
+                    progressBar.visibility = View.INVISIBLE
+                }
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+            start()
         }
-        valueAnimator.duration = duration
-        valueAnimator.start()
-        //End of Progress Bar
+
     }
 }
