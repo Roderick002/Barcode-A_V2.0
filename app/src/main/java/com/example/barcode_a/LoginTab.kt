@@ -2,25 +2,20 @@ package com.example.barcode_a
 
 import android.animation.Animator
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
-import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -72,31 +67,33 @@ class LoginTab : AppCompatActivity() {
 
             if (!isLoginBlocked) {
                 if (loginAttempts < 5) {
-
-                    // Call the signInWithEmailAndPassword method
                     if (email.isNotEmpty() && password.isNotEmpty()){
-
                         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                             if (it.isSuccessful){
                                 cancelLoginTimer()
-                                val userName = email.replace(Regex("[@.]"), "")
-                                readData(userName)
+                                val uID = firebaseAuth.currentUser?.uid;
+                                if (uID != null) {
+                                    readData(uID)
+                                }
                                 loginAttempts = 0
-
                                 startLoading(2000)
-
                             }else{
                                 loginAttempts++
-                                Toast.makeText(this , it.exception.toString().replace("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: ", ""). trim() , Toast.LENGTH_SHORT).show()
+                                val remaining = 5 - loginAttempts;
+                                Toast.makeText(this , "You have " + remaining + " remaining login attempt/s" , Toast.LENGTH_SHORT).show()
                             }
                         }
 
                     }else{
-                        Toast.makeText(this , "Empty Fields Are Not Allowed!" , Toast.LENGTH_SHORT).show()
+                        if (email.isEmpty()){
+                            binding.etSignInEmail.setError("Email is Required");
+                        }
+                        if (password.isEmpty()){
+                            binding.etSignInPassword.setError("Password is Required");
+                        }
                     }
                 } else {
-                    blockLoginAttempts()
-                    // Block login attempts and set a waiting period of 30 seconds before allowing login again
+                    blockLoginAttempts() // Block login attempts and set a waiting period of 30 seconds before allowing login again
                     Toast.makeText(this, "You have exceeded the maximum number of login attempts. Please wait...", Toast.LENGTH_SHORT).show()
                 }
             } else {
@@ -107,7 +104,6 @@ class LoginTab : AppCompatActivity() {
 
         val passwordEditText = binding.etSignInPassword
         val btnTogglePass = binding.btnTogglePassword
-
         var passwordVisible = false
 
         btnTogglePass.setOnClickListener {
@@ -123,9 +119,6 @@ class LoginTab : AppCompatActivity() {
             }
             passwordEditText.setSelection(passwordEditText.text.length)
         }
-
-
-
     }
 
     private fun startLoginTimer() {
@@ -159,7 +152,6 @@ class LoginTab : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 // Do something on each tick if needed (e.g., show a countdown)
             }
-
             override fun onFinish() {
                 isLoginBlocked = false // Unblock login attempts after the waiting period
             }
@@ -167,38 +159,31 @@ class LoginTab : AppCompatActivity() {
         blockTimer.start()
     }
 
-    private fun readData(userName: String){
+    private fun readData(uID: String){
         database = FirebaseDatabase.getInstance().getReference("Users")
-        database.child(userName).get().addOnSuccessListener {
-
+        database.child(uID).get().addOnSuccessListener {
             if(it.exists()){
                 val userType = it.child("userType").value.toString()
                 if (userType == "Personal"){
-                    cancelLoginTimer()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
                 } else if (userType == "Manufacturer"){
-                    cancelLoginTimer()
                     val intent = Intent(this, MainActivityManufacturer::class.java)
                     startActivity(intent)
-                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
                 }
-
+                cancelLoginTimer()
             }else{
                 Toast.makeText(this , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener{
-            Toast.makeText(this  , "Failed" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(this  , "User Record Cannot Be Found" , Toast.LENGTH_SHORT).show()
         }
     }
 
-
-    //Quit Application
     override fun onBackPressed() {
 
         if (quit == false){
-            Toast.makeText(this, "Press Again To Quit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Press/Slide Again To Quit", Toast.LENGTH_SHORT).show()
             quit = true
 
             val handler = Handler()

@@ -16,13 +16,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 
 class Allergies : Fragment() {
@@ -65,6 +61,21 @@ class Allergies : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val email = firebaseAuth.currentUser?.email.toString()
+        val userName = email.replace(Regex("[@.]"), "")
+        readData(userName)
+
+        val editTextOtherA = view.findViewById<EditText>(R.id.editTextOtherA)
+        val checkBoxOtherA = view.findViewById<CheckBox>(R.id.checkBoxOtherA)
+        editTextOtherA.isEnabled = checkBoxOtherA.isChecked
+
+        checkBoxOtherA.setOnCheckedChangeListener { _, isChecked ->
+            editTextOtherA.isEnabled = isChecked
+            if (isChecked) {
+                editTextOtherA.requestFocus()
+            }
+        }
+
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home()
@@ -81,21 +92,6 @@ class Allergies : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        readData(userName)
-
-        val editTextOtherA = view.findViewById<EditText>(R.id.editTextOtherA)
-        val checkBoxOtherA = view.findViewById<CheckBox>(R.id.checkBoxOtherA)
-        editTextOtherA.isEnabled = checkBoxOtherA.isChecked
-
-        checkBoxOtherA.setOnCheckedChangeListener { _, isChecked ->
-            editTextOtherA.isEnabled = isChecked
-            if (isChecked) {
-                editTextOtherA.requestFocus()
-            }
-        }
     }
 
     private fun saveData(){
@@ -106,7 +102,6 @@ class Allergies : Fragment() {
         var allergy4: String? = null
         var allergy5: String? = null
         var allergy6: String? = null
-
 
         if (checkboxNuts.isChecked) {
             selectedOptions.add("Nuts")
@@ -132,7 +127,6 @@ class Allergies : Fragment() {
         val checkboxOtherA = view?.findViewById<CheckBox>(R.id.checkBoxOtherA)
         val editTextOtherA = view?.findViewById<TextView>(R.id.editTextOtherA)
 
-
         if (checkboxOtherA?.isChecked == true && !editTextOtherA?.text.isNullOrBlank()) {
             selectedOptions.add(editTextOtherA?.text.toString())
             allergy6 = editTextOtherA?.text.toString()
@@ -146,18 +140,15 @@ class Allergies : Fragment() {
             Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
         } else {
             firebaseAuth = FirebaseAuth.getInstance()
-
-            val email = firebaseAuth.currentUser?.email.toString()
-            val userName = email.replace(Regex("[@.]"), "")
-
             database = FirebaseDatabase.getInstance().getReference("Allergens")
 
+            val uID = firebaseAuth.currentUser?.uid.toString()
             val allergy = Allergy(allergy1, allergy2, allergy3, allergy4, allergy5, allergy6)
 
-            database.child(userName).setValue(allergy).addOnSuccessListener {
+            database.child(uID).setValue(allergy).addOnSuccessListener {
                 Toast.makeText(activity , "Details Updated!" , Toast.LENGTH_SHORT).show()
             }.addOnFailureListener(){
-                Toast.makeText(activity , "Update Details Failed!" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity , "Details Update Failed!" , Toast.LENGTH_SHORT).show()
             }
 
             val selectedOptionsString = selectedOptions.joinToString(", ")

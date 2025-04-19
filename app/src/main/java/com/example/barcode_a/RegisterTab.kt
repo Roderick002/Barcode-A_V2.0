@@ -14,6 +14,7 @@ import com.example.barcode_a.model.Notification
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.delay
 import java.security.AuthProvider
 
 class RegisterTab : AppCompatActivity() {
@@ -52,49 +53,57 @@ class RegisterTab : AppCompatActivity() {
             val firstName = binding.etSignUpFirstname.text.toString().trim()
             val lastName = binding.etSignUpLastname.text.toString().trim()
             val email = binding.etSignUpEmail.text.toString().trim()
-            val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
             val password = binding.etSignUpPassword.text.toString()
             val confirmpass = binding.etSignUpConfirmPassword.text.toString()
 
-
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty() && userType.isNotBlank()) {
-                if (password == confirmpass) {
-
-                    firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                sendVerificationEmail()
-
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    it.exception.toString(),
-                                    Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }.addOnFailureListener() {
+            if (email.isNotEmpty() && password.isNotEmpty() && confirmpass.isNotEmpty() && userType.isNotBlank() && password.length >= 6 && password == confirmpass) {
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            sendVerificationEmail()
+                        } else {
                             Toast.makeText(
                                 this,
-                                "Account Creation Failed!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                it.exception.toString(),
+                                Toast.LENGTH_SHORT)
+                                .show()
                         }
-                } else {
-                    Toast.makeText(this, "Password doesn't match", Toast.LENGTH_SHORT).show()
+                    }
+            }else{
+                if (email.isEmpty()) {
+                    binding.etSignUpEmail.setError("Email is Required");
                 }
-            } else {
-                Toast.makeText(this, "Empty Fields Are Not Allowed!", Toast.LENGTH_SHORT).show()
+                if (password.isEmpty()) {
+                    binding.etSignUpPassword.setError("Password is Required");
+                }
+                if (password.length < 6){
+                    binding.etSignUpPassword.setError("Password Must be >= 6 Characters");
+                }
+                if (firstName.isEmpty()) {
+                    binding.etSignUpFirstname.setError("This Field is Required");
+                }
+                if (lastName.isEmpty()) {
+                    binding.etSignUpLastname.setError("This Field is Required");
+                }
+                if (confirmpass.isEmpty()) {
+                    binding.etSignUpConfirmPassword.setError("This Field is Required");
+                }
+                if (confirmpass != password) {
+                    binding.etSignUpConfirmPassword.setError("Password Mismatch");
+                }
+                if (userType.isBlank()) {
+                    Toast.makeText(
+                        this,
+                        "Select a User Type",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+                return@setOnClickListener;
             }
         }
-        val passwordEditText = binding.etSignUpPassword
-        val btnTogglePass = binding.btnTogglePassword
-
-        val confirmPasswordEditText = binding.etSignUpConfirmPassword
-        val btnToggleConfirmPass = binding.btnToggleConfirm
-
-        togglePasswordVisibility(passwordEditText, btnTogglePass)
-        togglePasswordVisibility(confirmPasswordEditText, btnToggleConfirmPass)
     }
+
     private fun sendVerificationEmail() {
         val user = firebaseAuth.currentUser
 
@@ -105,12 +114,11 @@ class RegisterTab : AppCompatActivity() {
                         val firstName = binding.etSignUpFirstname.text.toString().trim()
                         val lastName = binding.etSignUpLastname.text.toString().trim()
                         val email = binding.etSignUpEmail.text.toString().trim()
-                        val userName = email.replace(Regex("[@.]"), "") //Replace Username with this to avoid conflict in firebase
+                        val uID = user.uid
+                        val user = User(firstName, lastName, email, userType)
 
                         database = FirebaseDatabase.getInstance().getReference("Users")
-                        val User = User(firstName, lastName, email, userType)
-
-                        database.child(userName).setValue(User).addOnSuccessListener {
+                        database.child(uID).setValue(user).addOnSuccessListener {
                             Toast.makeText(
                                 this,
                                 "Account Created Successfully!",
@@ -119,9 +127,8 @@ class RegisterTab : AppCompatActivity() {
 
                             if(userType == "Personal"){
                                 val notification = Notification("None", "None", "None")
-
                                 database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
-                                database.child(userName).setValue(notification).addOnSuccessListener {
+                                database.child(uID).setValue(notification).addOnSuccessListener {
                                     //success
                                 }.addOnFailureListener(){
                                     Toast.makeText(this , "Database ERROR!" , Toast.LENGTH_SHORT).show()
@@ -143,28 +150,6 @@ class RegisterTab : AppCompatActivity() {
                         Toast.makeText(this, "Failed to send verification email: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
-        }
-    }
-
-
-
-
-    private fun togglePasswordVisibility(passwordEditText: EditText, btnTogglePass: ImageButton) {
-        var passwordVisible = false
-
-        btnTogglePass.setOnClickListener {
-            passwordVisible = !passwordVisible
-
-            if (passwordVisible) {
-                // Show password
-                passwordEditText.transformationMethod = null
-                btnTogglePass.setImageResource(R.drawable.ic_visibility_on)
-            } else {
-                // Hide password
-                passwordEditText.transformationMethod = PasswordTransformationMethod()
-                btnTogglePass.setImageResource(R.drawable.ic_visibility_off)
-            }
-            passwordEditText.setSelection(passwordEditText.text.length)
         }
     }
 

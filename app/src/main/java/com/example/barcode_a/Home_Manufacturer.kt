@@ -64,9 +64,10 @@ class Home_Manufacturer : Fragment() {
         val activity = requireActivity()
 
         //Get username
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        readData(userName)
+        val uID = firebaseAuth.currentUser?.uid;
+        if (uID != null) {
+            readData(uID)
+        };
 
 
         //Back Button Function
