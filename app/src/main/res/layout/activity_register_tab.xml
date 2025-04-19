@@ -20,14 +20,18 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/curve_header_background" />
+            android:background="@drawable/curve_header_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/create_account_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="92dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Create an Account"
             android:textColor="@color/white"
@@ -36,11 +40,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
             android:background="#00000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,6 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <Button
+            android:id="@+id/btnManufacturer"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:backgroundTint="#4CAF50"
@@ -71,6 +76,7 @@
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/btnPersonal"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:backgroundTint="#4CAF50"
@@ -91,6 +97,7 @@
         app:layout_constraintTop_toBottomOf="@id/type_selection">
 
         <EditText
+            android:id="@+id/etSignUpEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
@@ -102,24 +109,26 @@
             android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/etSignUpFirstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:autofillHints="firstName"
             android:fontFamily="@font/poppins_regular"
             android:hint="First Name"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/etSignUpLastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
             android:autofillHints="lastName"
             android:fontFamily="@font/poppins_regular"
             android:hint="Last Name"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -129,6 +138,7 @@
             android:layout_marginVertical="8dp">
 
             <EditText
+                android:id="@+id/etSignUpPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
@@ -136,9 +146,12 @@
                 android:hint="Create password"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:paddingEnd="36dp"
+                />
 
             <ImageButton
+                android:id="@+id/btnTogglePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
@@ -153,6 +166,7 @@
             android:layout_marginVertical="8dp">
 
             <EditText
+                android:id="@+id/etSignUpConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
@@ -160,9 +174,12 @@
                 android:hint="Confirm password"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:paddingEnd="36dp"
+                />
 
             <ImageButton
+                android:id="@+id/btnToggleCfPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
@@ -174,7 +191,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/btnSignUp"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:backgroundTint="#4CAF50"
