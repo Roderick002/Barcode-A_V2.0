@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -64,10 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
     //Toggle Fragments
-
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -75,7 +69,4 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
 
     }
-
-//Quit Application
-
 }

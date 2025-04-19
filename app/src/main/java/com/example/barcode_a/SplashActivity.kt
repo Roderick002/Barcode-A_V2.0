@@ -76,15 +76,14 @@ class SplashActivity : AppCompatActivity() {
                 if (userType == "Personal"){
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
                 } else {
                     val intent = Intent(this, MainActivityManufacturer::class.java)
                     startActivity(intent)
-                    Toast.makeText(this , "Logged In Successfully!" , Toast.LENGTH_SHORT).show()
                 }
 
             }else{
                 Toast.makeText(this , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
+                firebaseAuth.signOut();
             }
         }.addOnFailureListener{
             Toast.makeText(this  , "Failed" , Toast.LENGTH_SHORT).show()

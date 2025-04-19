@@ -43,8 +43,7 @@ class EditProfile : Fragment() {
         val surname = view.findViewById<EditText>(R.id.et_surname)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        val emaiL = firebaseAuth.currentUser?.email.toString()
-        val userName = emaiL.replace(Regex("[@.]"), "")
+        val userName = firebaseAuth.currentUser?.uid.toString()
         readData(userName)
 
         //edit button function
@@ -64,7 +63,6 @@ class EditProfile : Fragment() {
             val updatedSN = surname.text.toString()
             val userinfo = UserProfile(updatedFN, updatedSN, userName, "Manufacturer")
 
-
             database = FirebaseDatabase.getInstance().getReference("Users")
             database.child(userName).setValue(userinfo).addOnSuccessListener {
                 //success
@@ -79,9 +77,6 @@ class EditProfile : Fragment() {
             update.isEnabled = false
         }
 
-
-
-
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home()
@@ -91,7 +86,6 @@ class EditProfile : Fragment() {
                 .commit()
         }
     }
-
 
     private fun readData(userName: String){
         database = FirebaseDatabase.getInstance().getReference("Users")
@@ -106,8 +100,6 @@ class EditProfile : Fragment() {
                 binding.etSurname.text.append(lastname)
                 binding.tvDisplay.text = "$firstname $lastname"
 
-
-
             }else{
                 Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
             }
@@ -115,6 +107,4 @@ class EditProfile : Fragment() {
             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }

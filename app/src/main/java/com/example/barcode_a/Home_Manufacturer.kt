@@ -25,29 +25,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
 
 class Home_Manufacturer : Fragment() {
     private var _binding : FragmentHomeManufacturerBinding? = null
     private  val binding get() = _binding!!
-
     private lateinit var firebaseAuth: FirebaseAuth
-
     private var param1: String? = null
     private var param2: String? = null
-
-
     private val delay : Long = 3000 // 3 seconds delay
     var quit = false
-
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
-
     private lateinit var database : DatabaseReference
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +60,6 @@ class Home_Manufacturer : Fragment() {
             readData(uID)
         };
 
-
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (quit == false){
@@ -86,7 +76,6 @@ class Home_Manufacturer : Fragment() {
             }
         }
 
-
         val layoutProductInfo = view.findViewById<LinearLayout>(R.id.layoutProductInfo)
         layoutProductInfo.setOnClickListener {
             val fragment = ProductInformation()
@@ -102,7 +91,6 @@ class Home_Manufacturer : Fragment() {
                 .replace(R.id.frame_layout2, fragment)
                 .addToBackStack(null)
                 .commit()
-
         }
 
         //side navigation
@@ -150,10 +138,7 @@ class Home_Manufacturer : Fragment() {
                         .commit()
                 }
                 else->{
-
                 }
-
-
             }
             true
         }
@@ -161,7 +146,6 @@ class Home_Manufacturer : Fragment() {
         menuImageView.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.END)
         }
-
     }
 
     private fun readData(userName: String){
@@ -173,8 +157,6 @@ class Home_Manufacturer : Fragment() {
                 val firstname = it.child("firstName").value.toString()
                 binding.userName.text = firstname
 
-
-
             }else{
                 Toast.makeText(activity , "User Does Not Exist!" , Toast.LENGTH_SHORT).show()
             }
@@ -184,7 +166,6 @@ class Home_Manufacturer : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         if (toggle.onOptionsItemSelected(item)){
             return true
         }
@@ -198,6 +179,4 @@ class Home_Manufacturer : Fragment() {
         _binding = FragmentHomeManufacturerBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-
 }

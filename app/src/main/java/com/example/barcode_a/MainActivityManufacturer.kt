@@ -16,14 +16,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivityManufacturer : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainManufacturerBinding
     private lateinit var firebaseAuth: FirebaseAuth
-
-    
     var quit = false
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +33,7 @@ class MainActivityManufacturer : AppCompatActivity() {
 
         binding = ActivityMainManufacturerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         replaceFragment(Home_Manufacturer())
-
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
@@ -51,9 +44,7 @@ class MainActivityManufacturer : AppCompatActivity() {
             }
             true
         }
-
-        }
-
+    }
 
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager
@@ -61,6 +52,4 @@ class MainActivityManufacturer : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_layout2,fragment)
         fragmentTransaction.commit()
     }
-
-
 }
