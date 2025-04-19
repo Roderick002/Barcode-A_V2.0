@@ -5,16 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context=".MainActivity"
     tools:ignore="ExtraText">
+
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
@@ -23,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+
         app:itemIconSize="24dp"
         app:itemIconTint="@color/colorPrimary"
         app:itemTextColor="@color/colorPrimary"
