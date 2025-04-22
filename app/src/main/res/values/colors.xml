@@ -15,4 +15,11 @@
     <color name="glass20">#20FFFFFF</color>
     <color name="dark_tea_green">#C4E0B2</color>
     <color name="buff">#FFE799</color>
+
+    <color name="fabColorDay">#2196F3</color> <!-- Blue for day -->
+    <color name="fabColorNight">#FF9800</color> <!-- Orange for night -->
+
+    <color name="teal_700">#018786</color>
+    <color name="purple_700">#3700B3</color>
 </resources>
+

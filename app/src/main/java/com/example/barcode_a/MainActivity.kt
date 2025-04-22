@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.fabScan.setOnClickListener {
+            replaceFragment(Scan())
+        }
+
+
         // Apply insets to FrameLayout to avoid overlap
         ViewCompat.setOnApplyWindowInsetsListener(binding.frameLayout) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -43,16 +48,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView2.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> replaceFragment(Home())
-                R.id.scan -> replaceFragment(Scan())
                 R.id.search -> replaceFragment(Search())
             }
             true
         }
     }
-
-
-
-
 
     // Toggle Fragments
     private fun replaceFragment(fragment: Fragment) {

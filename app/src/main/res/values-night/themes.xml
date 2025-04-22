@@ -1,10 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme. for Night -->
     <style name="Theme.BarcodeA" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowBackground">@color/colorBackgroundDark</item>
+
+
+        <item name="floatingActionButtonStyle">@style/CustomFAB</item>
+        <item name="fabColor">@color/purple_700</item>
+        <item name="fabIconTint">@color/colorPrimary</item>
     </style>
 
     <style name="Theme.BarcodeA.GreenStatusBar" parent="Theme.BarcodeA">
@@ -37,6 +42,11 @@
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
+
+    </style>
+
+    <style name="CustomFAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="cornerRadius">100dp</item> <!-- Ensure it's a circle -->
 
     </style>
 </resources>

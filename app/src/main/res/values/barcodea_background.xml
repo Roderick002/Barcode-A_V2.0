@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="barcodea_background">#F5F2DF</color>
+
+    <attr name="fabColor" format="color" />
+    <attr name="fabIconTint" format="color" />
 </resources>
