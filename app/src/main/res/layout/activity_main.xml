@@ -33,6 +33,8 @@
         android:layout_margin="-16dp"
         android:layout_marginBottom="-32dp"
         app:srcCompat="@drawable/ic_qr_code_scanner"
+        app:maxImageSize="36dp"
+        app:borderWidth="2dp"
         android:backgroundTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
