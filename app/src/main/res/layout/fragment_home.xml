@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
+    android:backgroundTint="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,71 +18,119 @@
             android:id="@+id/gradientBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_background" />
+            android:background="#FFFFFFFF"  />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutHeader"
+            style="@style/Glass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/glass"
             app:layout_constraintTop_toTopOf="parent"
-            style="@style/Glass">
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchBar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="32dp"
-                app:layout_constraintTop_toTopOf="@id/imageMenu"
-                app:layout_constraintBottom_toBottomOf="@id/imageMenu"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/imageMenu"
-                android:background="@drawable/rectangular_background"/>
-
-            <ImageView
-                android:id="@+id/imageMenu"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_margin="32dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_menu"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorPrimary" />
+            tools:layout_editor_absoluteX="16dp">
 
             <LinearLayout
+                android:id="@+id/logoappname"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/searchBar"
-                app:layout_constraintBottom_toTopOf="@id/mainMenu"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:paddingHorizontal="8dp"
+
+                android:paddingVertical="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/headerLogo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="0dp"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/header_logo" />
+                    android:src="@drawable/logo" />
 
-                <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Barcode-A"
+                    android:textColor="@color/black"
+                    android:textSize="28sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/searchMenuWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/rounded_top_background"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/logoappname">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchBar"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_white_background"
+                    android:queryHint="Search" />
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="0dp" />
+
+                <ImageView
+                    android:id="@+id/imageMenu"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_menu"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/usernamealarmwrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchMenuWrapper">
+
+                <!-- Username Wrapper goes first (on top) -->
+                <LinearLayout
+                    android:id="@+id/usernamewrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="14dp">
 
                     <TextView
                         android:id="@+id/textHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome,"
-                        android:fontFamily="@font/quicksand_light"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="Hello, "
                         android:textColor="@color/textPrimary"
-                        android:textSize="24sp" />
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/userName"
@@ -89,30 +138,80 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/textPrimary"
-                        android:textSize="24sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/textHeader"
-                        app:layout_constraintTop_toBottomOf="@id/textHeader"
-                        app:layout_constraintVertical_bias="0" />
+                        android:textSize="30sp" />
 
-
+                    <TextView
+                        android:id="@+id/textexclamation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="!"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+                <!-- Notification Layout goes next (below) -->
+                <LinearLayout
+                    android:id="@+id/layoutNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:backgroundTint="@color/opacitygray"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/rectangular_background"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:src="@drawable/notification"
+                        app:tint="@color/black" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_semibold"
+                            android:text="@string/alarms_and_notification"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            style="@style/TextIconTintInvert"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_semibold"
+                            android:text="No recent notifications."
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
 
             <ScrollView
                 android:id="@+id/mainMenu"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="128dp"
                 android:background="@drawable/scrollview_background"
                 android:scrollbars="none"
-                android:theme="@style/Menu"
                 android:verticalScrollbarPosition="right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchBar">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/usernamealarmwrapper">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,192 +222,135 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:id="@+id/layoutNotification"
-                        android:layout_width="match_parent"
-                        android:layout_height="96dp"
-                        android:layout_margin="32dp"
-                        android:background="@drawable/rectangular_background"
-                        android:foreground="@drawable/rectangular_background"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_margin="32dp"
-                            android:src="@drawable/notification"
-                            app:tint="@color/colorPrimary" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/quicksand_semibold"
-                                android:text="@string/alarms_and_notification"
-                                android:textColor="@color/textPrimary"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                style="@style/TextIconTintInvert"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/quicksand_semibold"
-                                android:text="No recent notifications."
-                                android:textSize="11sp" />
-
-                            <!-- TODO: Apply dynamic text content for recent_notifications -->
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/setupDivision"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Setup"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="24sp"/>
+                        android:text="Health Preferences"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
                     <TextView
+                        style="@style/TextIconTintInvert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="24dp"
                         android:fontFamily="@font/quicksand_regular"
-                        android:text="@string/health_preference"
-                        style="@style/TextIconTintInvert"
-                        android:textSize="20sp" />
+                        android:text="Manage your medical conditions, dietary needs, and allergies to personalize your experience."
+                        android:textSize="10sp" />
 
-                    <HorizontalScrollView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="none">
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="36dp"
+                        android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="96dp"
-                            android:layout_marginVertical="32dp"
-                            android:background="@android:color/transparent"
+                            android:id="@+id/btnMHD"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            app:layout_constraintDimensionRatio="H,1:1" >
+                            android:padding="8dp">
 
-                            <!--TODO: Update Icons-->
-
-                            <LinearLayout
-                                android:id="@+id/btnMHD"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginStart="32dp"
-                                android:layout_marginEnd="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
                                 android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1" >
+                                android:src="@drawable/ic_medicalinformation"
+                                app:tint="@color/colorPrimary"/>
 
-                                <ImageView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_medicalinformation"
-                                    style="@style/TextIconTint" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:text="Medical Health Diagnosis"
-                                    android:background="@android:color/transparent"
-                                    style="@style/TextIconTint"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btnDRP"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginHorizontal="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
                                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
                                 android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1" >
-
-                                <ImageView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_dietrestrictions"
-                                    style="@style/TextIconTint" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:text="Dietary Restriction/Preference"
-                                    android:background="@android:color/transparent"
-                                    style="@style/TextIconTint"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btnAllergies"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginHorizontal="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1" >
-
-                                <ImageView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_allergy"
-                                    style="@style/TextIconTint" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:text="Allergies"
-                                    android:background="@android:color/transparent"
-                                    style="@style/TextIconTint"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
+                                android:text="Medical Health Diagnosis"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
                         </LinearLayout>
 
-                    </HorizontalScrollView>
+                        <LinearLayout
+                            android:id="@+id/btnDRP"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_dietrestrictions"
+                                app:tint="@color/colorPrimary"/>
+
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:text="Dietary Restriction/Preference"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnAllergies"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_allergy"
+                                app:tint="@color/colorPrimary"/>
+
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:text="Your Allergies"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

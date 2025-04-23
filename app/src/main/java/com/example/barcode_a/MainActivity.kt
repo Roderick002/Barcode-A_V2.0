@@ -1,28 +1,18 @@
 package com.example.barcode_a
 
-import android.app.Activity
-import android.graphics.Color
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
+import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import com.example.barcode_a.databinding.ActivityLoginTabBinding
 import com.example.barcode_a.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,40 +23,65 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        // Set default fragment
         replaceFragment(Home())
+
+        // FAB click behavior
+        binding.fabScan.setOnClickListener {
+            replaceFragment(Scan())
+            binding.fabText.visibility = View.VISIBLE
+            binding.fabScan.backgroundTintList = ContextCompat.getColorStateList(this, R.color.colorPrimaryDark)
+
+            // Clear selection of BottomNav
+            clearBottomNavSelection()
+        }
+
+        // Bottom navigation listener
         binding.bottomNavigationView2.setOnItemSelectedListener {
+            resetFabState() // Reset FAB to neutral
 
-            when(it.itemId){
-
+            when (it.itemId) {
                 R.id.home -> replaceFragment(Home())
-                R.id.scan -> replaceFragment(Scan())
                 R.id.search -> replaceFragment(Search())
-
-                else -> {
-
-                }
             }
             true
         }
 
+        // Insets padding
+        ViewCompat.setOnApplyWindowInsetsListener(binding.frameLayout) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                top = systemBars.top,
+                bottom = systemBars.bottom
+            )
+            insets
+        }
     }
-    //Toggle Fragments
-    private fun replaceFragment(fragment : Fragment){
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,fragment)
-        fragmentTransaction.commit()
 
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .commit()
+    }
+
+    private fun resetFabState() {
+        binding.fabText.visibility = View.GONE
+        binding.fabScan.backgroundTintList = ContextCompat.getColorStateList(this, R.color.colorPrimary)
+    }
+
+    private fun clearBottomNavSelection() {
+        // Programmatically clear bottom nav selection
+        binding.bottomNavigationView2.menu.setGroupCheckable(0, true, false)
+        for (i in 0 until binding.bottomNavigationView2.menu.size()) {
+            binding.bottomNavigationView2.menu.getItem(i).isChecked = false
+        }
+        binding.bottomNavigationView2.menu.setGroupCheckable(0, true, true)
     }
 }

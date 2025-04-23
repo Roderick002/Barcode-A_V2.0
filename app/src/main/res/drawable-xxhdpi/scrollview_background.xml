@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:type="linear"
-        android:startColor="#F0F0F0"
-        android:endColor="#FFFFFF" />
-    <corners
-        android:topLeftRadius="40dp"
-        android:topRightRadius="40dp"
-        android:bottomRightRadius="0dp"
-        android:bottomLeftRadius="0dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Glow layer (blurred and bigger shape behind the original) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorPrimaryOpacity" /> <!-- Semi-transparent white glow -->
+            <corners
+                android:topLeftRadius="43dp"
+                android:topRightRadius="43dp"
+                android:bottomRightRadius="3dp"
+                android:bottomLeftRadius="3dp" />
+        </shape>
+    </item>
+
+    <!-- Main shape -->
+    <item android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient android:type="linear"
+                android:startColor="#FFFFFF"
+                android:endColor="#FFFFFF" />
+            <corners
+                android:topLeftRadius="40dp"
+                android:topRightRadius="40dp"
+                android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="0dp" />
+        </shape>
+    </item>
+
+</layer-list>

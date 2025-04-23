@@ -63,7 +63,8 @@ dependencies {
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation 'androidx.core:core-ktx:+'
     implementation 'androidx.core:core-ktx:+'
-    implementation 'androidx.core:core-ktx:+'//QR Code Scanner
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.mediarouter:mediarouter:1.7.0'//QR Code Scanner
 
 
     testImplementation 'junit:junit:4.13.2'
