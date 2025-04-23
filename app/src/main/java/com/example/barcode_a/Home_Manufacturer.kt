@@ -94,7 +94,7 @@ class Home_Manufacturer : Fragment() {
         }
 
         //side navigation
-        drawerLayout = view.findViewById(R.id.drawer_layout_manu)
+        drawerLayout = view.findViewById(R.id.containerLayout)
         val navView: NavigationView = view.findViewById(R.id.nav_viewside_manu)
 
         val navMenu: Menu = navView.menu //Hides "Edit Profile" item
