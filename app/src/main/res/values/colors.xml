@@ -15,6 +15,7 @@
     <color name="glass20">#20FFFFFF</color>
     <color name="dark_tea_green">#C4E0B2</color>
     <color name="buff">#FFE799</color>
+    <color name="bggreen">#4CAF50</color>
 
     <color name="fabColorDay">#2196F3</color> <!-- Blue for day -->
     <color name="fabColorNight">#FF9800</color> <!-- Orange for night -->
