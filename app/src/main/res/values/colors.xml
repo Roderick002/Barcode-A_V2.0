@@ -17,8 +17,16 @@
     <color name="buff">#FFE799</color>
     <color name="bggreen">#4CAF50</color>
 
+    <color name="colorPrimaryOpacity">#1A37A252</color>
+    <color name="opacitygray">#0D808080</color>
 
-    <color name="opacitygray">#1A808080</color>
+
+
+    <color name="opacityhealthpref">#F4EDFF</color>
+
+    <color name="opacityblack">#37a2521A</color>
+    #37a2521A
+
 
 
     <color name="fabColorDay">#2196F3</color> <!-- Blue for day -->

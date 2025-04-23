@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
+    android:backgroundTint="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +18,7 @@
             android:id="@+id/gradientBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_background" />
+            android:background="#FFFFFFFF"  />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutHeader"
@@ -25,8 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/glass"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp">
 
@@ -36,26 +35,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:orientation="horizontal"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="8dp"
 
-                android:paddingVertical="6dp"
+                android:paddingVertical="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/headerLogo"
-                    android:layout_width="64dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="-5dp"
+                    android:layout_width="36dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="0dp"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/header_logo" />
+                    android:src="@drawable/logo" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-
+                    android:fontFamily="@font/quicksand_bold"
                     android:text="Barcode-A"
                     android:textColor="@color/black"
                     android:textSize="28sp" />
@@ -70,7 +69,7 @@
                 android:background="@drawable/rounded_top_background"
                 android:orientation="horizontal"
                 android:paddingHorizontal="24dp"
-                android:paddingVertical="24dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logoappname">
@@ -78,7 +77,7 @@
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchBar"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center_vertical"
 
                     android:layout_weight="1"
@@ -108,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/searchMenuWrapper">
@@ -119,10 +117,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="24dp">
+                    android:paddingHorizontal="14dp">
 
                     <TextView
                         android:id="@+id/textHeader"
@@ -158,10 +156,12 @@
                     android:id="@+id/layoutNotification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
                     android:layout_weight="0.4"
                     android:backgroundTint="@color/opacitygray"
-
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/rectangular_background"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -169,7 +169,10 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_margin="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
                         android:src="@drawable/notification"
                         app:tint="@color/black" />
 
@@ -205,10 +208,9 @@
                 android:layout_height="0dp"
                 android:background="@drawable/scrollview_background"
                 android:scrollbars="none"
-                android:theme="@style/Menu"
                 android:verticalScrollbarPosition="right"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/usernamealarmwrapper">
 
                 <LinearLayout
@@ -220,148 +222,135 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-
                     <TextView
                         android:id="@+id/setupDivision"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="Setup"
-                        android:textColor="@color/textPrimary"
+                        android:text="Health Preferences"
+                        android:textColor="@color/black"
                         android:textSize="24sp" />
 
                     <TextView
                         style="@style/TextIconTintInvert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="24dp"
                         android:fontFamily="@font/quicksand_regular"
-                        android:text="@string/health_preference"
-                        android:textSize="20sp" />
+                        android:text="Manage your medical conditions, dietary needs, and allergies to personalize your experience."
+                        android:textSize="10sp" />
 
-                    <HorizontalScrollView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="none">
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="36dp"
+                        android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="96dp"
-                            android:layout_marginVertical="32dp"
-                            android:background="@android:color/transparent"
+                            android:id="@+id/btnMHD"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            app:layout_constraintDimensionRatio="H,1:1">
+                            android:padding="8dp">
 
-                            <!--TODO: Update Icons-->
-
-                            <LinearLayout
-                                android:id="@+id/btnMHD"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginStart="32dp"
-                                android:layout_marginEnd="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
                                 android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1">
+                                android:src="@drawable/ic_medicalinformation"
+                                app:tint="@color/colorPrimary"/>
 
-                                <ImageView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_medicalinformation" />
-
-                                <TextView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@android:color/transparent"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:text="Medical Health Diagnosis"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btnDRP"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginHorizontal="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
                                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
                                 android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1">
-
-                                <ImageView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_dietrestrictions" />
-
-                                <TextView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@android:color/transparent"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:text="Dietary Restriction/Preference"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btnAllergies"
-                                android:layout_width="192dp"
-                                android:layout_height="96dp"
-                                android:layout_marginHorizontal="12dp"
-                                android:background="@drawable/rectangular_background"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="8dp"
-                                app:layout_constraintDimensionRatio="H,1:1">
-
-                                <ImageView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
-                                    android:padding="8dp"
-                                    android:src="@drawable/ic_allergy" />
-
-                                <TextView
-                                    style="@style/TextIconTint"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@android:color/transparent"
-                                    android:fontFamily="@font/quicksand_semibold"
-                                    android:gravity="center_vertical"
-                                    android:padding="8dp"
-                                    android:text="Allergies"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
+                                android:text="Medical Health Diagnosis"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
                         </LinearLayout>
 
-                    </HorizontalScrollView>
+                        <LinearLayout
+                            android:id="@+id/btnDRP"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_dietrestrictions"
+                                app:tint="@color/colorPrimary"/>
+
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:text="Dietary Restriction/Preference"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnAllergies"
+                            android:layout_width="match_parent"
+                            android:layout_height="84dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangular_background"
+                            android:backgroundTint="@color/opacityhealthpref"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_allergy"
+                                app:tint="@color/colorPrimary"/>
+
+                            <TextView
+                                style="@style/TextIconTint"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/quicksand_semibold"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:text="Your Allergies"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
