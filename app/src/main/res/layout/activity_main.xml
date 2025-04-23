@@ -14,6 +14,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2" />
 
+    <!-- Text to show FAB name -->
+    <TextView
+        android:id="@+id/fabText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="-24dp"
+        android:textColor="@color/colorPrimary"
+        android:elevation="4dp"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/fabScan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="46dp" />
+
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView2"
@@ -35,6 +53,8 @@
         app:srcCompat="@drawable/ic_qr_code_scanner"
         app:maxImageSize="36dp"
         app:borderWidth="2dp"
+        app:itemTextColor="@color/colorPrimary"
+        app:itemIconTint="@color/colorPrimary"
         android:backgroundTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +62,5 @@
         app:tint="?attr/fabIconTint"
         app:backgroundTint="@color/colorPrimary"
         tools:ignore="MissingConstraints" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
