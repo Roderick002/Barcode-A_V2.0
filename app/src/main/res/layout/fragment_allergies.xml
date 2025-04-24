@@ -5,68 +5,134 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+    android:paddingHorizontal="16dp"
+    android:background="#FFFFFFFF"
+    android:backgroundTint="@color/white"
     tools:context=".Allergies">
 
     <LinearLayout
-        android:id="@+id/txtAllergies"
+        android:id="@+id/logoappname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="start"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/checklist_Allergy"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/headerLogo"
+            android:layout_width="36dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="0dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Barcode-A"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txtAllergies"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_top_background"
+        app:layout_constraintTop_toBottomOf="@id/logoappname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            style="@style/TextIconTint"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_allergy"
+            app:tint="@color/white"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:padding="8dp"
             android:paddingStart="16dp"
             android:text="Allergies"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:fontFamily="@font/quicksand_semibold"
             android:background="@drawable/rectangular_background"
             android:backgroundTint="@color/colorPrimary"/>
 
         <ImageView
             android:id="@+id/drwbackAllergies"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="32dp"
-            android:src="@drawable/ic_close"/>
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_weight="0"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/bg_round_white"
+            app:tint="@color/colorPrimary"  />
+
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/checklist_Allergy"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:padding="32dp"
-        android:background="@drawable/glass"
+        android:layout_height="400dp"
+        android:background="@drawable/bg_health_pref_under"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp"
         app:layout_constraintTop_toBottomOf="@id/txtAllergies"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Glass">
+        app:layout_constraintVertical_bias="0">
+
+        <TextView
+            android:id="@+id/fa_foodallergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Food Allergies"
+            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
             android:text="Check all that applies:"
             android:fontFamily="@font/quicksand_light"
-            android:textColor="@color/textPrimary"
-            android:textSize="20sp"/>
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fa_foodallergies"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"
+            />
 
         <CheckBox
             android:id="@+id/checkBoxNuts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nuts"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gluten"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eggs"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Crustaceans"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dairy Products"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Others:"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="16dp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,21 +211,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxOtherA" />
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutcontainerbuttondonefa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDoneAllergies"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHeight_max="40dp"
-            app:layout_constraintWidth_max="350dp"
-            android:background="@drawable/gradient_button"
-            android:text="Done"
-            android:textSize="20sp"
-            android:textColor="@color/white"
+            android:layout_height="60dp"
+            android:background="@drawable/rounded_green_background"
             android:fontFamily="@font/quicksand_bold"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="60dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextOtherA"
+            app:layout_constraintWidth_max="260dp"
             app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -73,7 +73,7 @@
             android:paddingStart="16dp"
             android:text="Dietary Restrictions"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:fontFamily="@font/quicksand_semibold"
             android:background="@drawable/rectangular_background"
             android:backgroundTint="@color/colorPrimary"/>
