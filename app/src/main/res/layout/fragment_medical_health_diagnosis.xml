@@ -72,14 +72,14 @@
             android:padding="4dp"
             android:text="Medical Health Diagnosis"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:fontFamily="@font/quicksand_semibold"
             android:backgroundTint="@color/colorPrimary"/>
 
         <ImageView
             android:id="@+id/drwbackMD"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_weight="0"
             android:layout_marginRight="20dp"
             android:src="@drawable/ic_close"
