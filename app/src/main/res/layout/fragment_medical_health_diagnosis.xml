@@ -5,86 +5,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
+    android:paddingHorizontal="16dp"
+    android:background="#FFFFFFFF"
+    android:backgroundTint="@color/white"
     tools:context=".MedicalHealthDiagnosis">
 
     <LinearLayout
-        android:id="@+id/txtMHD"
+        android:id="@+id/logoappname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="start"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/checklist_MHD"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/headerLogo"
+            android:layout_width="36dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="0dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Barcode-A"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txtMHD"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_top_background"
+        app:layout_constraintTop_toBottomOf="@id/logoappname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            style="@style/TextIconTint"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_medicalinformation"
+            app:tint="@color/white"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:paddingStart="16dp"
-            android:text="Medical Diagnosis"
+            android:layout_weight="2"
+            android:padding="4dp"
+            android:text="Medical Health Diagnosis"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:fontFamily="@font/quicksand_semibold"
-            android:background="@drawable/rectangular_background"
             android:backgroundTint="@color/colorPrimary"/>
 
         <ImageView
             android:id="@+id/drwbackMD"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="32dp"
-            android:src="@drawable/ic_close" />
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_weight="0"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/bg_round_white"
+            app:tint="@color/colorPrimary"  />
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/checklist_MHD"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:padding="32dp"
-        android:background="@drawable/glass"
+        android:layout_height="450dp"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp"
+        android:background="@drawable/bg_health_pref_under"
         app:layout_constraintTop_toBottomOf="@id/txtMHD"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Glass">
+        app:layout_constraintVertical_bias="0"
+        >
 
         <TextView
             android:id="@+id/mhd_Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Tell us about your medical diagnosis. Check all of the following that applies."
-            android:fontFamily="@font/quicksand_light"
-            android:textColor="@color/textPrimary"
+            android:text="Tell us about your medical diagnosis."
+            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:textAlignment="center"/>
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:id="@+id/check_all_that_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=" Check all of the following that applies."
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mhd_Description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"/>
+
 
         <TextView
             android:id="@+id/i_Am"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:text="I am:"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mhd_Description"
+            app:layout_constraintTop_toBottomOf="@+id/check_all_that_apply"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0"/>
 
         <CheckBox
             android:id="@+id/checkBoxDiabetic"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
             android:text="Diabetic (Type 1 and Type 2)"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/i_Am" />
 
@@ -92,78 +156,116 @@
         <CheckBox
             android:id="@+id/checkBoxLactose"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
             android:text="Lactose Intolerant"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxDiabetic" />
 
         <CheckBox
             android:id="@+id/checkBoxGastro"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
             android:text="Gastroesophageal Reflux Disease"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxLactose" />
 
         <CheckBox
             android:id="@+id/checkBoxHyperuricemia"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
             android:text="Hyperuricemia"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxGastro" />
 
         <CheckBox
-            android:id="@+id/checkBoxOther"
+            android:id="@+id/checkBoxAsthma"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other:"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
+            android:text="Asthma"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxHyperuricemia" />
+
+        <CheckBox
+            android:id="@+id/checkBoxHighBloodPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
+            android:text="High Blood Pressure"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxAsthma" />
+
+        <CheckBox
+            android:id="@+id/checkBoxOther"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginVertical="14dp"
+            android:text="Other:"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/quicksand_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxHighBloodPressure" />
 
         <EditText
             android:id="@+id/editTextOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="12"
-            android:hint="Please specify here"
+            android:layout_marginLeft="6dp"
+            android:ems="22"
+            android:hint="If you have another condition, please specify below:"
             android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
-            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
+            android:textSize="10dp"
             android:enabled="false"
-            android:fontFamily="@font/quicksand_bold"
+            android:fontFamily="@font/quicksand_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxOther" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutcontainerbuttondonemhd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHeight_max="40dp"
-            app:layout_constraintWidth_max="350dp"
-            android:background="@drawable/gradient_button"
-            android:text="Done"
-            android:textSize="20sp"
-            android:textColor="@color/white"
+            android:layout_height="60dp"
+            android:background="@drawable/rounded_green_background"
             android:fontFamily="@font/quicksand_bold"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="60dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextOther"
+            app:layout_constraintWidth_max="260dp"
             app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
