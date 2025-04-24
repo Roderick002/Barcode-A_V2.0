@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="32dp"
     android:paddingTop="8dp"
+    android:background="#FFFFFFFF"
+    android:backgroundTint="@color/white"
     tools:context=".MedicalHealthDiagnosis">
 
     <LinearLayout
