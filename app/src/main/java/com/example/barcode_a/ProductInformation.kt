@@ -112,7 +112,6 @@ class ProductInformation : Fragment() {
             if (names.isNotBlank() && ingredients.isNotBlank() && allergens.isNotBlank() && barcode.isNotBlank()){
                 if (isValidFormat(ingredients)){
                     if(isValidFormat((allergens))){
-
                         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
                         database.child(barcode).get().addOnSuccessListener {
                             if(it.exists()){
@@ -131,22 +130,19 @@ class ProductInformation : Fragment() {
                                 firebaseAuth = FirebaseAuth.getInstance()
                                 val manuProducts = UserData(names, ingredients, allergens, barcode)
                                 //Get username
-                                val email = firebaseAuth.currentUser?.email.toString()
-                                val userName = email.replace(Regex("[@.]"), "")
-                                val manufacturer = "Manufacturer$userName"
+                                val userName = firebaseAuth.currentUser?.uid.toString()
 
-                                database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                 database.child(names).get().addOnSuccessListener {
                                     if(it.exists()){
                                         Toast.makeText(activity , "Product name exists, you can append the variant or name extension" , Toast.LENGTH_SHORT).show()
                                     }else{
-                                        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                        database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                         database.child(names).setValue(manuProducts).addOnSuccessListener {
                                             //success
                                         }.addOnFailureListener(){
                                             Toast.makeText(activity , "Database Error!" , Toast.LENGTH_SHORT).show()
                                         }
-
                                         userList.clear() /**Reset List to prevent items' duplicate*/
                                         Toast.makeText(requireContext(),"Product Added", Toast.LENGTH_SHORT).show()
                                         dialog.dismiss()
@@ -187,7 +183,6 @@ class ProductInformation : Fragment() {
         getUserData()
         userList = arrayListOf<UserData>()
 
-
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val fragment = Home_Manufacturer()
@@ -200,11 +195,9 @@ class ProductInformation : Fragment() {
 
     private fun getUserData() {
         firebaseAuth = FirebaseAuth.getInstance()
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
-        val manufacturer = "Manufacturer$userName"
+        val userName = firebaseAuth.currentUser?.uid.toString()
 
-        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+        database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -262,7 +255,7 @@ class ProductInformation : Fragment() {
                                 val alertDialog = alertDialogBuilder.create()
                                 alertDialog.show()
 
-                                database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                 database.child(product).get().addOnSuccessListener {
                                     if(it.exists()){
 
@@ -328,16 +321,13 @@ class ProductInformation : Fragment() {
                                                             }.addOnFailureListener(){
                                                                 Toast.makeText(activity , "Database ERROR!" , Toast.LENGTH_SHORT).show()
                                                             }
-
                                                             /**Update Products to Manufacturers*/
                                                             firebaseAuth = FirebaseAuth.getInstance()
                                                             val manuProducts = UserData(updatedName, updatedIngredients, updatedAllergens, barcode)
                                                             //Get username
-                                                            val email = firebaseAuth.currentUser?.email.toString()
-                                                            val userName = email.replace(Regex("[@.]"), "")
-                                                            val manufacturer = "Manufacturer$userName"
+                                                            val userName = firebaseAuth.currentUser?.uid.toString()
 
-                                                            database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                                            database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                                             database.child(product).setValue(manuProducts).addOnSuccessListener {
                                                                 //success
                                                             }.addOnFailureListener(){
@@ -375,9 +365,7 @@ class ProductInformation : Fragment() {
                                     showDeleteConfirmation(product)
                                     alertDialog.dismiss()
                                 }
-
-                            }
-
+                        }
                     })
                 }else{
                     if (listempty == true){
@@ -419,7 +407,6 @@ class ProductInformation : Fragment() {
                 database.child(product).get().addOnSuccessListener {
                     if(it.exists()) {
                         val barcode = it.child("barcode").value.toString()
-
                         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
                         database.child(barcode).removeValue().addOnSuccessListener {
 

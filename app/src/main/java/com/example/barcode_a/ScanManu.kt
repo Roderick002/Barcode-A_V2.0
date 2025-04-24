@@ -148,18 +148,16 @@ class ScanManu : Fragment() {
                                 firebaseAuth = FirebaseAuth.getInstance()
                                 val manuProducts = UserData(names, ingredients, allergens, barcode)
                                 //Get username
-                                val email = firebaseAuth.currentUser?.email.toString()
-                                val userName = email.replace(Regex("[@.]"), "")
-                                val manufacturer = "Manufacturer$userName"
+                                val userName = firebaseAuth.currentUser?.uid.toString()
 
-                                database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                 database.child(names).get().addOnSuccessListener {
                                     if(it.exists()){
                                         Toast.makeText(activity , "Product name exists, you can append the variant or name extension" , Toast.LENGTH_SHORT).show()
                                     }else{
-                                        database = FirebaseDatabase.getInstance().getReference(manufacturer)
+                                        database = FirebaseDatabase.getInstance().getReference("Manufacturers/$userName")
                                         database.child(names).setValue(manuProducts).addOnSuccessListener {
-                                            //success
+                                            return@addOnSuccessListener
                                         }.addOnFailureListener(){
                                             Toast.makeText(activity , "Database Error!" , Toast.LENGTH_SHORT).show()
                                         }

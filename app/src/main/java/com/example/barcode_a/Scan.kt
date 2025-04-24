@@ -1,11 +1,11 @@
 package com.example.barcode_a
-
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -43,20 +43,16 @@ import androidx.core.app.NotificationCompat
 
 class Scan : Fragment() {
 
-
     private lateinit var codeScanner : CodeScanner
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
-
     private lateinit var alarmManager: AlarmManager
     private lateinit var vibrator: Vibrator
-
     private lateinit var tvProductName: TextView
     private lateinit var tvIngredients: TextView
     private lateinit var tvNoteLabel: TextView
     private lateinit var noteSafe: RelativeLayout
     private lateinit var noteWarning: RelativeLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,16 +65,12 @@ class Scan : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val btnScan = view.findViewById<Button>(R.id.btnScannerScan)
 
-        //For alarms and notification
-        alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
         codeScanner = CodeScanner(activity, scannerView)
 
         btnScan.isVisible = false
         firebaseAuth = FirebaseAuth.getInstance()
-
         //Get username
         val uID = firebaseAuth.currentUser?.uid.toString()
 
@@ -101,12 +93,12 @@ class Scan : Fragment() {
                     btnScan.isVisible = false
                 }
             }
-                codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
-                    activity.runOnUiThread {
-                        Toast.makeText(activity, "Camera initialization error: ${it.message}",
-                            Toast.LENGTH_LONG).show()
-                    }
+            codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
+                activity.runOnUiThread {
+                    Toast.makeText(activity, "Camera initialization error: ${it.message}",
+                        Toast.LENGTH_LONG).show()
                 }
+            }
         }
         //Back Button Function
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -159,7 +151,6 @@ class Scan : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getProductData(product: String, userName: String){
-
         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
         database.child(product).get().addOnSuccessListener {
             var Note = ""
@@ -168,8 +159,7 @@ class Scan : Fragment() {
                 val allergens = it.child("allergens").value.toString()
                 val ingredients = it.child("ingredients").value.toString()
 
-                //Check Allergen
-
+                //Check For Allergens
                 database = FirebaseDatabase.getInstance().getReference("Allergens")
                 database.child(userName).get().addOnSuccessListener {
                     if(it.exists()){
@@ -217,14 +207,9 @@ class Scan : Fragment() {
                             allergenNote = ""
                         }
                         Note = Note.plus(allergenNote)
-
-
-                    }else{
-                        //Ignore
                     }
 
                     //Check Dietary Restrictions
-
                     database = FirebaseDatabase.getInstance().getReference("Dietaries")
                     database.child(userName).get().addOnSuccessListener {
                         if(it.exists()){
@@ -233,7 +218,6 @@ class Scan : Fragment() {
                             val vegan = it.child("dietary2").value.toString()
                             val pollutarian = it.child("dietary3").value.toString()
                             val pescetarian = it.child("dietary4").value.toString()
-
 
                             var dietaryNote = " DIETARY RESTRICTION: "
 
@@ -260,8 +244,6 @@ class Scan : Fragment() {
                             }
                             Note = Note.plus(dietaryNote)
 
-                        }else{
-                            //Ignore
                         }
 
                         //Check Medical Diagnosis
@@ -274,7 +256,6 @@ class Scan : Fragment() {
                                 val gerd = it.child("diagnosis3").value.toString()
                                 val hyperuricemia = it.child("diagnosis4").value.toString()
                                 val others = it.child("diagnosis5").value.toString()
-
 
                                 var diagnosisNote = " MEDICAL DIAGNOSIS: "
 
@@ -319,20 +300,14 @@ class Scan : Fragment() {
                                 }
                                 Note = Note.plus(diagnosisNote)
 
-                            }else{
-                                //Ignore
                             }
-
                             showPopup(productName, ingredients, Note, userName)
-
                         }.addOnFailureListener{
                             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
                         }
-
                     }.addOnFailureListener{
                         Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
                     }
-
                 }.addOnFailureListener{
                     Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
                 }
@@ -352,7 +327,6 @@ class Scan : Fragment() {
                 presentStrings.add(stringToCheck)
             }
         }
-
         if (presentStrings.isNotEmpty()) {
             val toastMessage = presentStrings.joinToString(", ")
             if(stringsToCheck.contains("vegetarian")){
@@ -382,7 +356,6 @@ class Scan : Fragment() {
             if(stringsToCheck.contains("Dairy")){
                 context?.let { saveString(it, "Dairy", toastMessage) }
             }
-
         } else {
             context?.let { saveString(it, "vegetarian", "") }
             context?.let { saveString(it, "vegan", "") }
@@ -394,7 +367,6 @@ class Scan : Fragment() {
             context?.let { saveString(it, "Gluten", "") }
             context?.let { saveString(it, "Dairy", "") }
         }
-
     }
 
     fun saveString(context: Context, key: String, value: String) {
@@ -457,13 +429,10 @@ class Scan : Fragment() {
                         triggerAlarm()
                     }
                 }
-            }else{
-                //Ignore
             }
         }.addOnFailureListener{
             Toast.makeText(activity , "Failed" , Toast.LENGTH_SHORT).show()
         }
-
         alertDialog.show()
         tvProductName.text = name
         tvIngredients.text = ingredients
@@ -473,7 +442,6 @@ class Scan : Fragment() {
         }else{
             noteWarning.isVisible = false
         }
-
         drw_backScan.setOnClickListener {
             alertDialog.dismiss()
         }
@@ -486,20 +454,7 @@ class Scan : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun triggerAlarm(){
-        //val delayInMilliseconds = 5000 // 5 seconds
-
-        //setAlarm(delayInMilliseconds)
         vibrateDevice(requireActivity())
-    }
-    @SuppressLint("ScheduleExactAlarm")
-    private fun setAlarm(delayInMilliseconds: Int) {
-        val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val triggerTime = SystemClock.elapsedRealtime() + delayInMilliseconds
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, pendingIntent)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -516,7 +471,6 @@ class Scan : Fragment() {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
@@ -529,20 +483,11 @@ class Scan : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val alarmIntent = Intent(requireContext(), AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        alarmManager.cancel(pendingIntent)
-        vibrator.cancel()
+        codeScanner.releaseResources()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_scan, container, false)
-
         return view
     }
-    //Scanner Function
-
 }

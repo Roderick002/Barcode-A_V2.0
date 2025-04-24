@@ -30,13 +30,8 @@ class RegisterTab : AppCompatActivity() {
     private lateinit var userType: String
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             window.setFlags(
@@ -59,7 +54,6 @@ class RegisterTab : AppCompatActivity() {
             startActivity(intent)
             finish() // Optional: prevents user from returning to this screen via back
         }
-
 
         userType = "Manufacturer";
 
@@ -89,8 +83,6 @@ class RegisterTab : AppCompatActivity() {
                 binding.etSignUpPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
             }
-
-
             // Keep cursor at the end after changing input type
             binding.etSignUpPassword.setSelection(binding.etSignUpPassword.text?.length ?: 0)
         }
@@ -108,13 +100,9 @@ class RegisterTab : AppCompatActivity() {
                 binding.etSignUpConfirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
             }
-
-
             // Keep cursor at the end after changing input type
             binding.etSignUpPassword.setSelection(binding.etSignUpPassword.text?.length ?: 0)
         }
-
-
 
         binding.btnSignUp.setOnClickListener() {
 
@@ -145,12 +133,10 @@ class RegisterTab : AppCompatActivity() {
                 if (email.isEmpty()) {
                     binding.etSignUpEmail.background.setTint(errorColorInt)
                     binding.etSignUpEmail.setHintTextColor(errorColorInt)
-
                 }
                 if (password.isEmpty()) {
                     binding.etSignUpPassword.background.setTint(errorColorInt)
                     binding.etSignUpPassword.setHintTextColor(errorColorInt)
-
                 }
                 if (password.length < 6){
                     passwordEditText.background.setTint(errorColorInt);
@@ -169,7 +155,6 @@ class RegisterTab : AppCompatActivity() {
                 if (confirmpass.isEmpty()) {
                     confirmPasswordEditText.background.setTint(errorColorInt)
                     confirmPasswordEditText.setHintTextColor(errorColorInt)
-
                 }
                 if (confirmpass != password) {
                     confirmPasswordEditText.hint = "Passwords do not match";
@@ -226,7 +211,6 @@ class RegisterTab : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
                         firebaseAuth.signOut()
                         val intent = Intent(this, LoginTab::class.java)
                         startActivity(intent)
@@ -239,7 +223,6 @@ class RegisterTab : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
         val intent = Intent(this, LoginTab::class.java)
         startActivity(intent)
     }

@@ -59,5 +59,4 @@
             android:exported="false"
             android:configChanges="uiMode"/>
     </application>
-
 </manifest>
