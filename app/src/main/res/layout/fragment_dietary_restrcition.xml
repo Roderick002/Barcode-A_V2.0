@@ -94,7 +94,7 @@
         android:id="@+id/checklist_DRP"
         style="@style/Glass"
         android:layout_width="match_parent"
-        android:layout_height="425dp"
+        android:layout_height="450dp"
         android:background="@drawable/bg_health_pref_under"
         android:paddingHorizontal="32dp"
         android:paddingTop="16dp"
