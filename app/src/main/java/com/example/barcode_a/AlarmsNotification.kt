@@ -42,7 +42,6 @@ class AlarmsNotification : Fragment() {
                 else -> ""
             }
             addInfo("medical", medicalSelection)
-
         }
 
         binding.rgDiertary.setOnCheckedChangeListener { _, checkedId ->
@@ -67,14 +66,9 @@ class AlarmsNotification : Fragment() {
 
     }
 
-    private fun showToast(message: String){
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun addInfo(type: String, value: String){
         firebaseAuth = FirebaseAuth.getInstance()
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
+        val userName = firebaseAuth.currentUser?.uid.toString()
 
         database = FirebaseDatabase.getInstance().getReference("AlarmsNotification/$userName")
         database.child(type).setValue(value).addOnSuccessListener {
@@ -87,8 +81,7 @@ class AlarmsNotification : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     private fun readData(){
         firebaseAuth = FirebaseAuth.getInstance()
-        val email = firebaseAuth.currentUser?.email.toString()
-        val userName = email.replace(Regex("[@.]"), "")
+        val userName = firebaseAuth.currentUser?.uid.toString()
         database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
         database.child(userName).get().addOnSuccessListener {
             if(it.exists()){

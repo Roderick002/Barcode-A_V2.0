@@ -14,7 +14,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.VibratorManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +27,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -38,7 +41,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import androidx.core.app.NotificationCompat
 
-
 class Scan : Fragment() {
 
 
@@ -51,13 +53,10 @@ class Scan : Fragment() {
 
     private lateinit var tvProductName: TextView
     private lateinit var tvIngredients: TextView
-    private lateinit var tvAllergens: TextView
     private lateinit var tvNoteLabel: TextView
     private lateinit var noteSafe: RelativeLayout
     private lateinit var noteWarning: RelativeLayout
 
-    private val CHANNEL_ID = "channel_id_example_01"
-    private val notificationId = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,13 +64,13 @@ class Scan : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val btnScan = view.findViewById<Button>(R.id.btnScannerScan)
 
         //For alarms and notification
         alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
@@ -118,6 +117,7 @@ class Scan : Fragment() {
                 .commit()
         }
     }
+
     private fun showNotification(Title: String, Description: String, Content: String) {
         val channelId = "my_channel_id"
         val channelName = "My Channel"
@@ -157,6 +157,7 @@ class Scan : Fragment() {
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getProductData(product: String, userName: String){
 
         database = FirebaseDatabase.getInstance().getReference("ProductInformation")
@@ -264,7 +265,6 @@ class Scan : Fragment() {
                         }
 
                         //Check Medical Diagnosis
-
                         database = FirebaseDatabase.getInstance().getReference("Diagnosis")
                         database.child(userName).get().addOnSuccessListener {
                             if(it.exists()){
@@ -409,7 +409,7 @@ class Scan : Fragment() {
         return sharedPreferences.getString(key, null)
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showPopup(name: String, ingredients: String, note: String, userName: String){
         val inflater = requireActivity().layoutInflater
         val popupView = inflater.inflate(R.layout.popup_scan, null)
@@ -430,13 +430,11 @@ class Scan : Fragment() {
         database = FirebaseDatabase.getInstance().getReference("AlarmsNotification")
         database.child(userName).get().addOnSuccessListener {
             if(it.exists()) {
-
                 val allergen = it.child("allergies").value.toString()
                 val dietary = it.child("dietary").value.toString()
                 val medical = it.child("medical").value.toString()
                 val warning = "Health Preference Warning!"
                 val notification = "This product contains ingredients contrary to your HEALTH PREFERENCES->$note"
-
                 if (note.contains("ALLERGEN:")){
                     showNotification(warning,"Ingredient/s found that may trigger your allergies" ,notification)
                     if(allergen == "Alarms and Notification"){
@@ -467,7 +465,6 @@ class Scan : Fragment() {
         }
 
         alertDialog.show()
-
         tvProductName.text = name
         tvIngredients.text = ingredients
 
@@ -477,8 +474,6 @@ class Scan : Fragment() {
             noteWarning.isVisible = false
         }
 
-
-
         drw_backScan.setOnClickListener {
             alertDialog.dismiss()
         }
@@ -487,14 +482,14 @@ class Scan : Fragment() {
         alertDialog.setOnDismissListener {codeScanner.startPreview()
         btnScan?.isVisible = false
         }
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun triggerAlarm(){
-        val delayInMilliseconds = 5000 // 5 seconds
+        //val delayInMilliseconds = 5000 // 5 seconds
 
-        setAlarm(delayInMilliseconds)
-        vibrateDevice()
+        //setAlarm(delayInMilliseconds)
+        vibrateDevice(requireActivity())
     }
     @SuppressLint("ScheduleExactAlarm")
     private fun setAlarm(delayInMilliseconds: Int) {
@@ -507,12 +502,20 @@ class Scan : Fragment() {
         alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, pendingIntent)
     }
 
-    private fun vibrateDevice() {
-        if (vibrator.hasVibrator()) {
-            val pattern = longArrayOf(0, 1000, 200, 1000, 200, 1000) // Vibration pattern (wait, vibrate, wait, vibrate)
-            vibrator.vibrate(pattern, -1)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun vibrateDevice(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vibrator = vibratorManager.defaultVibrator
+            val vibrationEffect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE)
+            vibrator.vibrate(vibrationEffect)
+        } else {
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            val vibrationEffect = VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE)
+            vibrator.vibrate(vibrationEffect)
         }
     }
+
 
     override fun onResume() {
         super.onResume()
