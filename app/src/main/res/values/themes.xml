@@ -41,6 +41,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="whiteIconTint">
+        <item name="tint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
